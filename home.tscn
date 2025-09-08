@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://dpdjj7eold08k"]
+
+[node name="TextEdit" type="TextEdit"]
+offset_left = 326.0
+offset_top = 193.0
+offset_right = 680.0
+offset_bottom = 303.0
+text = "HEJ"
