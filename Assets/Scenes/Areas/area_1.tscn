@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://1h24hba514qq"]
+[gd_scene load_steps=7 format=3 uid="uid://1h24hba514qq"]
 
 [ext_resource type="Texture2D" uid="uid://dwxn2gld8tg61" path="res://Assets/Sprites/tiles_1.png" id="1_uidp5"]
 [ext_resource type="PackedScene" uid="uid://br4bmuwc5rwhj" path="res://Assets/Scenes/player.tscn" id="2_3uyhe"]
-[ext_resource type="PackedScene" uid="uid://cit4kytxcbs6u" path="res://background.tscn" id="3_8wi1m"]
+[ext_resource type="PackedScene" uid="uid://cit4kytxcbs6u" path="res://Assets/Scenes/background.tscn" id="3_8wi1m"]
+[ext_resource type="PackedScene" uid="uid://drwelie4rmrht" path="res://Assets/Scenes/boiling_pot.tscn" id="4_ql8qi"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3uyhe"]
 texture = ExtResource("1_uidp5")
@@ -345,3 +346,7 @@ position = Vector2(0, -6)
 z_index = -1000
 position = Vector2(25, -133)
 scale = Vector2(0.6, 0.6)
+
+[node name="BoilingPot" parent="." instance=ExtResource("4_ql8qi")]
+position = Vector2(169, -79)
+scale = Vector2(0.7, 0.7)
