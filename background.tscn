@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cit4kytxcbs6u"]
+
+[ext_resource type="Texture2D" uid="uid://b638mvov7w1ba" path="res://Assets/Sprites/background.png" id="1_oabld"]
+
+[node name="background" type="Sprite2D"]
+texture = ExtResource("1_oabld")
