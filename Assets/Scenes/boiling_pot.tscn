@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://drwelie4rmrht"]
+[gd_scene load_steps=8 format=3 uid="uid://drwelie4rmrht"]
 
 [ext_resource type="Texture2D" uid="uid://c374lurfl1ew0" path="res://Assets/Sprites/boilingPot.png" id="1_dvm2w"]
 
@@ -35,7 +35,11 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="BoilingPot" type="Area2D"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dvm2w"]
+radius = 25.0
+height = 52.0
+
+[node name="BoilingPot" type="StaticBody2D"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1, -1)
@@ -45,4 +49,10 @@ shape = SubResource("CapsuleShape2D_qiiam")
 sprite_frames = SubResource("SpriteFrames_mom7e")
 animation = &"boilingPot"
 autoplay = "boilingPot"
-frame_progress = 0.572193
+frame_progress = 0.535983
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShapeArea" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-1, -1)
+shape = SubResource("CapsuleShape2D_dvm2w")
