@@ -90,7 +90,7 @@ speed = 5.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
 offset = Vector2(50, -100)
-zoom = Vector2(2.5, 2.5)
+zoom = Vector2(3, 3)
 position_smoothing_speed = 10.0
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
