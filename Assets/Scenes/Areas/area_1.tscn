@@ -1,12 +1,14 @@
-[gd_scene load_steps=19 format=3 uid="uid://1h24hba514qq"]
+[gd_scene load_steps=27 format=3 uid="uid://1h24hba514qq"]
 
 [ext_resource type="Script" uid="uid://drvp2h6p6ennw" path="res://Assets/Scenes/Areas/area_1.gd" id="1_7fk0h"]
 [ext_resource type="Texture2D" uid="uid://dwxn2gld8tg61" path="res://Assets/Sprites/tiles_1.png" id="1_uidp5"]
 [ext_resource type="PackedScene" uid="uid://br4bmuwc5rwhj" path="res://Assets/Scenes/player.tscn" id="2_3uyhe"]
 [ext_resource type="PackedScene" uid="uid://cit4kytxcbs6u" path="res://Assets/Scenes/background.tscn" id="3_8wi1m"]
 [ext_resource type="Texture2D" uid="uid://c374lurfl1ew0" path="res://Assets/Sprites/boilingPot.png" id="5_nlyig"]
+[ext_resource type="Script" uid="uid://coojivlj7ytxw" path="res://Assets/Scripts/tutorial_button.gd" id="6_f20k6"]
 [ext_resource type="Texture2D" uid="uid://ch7ajoyfxrh25" path="res://Assets/Sprites/forwardButton.png" id="6_msn23"]
-[ext_resource type="Script" uid="uid://dloeexe4lskxi" path="res://Assets/Scenes/Areas/forward_button.gd" id="7_f20k6"]
+[ext_resource type="Texture2D" uid="uid://ctijk4drnxtua" path="res://Assets/Sprites/backwardButton.png" id="8_f20k6"]
+[ext_resource type="Texture2D" uid="uid://cj527o0asfxi1" path="res://Assets/Sprites/spaceButton.png" id="9_0ufq0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3uyhe"]
 texture = ExtResource("1_uidp5")
@@ -387,6 +389,50 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_7lgy5"]
+atlas = ExtResource("8_f20k6")
+region = Rect2(0, 0, 150, 125)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pnluw"]
+atlas = ExtResource("8_f20k6")
+region = Rect2(150, 0, 150, 125)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6rwvx"]
+animations = [{
+"frames": [{
+"duration": 3.0,
+"texture": SubResource("AtlasTexture_7lgy5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pnluw")
+}],
+"loop": true,
+"name": &"blink",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6rwvx"]
+atlas = ExtResource("9_0ufq0")
+region = Rect2(0, 0, 249, 125)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xl8b6"]
+atlas = ExtResource("9_0ufq0")
+region = Rect2(249, 0, 249, 125)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ys1tx"]
+animations = [{
+"frames": [{
+"duration": 3.0,
+"texture": SubResource("AtlasTexture_6rwvx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xl8b6")
+}],
+"loop": true,
+"name": &"blink",
+"speed": 5.0
+}]
+
 [node name="Area1" type="Node2D"]
 script = ExtResource("1_7fk0h")
 
@@ -431,13 +477,35 @@ shape = SubResource("CapsuleShape2D_0ufq0")
 
 [node name="forwardButton" type="Area2D" parent="."]
 scale = Vector2(0.2, 0.2)
+script = ExtResource("6_f20k6")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="forwardButton"]
 position = Vector2(175, -190)
 sprite_frames = SubResource("SpriteFrames_7lgy5")
 animation = &"blink"
 autoplay = "blink"
-script = ExtResource("7_f20k6")
-delay_before_show = null
+
+[node name="backwardButton" type="Area2D" parent="."]
+scale = Vector2(0.2, 0.2)
+script = ExtResource("6_f20k6")
+action_name = "ui_left"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="backwardButton"]
+position = Vector2(-225, -185)
+sprite_frames = SubResource("SpriteFrames_6rwvx")
+animation = &"blink"
+autoplay = "blink"
+
+[node name="spaceButton" type="Area2D" parent="."]
+scale = Vector2(0.2, 0.2)
+script = ExtResource("6_f20k6")
+action_name = "ui_accept"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="spaceButton"]
+position = Vector2(-10, -280)
+sprite_frames = SubResource("SpriteFrames_ys1tx")
+animation = &"blink"
+autoplay = "blink"
+frame_progress = 0.904331
 
 [connection signal="body_entered" from="BoilingPot/Area2D" to="." method="_on_area_2d_body_entered"]

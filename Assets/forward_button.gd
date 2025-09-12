@@ -8,7 +8,7 @@ func _ready():
 		# Show after delay
 		await get_tree().create_timer(delay_before_show).timeout
 		show()
-		play("blink")  # start the blinking animation
+		play("forwardButton")  # start the blinking animation
 	else:
 		hide()
 
