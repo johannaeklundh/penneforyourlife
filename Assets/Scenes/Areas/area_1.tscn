@@ -454,7 +454,7 @@ position = Vector2(0, -6)
 [node name="background" parent="." instance=ExtResource("3_8wi1m")]
 z_index = -1000
 position = Vector2(25, -133)
-scale = Vector2(0.6, 0.6)
+scale = Vector2(2.5, 2.5)
 
 [node name="BoilingPot" type="StaticBody2D" parent="."]
 position = Vector2(178, -75)
