@@ -383,7 +383,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_u1wc8")
 }],
 "loop": true,
-"name": &"default",
+"name": &"blink",
 "speed": 5.0
 }]
 
@@ -435,8 +435,9 @@ scale = Vector2(0.2, 0.2)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="forwardButton"]
 position = Vector2(175, -190)
 sprite_frames = SubResource("SpriteFrames_7lgy5")
-autoplay = "default"
-frame_progress = 0.273772
+animation = &"blink"
+autoplay = "blink"
 script = ExtResource("7_f20k6")
+delay_before_show = null
 
 [connection signal="body_entered" from="BoilingPot/Area2D" to="." method="_on_area_2d_body_entered"]
