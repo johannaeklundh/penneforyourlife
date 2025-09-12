@@ -36,4 +36,7 @@ func _on_space_done():
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.name == "Player":
-		get_tree().reload_current_scene()
+		call_deferred("_restart_scene")
+
+func _restart_scene():
+	get_tree().reload_current_scene()

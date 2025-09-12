@@ -94,9 +94,8 @@ zoom = Vector2(2.5, 2.5)
 position_smoothing_speed = 10.0
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
-drag_horizontal_offset = 0.6
+drag_horizontal_offset = 0.4
 drag_top_margin = 1.0
-drag_right_margin = 1.0
 drag_bottom_margin = 0.0
 script = SubResource("GDScript_38rej")
 
