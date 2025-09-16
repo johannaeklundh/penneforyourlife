@@ -2,7 +2,7 @@ extends Node2D
 
 @export var player_controller : PlayerController
 @export var animation_player : AnimationPlayer
-@export var sprite : Sprite2D
+@export var sprite : AnimatedSprite2D
 
 func _process(_delta):
 	if player_controller.direction == 1:

@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://br4bmuwc5rwhj"]
+[gd_scene load_steps=17 format=3 uid="uid://br4bmuwc5rwhj"]
 
 [ext_resource type="Script" uid="uid://cy1cyiq3gmfsu" path="res://Assets/Scripts/player_controller.gd" id="1_7dd06"]
-[ext_resource type="Texture2D" uid="uid://dhxk6wcg64gqe" path="res://Assets/Sprites/pasta.png" id="2_7dd06"]
 [ext_resource type="Script" uid="uid://o414gm4wpvwf" path="res://Assets/Scripts/player_animator.gd" id="2_38rej"]
+[ext_resource type="Texture2D" uid="uid://ctexeaeea0nec" path="res://Assets/Sprites/pastaRun.png" id="4_23lac"]
+[ext_resource type="Texture2D" uid="uid://bbcvqm4df2n01" path="res://Assets/Sprites/pastaIdle.png" id="4_t1xgp"]
 
 [sub_resource type="GDScript" id="GDScript_38rej"]
 script/source = "extends Camera2D
@@ -24,53 +25,17 @@ func _process(_delta):
 
 [sub_resource type="Animation" id="Animation_38rej"]
 length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("PlayerAnimator/Sprite2D:region_rect")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Rect2(0, 0, 240, 340)]
-}
 
 [sub_resource type="Animation" id="Animation_t1xgp"]
 resource_name = "idle"
 length = 2.0
 loop_mode = 1
 step = 0.25
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("PlayerAnimator/Sprite2D:region_rect")
-tracks/0/interp = 0
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Rect2(0, 0, 240, 340), Rect2(0, 0, 240, 340)]
-}
 
 [sub_resource type="Animation" id="Animation_7dd06"]
 resource_name = "run"
 loop_mode = 1
 step = 0.25
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("PlayerAnimator/Sprite2D:region_rect")
-tracks/0/interp = 0
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Rect2(240, 0, 240, 340), Rect2(480, 0, 240, 340), Rect2(240, 0, 240, 340)]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_t1xgp"]
 _data = {
@@ -78,6 +43,54 @@ _data = {
 &"idle": SubResource("Animation_t1xgp"),
 &"run": SubResource("Animation_7dd06")
 }
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_23lac"]
+atlas = ExtResource("4_t1xgp")
+region = Rect2(400, 0, 400, 560)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w3t24"]
+atlas = ExtResource("4_t1xgp")
+region = Rect2(0, 0, 400, 560)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c3tg1"]
+atlas = ExtResource("4_23lac")
+region = Rect2(0, 0, 399, 560)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lerqx"]
+atlas = ExtResource("4_23lac")
+region = Rect2(399, 0, 399, 560)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jp3cw"]
+atlas = ExtResource("4_23lac")
+region = Rect2(798, 0, 399, 560)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_c3tg1"]
+animations = [{
+"frames": [{
+"duration": 6.0,
+"texture": SubResource("AtlasTexture_23lac")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_w3t24")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c3tg1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lerqx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jp3cw")
+}],
+"loop": true,
+"name": &"run",
+"speed": 5.0
+}]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7dd06"]
 radius = 5.0
@@ -101,10 +114,11 @@ drag_bottom_margin = 0.0
 script = SubResource("GDScript_38rej")
 
 [node name="PlayerAnimator" type="Node2D" parent="." node_paths=PackedStringArray("player_controller", "animation_player", "sprite")]
+position = Vector2(0, -1)
 script = ExtResource("2_38rej")
 player_controller = NodePath("..")
 animation_player = NodePath("AnimationPlayer")
-sprite = NodePath("Sprite2D")
+sprite = NodePath("AnimatedSprite2D")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="PlayerAnimator"]
 root_node = NodePath("../..")
@@ -114,12 +128,13 @@ libraries = {
 autoplay = "idle"
 speed_scale = 3.0
 
-[node name="Sprite2D" type="Sprite2D" parent="PlayerAnimator"]
-position = Vector2(0, -8)
-scale = Vector2(0.083, 0.083)
-texture = ExtResource("2_7dd06")
-region_enabled = true
-region_rect = Rect2(0, 0, 240, 340)
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="PlayerAnimator"]
+position = Vector2(2.27374e-13, -8)
+scale = Vector2(0.05, 0.05)
+sprite_frames = SubResource("SpriteFrames_c3tg1")
+animation = &"run"
+autoplay = "idle"
+frame_progress = 0.685544
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false

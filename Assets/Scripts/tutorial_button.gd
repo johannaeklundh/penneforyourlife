@@ -5,7 +5,7 @@ signal prompt_finished
 
 @onready var anim_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
-@export var delay_before_show := 1.0 # seconds to wait before showing
+@export var delay_before_show := 0.5 # seconds to wait before showing
 
 func _ready():	
 	hide()  # hide the whole Area2D (and thus the sprite)

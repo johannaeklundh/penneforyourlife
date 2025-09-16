@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://1h24hba514qq"]
+[gd_scene load_steps=42 format=3 uid="uid://1h24hba514qq"]
 
 [ext_resource type="Script" uid="uid://drvp2h6p6ennw" path="res://Assets/Scenes/Areas/area_1.gd" id="1_7fk0h"]
 [ext_resource type="PackedScene" uid="uid://br4bmuwc5rwhj" path="res://Assets/Scenes/player.tscn" id="2_3uyhe"]
@@ -138,6 +138,22 @@ region = Rect2(370, 0, 370, 400)
 atlas = ExtResource("12_ys1tx")
 region = Rect2(740, 0, 370, 400)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_5cg6o"]
+atlas = ExtResource("12_ys1tx")
+region = Rect2(0, 0, 370, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u0xoj"]
+atlas = ExtResource("12_ys1tx")
+region = Rect2(370, 0, 370, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p11o7"]
+atlas = ExtResource("12_ys1tx")
+region = Rect2(740, 0, 370, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_klwya"]
+atlas = ExtResource("12_ys1tx")
+region = Rect2(1110, 0, 370, 400)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_u0xoj"]
 animations = [{
 "frames": [{
@@ -166,6 +182,18 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ys1tx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5cg6o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u0xoj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p11o7")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_klwya")
 }],
 "loop": true,
 "name": &"stuck",
@@ -262,13 +290,14 @@ script = ExtResource("10_u1wc8")
 position = Vector2(107, -42)
 scale = Vector2(0.07, 0.07)
 sprite_frames = SubResource("SpriteFrames_u0xoj")
-animation = &"idle"
-frame_progress = 0.281436
+animation = &"stuck"
+frame_progress = 0.338581
 offset = Vector2(0, -50)
 
 [node name="Area2D" type="Area2D" parent="Friend"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Friend/Area2D"]
+visible = false
 position = Vector2(107, -43)
 rotation = 1.5708
 scale = Vector2(2, 2)
