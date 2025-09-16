@@ -10,7 +10,7 @@ var press_count := 0
 const PRESS_LIMIT := 20
 
 func _ready() -> void:
-	anim_sprite.frame = 0  # start sad
+	anim_sprite.play("stuck")
 	rope_bar.hide()
 	rope_bar.min_value = 0
 	rope_bar.max_value = PRESS_LIMIT
@@ -42,7 +42,8 @@ func _on_area_body_exited(body: Node2D) -> void:
 
 func _free_friend() -> void:
 	freed = true
-	anim_sprite.frame = 1  # happy
+	#anim_sprite.frame = 1  # happy
+	anim_sprite.play("idle")
 	rope_bar.hide()
 	print("Friend is freed!")
 
