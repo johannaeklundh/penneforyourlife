@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://1h24hba514qq"]
+[gd_scene load_steps=42 format=3 uid="uid://1h24hba514qq"]
 
 [ext_resource type="Script" uid="uid://drvp2h6p6ennw" path="res://Assets/Scenes/Areas/area_1.gd" id="1_7fk0h"]
 [ext_resource type="PackedScene" uid="uid://br4bmuwc5rwhj" path="res://Assets/Scenes/player.tscn" id="2_3uyhe"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://mi2edq0k7tpa" path="res://Assets/Scripts/friend.gd" id="10_u1wc8"]
 [ext_resource type="Texture2D" uid="uid://4rg4kgpb7xmp" path="res://Assets/Sprites/broccoliIdle.png" id="11_xl8b6"]
 [ext_resource type="Texture2D" uid="uid://dydojivpgfxdj" path="res://Assets/Sprites/broccoliStuck.png" id="12_ys1tx"]
+[ext_resource type="Texture2D" uid="uid://2a384vec7jy6" path="res://Assets/Sprites/placeholderEButton.png" id="14_xl8b6"]
 [ext_resource type="Texture2D" uid="uid://ugu08h1sfs0t" path="res://Assets/Sprites/ropeSprinkles.png" id="15_ys1tx"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_les6p"]
@@ -326,6 +327,14 @@ emission_sphere_radius = 8.0
 spread = 180.0
 initial_velocity_min = 20.0
 initial_velocity_max = 20.0
+
+[node name="placeholderEButton" type="Area2D" parent="Friend"]
+visible = false
+
+[node name="Sprite2D" type="Sprite2D" parent="Friend/placeholderEButton"]
+position = Vector2(119, -57)
+scale = Vector2(0.133333, 0.133333)
+texture = ExtResource("14_xl8b6")
 
 [node name="Pit" type="Area2D" parent="."]
 

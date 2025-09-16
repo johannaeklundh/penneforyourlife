@@ -3,6 +3,7 @@ extends Node2D
 @onready var anim_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var area: Area2D = $Area2D
 @onready var rope_bar: TextureProgressBar = $RopeBar
+@onready var e_button: Area2D = $placeholderEButton
 
 var player_near := false
 var freed := false
@@ -22,6 +23,8 @@ func _process(_delta: float) -> void:
 		press_count += 1
 		rope_bar.value = press_count
 		
+		e_button.hide() #should update with an animation
+		
 		# feedback
 		shake_friend()
 		burst_particles()
@@ -32,11 +35,13 @@ func _process(_delta: float) -> void:
 func _on_area_body_entered(body: Node2D) -> void:
 	if body.name == "Player" and not freed:
 		player_near = true
+		e_button.show()
 		rope_bar.show()
 
 func _on_area_body_exited(body: Node2D) -> void:
 	if body.name == "Player" and not freed:
 		player_near = false
+		e_button.hide()
 		rope_bar.hide()
 
 func _free_friend() -> void:

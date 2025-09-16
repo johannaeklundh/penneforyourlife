@@ -18,6 +18,7 @@ func show_prompt():
 
 func _unhandled_input(event):
 	if visible and event.is_action_pressed(action_name):
+
 		hide()
 		anim_sprite.stop()
 		prompt_finished.emit()
