@@ -7,11 +7,10 @@ extends Node2D
 var player_near := false
 var freed := false
 var press_count := 0
-const PRESS_LIMIT := 20
+const PRESS_LIMIT := 10
 
 func _ready() -> void:
 	anim_sprite.play("stuck")
-	rope_bar.hide()
 	rope_bar.min_value = 0
 	rope_bar.max_value = PRESS_LIMIT
 	rope_bar.value = 0
@@ -23,9 +22,9 @@ func _process(_delta: float) -> void:
 		press_count += 1
 		rope_bar.value = press_count
 		
-		#rope_bar.scale = Vector2(0.3, 0.3)
-		#rope_bar.create_tween().tween_property(rope_bar, "scale", Vector2(0.2, 0.2), 0.1)
-		shake_bar()
+		# feedback
+		shake_friend()
+		burst_particles()
 
 		if press_count >= PRESS_LIMIT:
 			_free_friend()
@@ -44,11 +43,14 @@ func _free_friend() -> void:
 	freed = true
 	#anim_sprite.frame = 1  # happy
 	anim_sprite.play("idle")
-	rope_bar.hide()
 	print("Friend is freed!")
 
-func shake_bar():
+func shake_friend():
 	var tween = create_tween()
-	tween.tween_property(rope_bar, "position:x", rope_bar.position.x + 3, 0.05)
-	tween.tween_property(rope_bar, "position:x", rope_bar.position.x - 3, 0.05)
-	tween.tween_property(rope_bar, "position:x", rope_bar.position.x, 0.05)
+	tween.tween_property(anim_sprite, "position:x", anim_sprite.position.x + 2, 0.05)
+	tween.tween_property(anim_sprite, "position:x", anim_sprite.position.x - 2, 0.05)
+	tween.tween_property(anim_sprite, "position:x", anim_sprite.position.x, 0.05)
+
+func burst_particles():
+	$RopeParticles.emitting = false
+	$RopeParticles.emitting = true

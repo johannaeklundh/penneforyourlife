@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://1h24hba514qq"]
+[gd_scene load_steps=41 format=3 uid="uid://1h24hba514qq"]
 
 [ext_resource type="Script" uid="uid://drvp2h6p6ennw" path="res://Assets/Scenes/Areas/area_1.gd" id="1_7fk0h"]
 [ext_resource type="PackedScene" uid="uid://br4bmuwc5rwhj" path="res://Assets/Scenes/player.tscn" id="2_3uyhe"]
@@ -11,9 +11,8 @@
 [ext_resource type="Texture2D" uid="uid://cj527o0asfxi1" path="res://Assets/Sprites/spaceButton.png" id="9_0ufq0"]
 [ext_resource type="Script" uid="uid://mi2edq0k7tpa" path="res://Assets/Scripts/friend.gd" id="10_u1wc8"]
 [ext_resource type="Texture2D" uid="uid://4rg4kgpb7xmp" path="res://Assets/Sprites/broccoliIdle.png" id="11_xl8b6"]
-[ext_resource type="Texture2D" uid="uid://0sc2axlqm3rd" path="res://Assets/Sprites/rope_under.png" id="12_6rwvx"]
 [ext_resource type="Texture2D" uid="uid://dydojivpgfxdj" path="res://Assets/Sprites/broccoliStuck.png" id="12_ys1tx"]
-[ext_resource type="Texture2D" uid="uid://0hpuuk3mm7sp" path="res://Assets/Sprites/rope_progress.png" id="13_xl8b6"]
+[ext_resource type="Texture2D" uid="uid://ugu08h1sfs0t" path="res://Assets/Sprites/ropeSprinkles.png" id="15_ys1tx"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_les6p"]
 atlas = ExtResource("5_nlyig")
@@ -292,7 +291,7 @@ script = ExtResource("10_u1wc8")
 position = Vector2(107, -42)
 scale = Vector2(0.07, 0.07)
 sprite_frames = SubResource("SpriteFrames_u0xoj")
-animation = &"idle"
+animation = &"stuck"
 offset = Vector2(0, -50)
 
 [node name="Area2D" type="Area2D" parent="Friend"]
@@ -305,14 +304,28 @@ scale = Vector2(2, 2)
 shape = SubResource("CapsuleShape2D_7lgy5")
 
 [node name="RopeBar" type="TextureProgressBar" parent="Friend"]
+visible = false
 offset_left = 87.0
 offset_top = -66.0
 offset_right = 287.0
 offset_bottom = -46.0
 scale = Vector2(0.2, 0.2)
 max_value = 20.0
-texture_under = ExtResource("12_6rwvx")
-texture_progress = ExtResource("13_xl8b6")
+
+[node name="RopeParticles" type="CPUParticles2D" parent="Friend"]
+position = Vector2(106, -43)
+emitting = false
+amount = 6
+texture = ExtResource("15_ys1tx")
+lifetime = 0.4
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+emission_shape = 2
+emission_sphere_radius = 8.0
+spread = 180.0
+initial_velocity_min = 20.0
+initial_velocity_max = 20.0
 
 [node name="Pit" type="Area2D" parent="."]
 
