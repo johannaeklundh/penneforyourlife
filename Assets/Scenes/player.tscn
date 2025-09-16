@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://br4bmuwc5rwhj"]
+[gd_scene load_steps=13 format=3 uid="uid://br4bmuwc5rwhj"]
 
 [ext_resource type="Script" uid="uid://cy1cyiq3gmfsu" path="res://Assets/Scripts/player_controller.gd" id="1_7dd06"]
 [ext_resource type="Script" uid="uid://o414gm4wpvwf" path="res://Assets/Scripts/player_animator.gd" id="2_38rej"]
@@ -22,27 +22,6 @@ func _process(_delta):
 		global_position.x = lerp(global_position.x, target.global_position.x, 0.1)
 		global_position.y = fixed_y
 "
-
-[sub_resource type="Animation" id="Animation_38rej"]
-length = 0.001
-
-[sub_resource type="Animation" id="Animation_t1xgp"]
-resource_name = "idle"
-length = 2.0
-loop_mode = 1
-step = 0.25
-
-[sub_resource type="Animation" id="Animation_7dd06"]
-resource_name = "run"
-loop_mode = 1
-step = 0.25
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_t1xgp"]
-_data = {
-&"RESET": SubResource("Animation_38rej"),
-&"idle": SubResource("Animation_t1xgp"),
-&"run": SubResource("Animation_7dd06")
-}
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_23lac"]
 atlas = ExtResource("4_t1xgp")
@@ -78,13 +57,13 @@ animations = [{
 "speed": 5.0
 }, {
 "frames": [{
-"duration": 1.0,
+"duration": 0.55,
 "texture": SubResource("AtlasTexture_c3tg1")
 }, {
-"duration": 1.0,
+"duration": 0.55,
 "texture": SubResource("AtlasTexture_lerqx")
 }, {
-"duration": 1.0,
+"duration": 0.55,
 "texture": SubResource("AtlasTexture_jp3cw")
 }],
 "loop": true,
@@ -113,20 +92,10 @@ drag_top_margin = 1.0
 drag_bottom_margin = 0.0
 script = SubResource("GDScript_38rej")
 
-[node name="PlayerAnimator" type="Node2D" parent="." node_paths=PackedStringArray("player_controller", "animation_player", "sprite")]
+[node name="PlayerAnimator" type="Node2D" parent="." node_paths=PackedStringArray("player_controller")]
 position = Vector2(0, -1)
 script = ExtResource("2_38rej")
 player_controller = NodePath("..")
-animation_player = NodePath("AnimationPlayer")
-sprite = NodePath("AnimatedSprite2D")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="PlayerAnimator"]
-root_node = NodePath("../..")
-libraries = {
-&"": SubResource("AnimationLibrary_t1xgp")
-}
-autoplay = "idle"
-speed_scale = 3.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="PlayerAnimator"]
 position = Vector2(2.27374e-13, -8)
@@ -134,7 +103,6 @@ scale = Vector2(0.05, 0.05)
 sprite_frames = SubResource("SpriteFrames_c3tg1")
 animation = &"run"
 autoplay = "idle"
-frame_progress = 0.685544
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
