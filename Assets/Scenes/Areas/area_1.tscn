@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://1h24hba514qq"]
+[gd_scene load_steps=43 format=3 uid="uid://1h24hba514qq"]
 
 [ext_resource type="Script" uid="uid://drvp2h6p6ennw" path="res://Assets/Scenes/Areas/area_1.gd" id="1_7fk0h"]
 [ext_resource type="PackedScene" uid="uid://br4bmuwc5rwhj" path="res://Assets/Scenes/player.tscn" id="2_3uyhe"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://ctijk4drnxtua" path="res://Assets/Sprites/backwardButton.png" id="8_f20k6"]
 [ext_resource type="Texture2D" uid="uid://cj527o0asfxi1" path="res://Assets/Sprites/spaceButton.png" id="9_0ufq0"]
 [ext_resource type="Script" uid="uid://mi2edq0k7tpa" path="res://Assets/Scripts/friend.gd" id="10_u1wc8"]
+[ext_resource type="PackedScene" uid="uid://mq7q6hktv5vy" path="res://Assets/Scenes/Friend.tscn" id="10_ys1tx"]
 [ext_resource type="Texture2D" uid="uid://4rg4kgpb7xmp" path="res://Assets/Sprites/broccoliIdle.png" id="11_xl8b6"]
 [ext_resource type="Texture2D" uid="uid://dydojivpgfxdj" path="res://Assets/Sprites/broccoliStuck.png" id="12_ys1tx"]
 [ext_resource type="Texture2D" uid="uid://2a384vec7jy6" path="res://Assets/Sprites/placeholderEButton.png" id="14_xl8b6"]
@@ -288,7 +289,11 @@ animation = &"blink"
 autoplay = "blink"
 frame_progress = 0.904331
 
+[node name="Broccoli" parent="." instance=ExtResource("10_ys1tx")]
+position = Vector2(107, -42)
+
 [node name="BroccoliFriend" type="Node2D" parent="."]
+visible = false
 position = Vector2(305, -128)
 script = ExtResource("10_u1wc8")
 
@@ -341,9 +346,9 @@ scale = Vector2(0.133333, 0.133333)
 texture = ExtResource("14_xl8b6")
 
 [node name="Pit" type="Area2D" parent="."]
+position = Vector2(1533, 303)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Pit"]
-position = Vector2(1600, 300)
 rotation = 1.5708
 scale = Vector2(5, 300)
 shape = SubResource("SegmentShape2D_6rwvx")

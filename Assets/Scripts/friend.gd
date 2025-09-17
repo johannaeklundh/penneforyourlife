@@ -4,6 +4,7 @@ extends Node2D
 @onready var area: Area2D = $Area2D
 @onready var rope_bar: TextureProgressBar = $RopeBar
 @onready var e_button: Area2D = $placeholderEButton
+@onready var particles: CPUParticles2D = $RopeParticles
 
 var player_near := false
 var freed := false
@@ -57,5 +58,5 @@ func shake_friend():
 	tween.tween_property(anim_sprite, "position:x", anim_sprite.position.x, 0.05)
 
 func burst_particles():
-	$RopeParticles.emitting = false
-	$RopeParticles.emitting = true
+	particles.emitting = false
+	particles.emitting = true
