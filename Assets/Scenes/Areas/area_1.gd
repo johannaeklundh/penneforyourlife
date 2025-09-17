@@ -36,6 +36,12 @@ func _on_space_done():
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.name == "Player":
+		# Animator is a child of Player
+		var animator = body.get_node("PlayerAnimator")
+		animator.play_hurt()
+
+		# restart after blink is done
+		await get_tree().create_timer(0.6).timeout
 		call_deferred("_restart_scene")
 
 func _restart_scene():

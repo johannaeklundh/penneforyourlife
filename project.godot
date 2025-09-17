@@ -19,6 +19,11 @@ config/icon="res://icon.svg"
 
 GameState="*res://Assets/Scripts/GameState.gd"
 
+[display]
+
+window/size/viewport_width=1620
+window/size/viewport_height=920
+
 [input]
 
 ui_accept={

@@ -339,9 +339,9 @@ texture = ExtResource("14_xl8b6")
 [node name="Pit" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Pit"]
-position = Vector2(1000, 300)
+position = Vector2(1600, 300)
 rotation = 1.5708
-scale = Vector2(5, 200)
+scale = Vector2(5, 300)
 shape = SubResource("SegmentShape2D_6rwvx")
 
 [connection signal="body_entered" from="BoilingPot/Area2D" to="." method="_on_area_2d_body_entered"]
