@@ -24,6 +24,7 @@ func play_hurt():
 
 	var tween = create_tween()
 	
+	# Knockback animation
 	#tween.tween_property(sprite, "position:x", sprite.position.x - 20, 0.1).as_relative()
 	#tween.tween_property(sprite, "position:y", sprite.position.y - 20, 0.1).as_relative()
 	#tween.tween_property(sprite, "position:x", sprite.position.x, 0.1)

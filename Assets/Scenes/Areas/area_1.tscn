@@ -224,7 +224,7 @@ use_parent_material = true
 tile_set = ExtResource("2_6rwvx")
 
 [node name="Player" parent="." instance=ExtResource("2_3uyhe")]
-position = Vector2(0, -6)
+position = Vector2(-498, -4.5)
 
 [node name="background" parent="." instance=ExtResource("3_8wi1m")]
 z_index = -1000
@@ -232,7 +232,7 @@ position = Vector2(26, -133)
 scale = Vector2(2.5, 2.5)
 
 [node name="BoilingPot" type="StaticBody2D" parent="."]
-position = Vector2(178, -75)
+position = Vector2(194, -12)
 scale = Vector2(0.5, 0.5)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="BoilingPot"]
@@ -253,6 +253,7 @@ position = Vector2(-1, -1)
 shape = SubResource("CapsuleShape2D_0ufq0")
 
 [node name="forwardButton" type="Area2D" parent="."]
+position = Vector2(-498, -5)
 scale = Vector2(0.2, 0.2)
 script = ExtResource("6_f20k6")
 
@@ -263,6 +264,7 @@ animation = &"blink"
 autoplay = "blink"
 
 [node name="backwardButton" type="Area2D" parent="."]
+position = Vector2(-498, -5)
 scale = Vector2(0.2, 0.2)
 script = ExtResource("6_f20k6")
 action_name = "ui_left"
@@ -274,6 +276,7 @@ animation = &"blink"
 autoplay = "blink"
 
 [node name="spaceButton" type="Area2D" parent="."]
+position = Vector2(-498, -5)
 scale = Vector2(0.2, 0.2)
 script = ExtResource("6_f20k6")
 action_name = "ui_accept"
@@ -285,26 +288,27 @@ animation = &"blink"
 autoplay = "blink"
 frame_progress = 0.904331
 
-[node name="Friend" type="Node2D" parent="."]
+[node name="BroccoliFriend" type="Node2D" parent="."]
+position = Vector2(305, -128)
 script = ExtResource("10_u1wc8")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Friend"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="BroccoliFriend"]
 position = Vector2(107, -42)
 scale = Vector2(0.07, 0.07)
 sprite_frames = SubResource("SpriteFrames_u0xoj")
 animation = &"stuck"
 offset = Vector2(0, -50)
 
-[node name="Area2D" type="Area2D" parent="Friend"]
+[node name="Area2D" type="Area2D" parent="BroccoliFriend"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Friend/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BroccoliFriend/Area2D"]
 visible = false
 position = Vector2(107, -43)
 rotation = 1.5708
 scale = Vector2(2, 2)
 shape = SubResource("CapsuleShape2D_7lgy5")
 
-[node name="RopeBar" type="TextureProgressBar" parent="Friend"]
+[node name="RopeBar" type="TextureProgressBar" parent="BroccoliFriend"]
 visible = false
 offset_left = 87.0
 offset_top = -66.0
@@ -313,7 +317,7 @@ offset_bottom = -46.0
 scale = Vector2(0.2, 0.2)
 max_value = 20.0
 
-[node name="RopeParticles" type="CPUParticles2D" parent="Friend"]
+[node name="RopeParticles" type="CPUParticles2D" parent="BroccoliFriend"]
 position = Vector2(106, -43)
 emitting = false
 amount = 6
@@ -328,10 +332,10 @@ spread = 180.0
 initial_velocity_min = 20.0
 initial_velocity_max = 20.0
 
-[node name="placeholderEButton" type="Area2D" parent="Friend"]
+[node name="placeholderEButton" type="Area2D" parent="BroccoliFriend"]
 visible = false
 
-[node name="Sprite2D" type="Sprite2D" parent="Friend/placeholderEButton"]
+[node name="Sprite2D" type="Sprite2D" parent="BroccoliFriend/placeholderEButton"]
 position = Vector2(119, -57)
 scale = Vector2(0.133333, 0.133333)
 texture = ExtResource("14_xl8b6")
