@@ -1,0 +1,122 @@
+[gd_scene load_steps=12 format=3 uid="uid://bw2lp40psx22t"]
+
+[ext_resource type="Script" uid="uid://mi2edq0k7tpa" path="res://Assets/Scripts/friend.gd" id="1_3j8gi"]
+[ext_resource type="Texture2D" uid="uid://dmd358lw1k2ff" path="res://Assets/Sprites/tomato.png" id="2_d1kpk"]
+[ext_resource type="Texture2D" uid="uid://ugu08h1sfs0t" path="res://Assets/Sprites/ropeSprinkles.png" id="4_llklh"]
+[ext_resource type="Texture2D" uid="uid://2a384vec7jy6" path="res://Assets/Sprites/placeholderEButton.png" id="5_7n77d"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3j8gi"]
+atlas = ExtResource("2_d1kpk")
+region = Rect2(780, 0, 260, 402)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q2c37"]
+atlas = ExtResource("2_d1kpk")
+region = Rect2(1040, 0, 260, 402)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j5vrw"]
+atlas = ExtResource("2_d1kpk")
+region = Rect2(260, 0, 260, 402)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_llklh"]
+atlas = ExtResource("2_d1kpk")
+region = Rect2(520, 0, 260, 402)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7n77d"]
+atlas = ExtResource("2_d1kpk")
+region = Rect2(0, 0, 260, 402)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_acwbv"]
+animations = [{
+"frames": [{
+"duration": 6.0,
+"texture": SubResource("AtlasTexture_3j8gi")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_q2c37")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_3j8gi")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_q2c37")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_j5vrw")
+}, {
+"duration": 2.5,
+"texture": SubResource("AtlasTexture_llklh")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_j5vrw")
+}, {
+"duration": 2.5,
+"texture": SubResource("AtlasTexture_llklh")
+}, {
+"duration": 1.5,
+"texture": SubResource("AtlasTexture_j5vrw")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_7n77d")
+}],
+"loop": true,
+"name": &"stuck",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1r10l"]
+radius = 5.5
+height = 23.0
+
+[node name="Tomato" type="Node2D"]
+script = ExtResource("1_3j8gi")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.07, 0.07)
+sprite_frames = SubResource("SpriteFrames_acwbv")
+animation = &"idle"
+frame_progress = 0.764653
+offset = Vector2(0, -50)
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+visible = false
+rotation = 1.5708
+scale = Vector2(2, 2)
+shape = SubResource("CapsuleShape2D_1r10l")
+
+[node name="RopeBar" type="TextureProgressBar" parent="."]
+visible = false
+offset_left = 87.0
+offset_top = -66.0
+offset_right = 287.0
+offset_bottom = -46.0
+scale = Vector2(0.2, 0.2)
+max_value = 20.0
+
+[node name="RopeParticles" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 6
+texture = ExtResource("4_llklh")
+lifetime = 0.4
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+emission_shape = 2
+emission_sphere_radius = 8.0
+spread = 180.0
+initial_velocity_min = 20.0
+initial_velocity_max = 20.0
+
+[node name="placeholderEButton" type="Area2D" parent="."]
+visible = false
+
+[node name="Sprite2D" type="Sprite2D" parent="placeholderEButton"]
+position = Vector2(13, -17)
+scale = Vector2(0.133333, 0.133333)
+texture = ExtResource("5_7n77d")
