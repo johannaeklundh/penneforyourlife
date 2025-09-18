@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://br3xou1o8uj8o"]
+[gd_scene load_steps=37 format=3 uid="uid://br3xou1o8uj8o"]
 
 [ext_resource type="Texture2D" uid="uid://dmd358lw1k2ff" path="res://Assets/Sprites/tomato.png" id="1_kxtio"]
 [ext_resource type="Script" uid="uid://dep4rg48wsony" path="res://Assets/Scenes/intro_scene.gd" id="1_xbf8j"]
@@ -19,13 +19,13 @@ tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/path = NodePath("tomato:position")
-tracks/0/interp = 2
+tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5, 1, 1.5, 2, 2.5, 5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.5, 1, 1.5, 2, 2.75, 3.75, 4.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(0, -9), Vector2(0, -20), Vector2(0, -9), Vector2(10, -15), Vector2(20, -9), Vector2(20, -9), Vector2(150, -150)]
+"values": [Vector2(0, -9), Vector2(0, -20), Vector2(0, -9), Vector2(10, -15), Vector2(20, -9), Vector2(20, -13), Vector2(102, -92), Vector2(171, -161)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -46,10 +46,10 @@ tracks/2/path = NodePath("hand:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(1.5, 2.75, 5),
+"times": PackedFloat32Array(1.5, 2.75, 4.5),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(204, -190), Vector2(60, -60), Vector2(200, -200)]
+"values": [Vector2(243, -230), Vector2(60, -60), Vector2(200, -200)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -142,10 +142,10 @@ tracks/10/path = NodePath("hand2:position")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
-"times": PackedFloat32Array(0, 2.75, 5),
+"times": PackedFloat32Array(1.5, 2.75, 5),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(35, -275), Vector2(7.99999, -90), Vector2(35, -270)]
+"values": [Vector2(35, -275), Vector2(8, -70), Vector2(35, -270)]
 }
 tracks/11/type = "value"
 tracks/11/imported = false
@@ -166,7 +166,7 @@ tracks/12/path = NodePath("hand3:position")
 tracks/12/interp = 1
 tracks/12/loop_wrap = true
 tracks/12/keys = {
-"times": PackedFloat32Array(0, 4, 5),
+"times": PackedFloat32Array(2.75, 4, 5),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(340, -51), Vector2(147, -30), Vector2(340, -51)]
@@ -220,8 +220,36 @@ tracks/16/keys = {
 "values": [Vector2(0, 0), Vector2(0, 0), Vector2(-50, -9), Vector2(-96.5271, -8.27375)]
 }
 
+[sub_resource type="Animation" id="Animation_xbf8j"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("hand:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(243, -230)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("tomato:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(171, -161)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_v7hcg"]
 _data = {
+&"RESET": SubResource("Animation_xbf8j"),
 &"intro": SubResource("Animation_s2mtd")
 }
 
@@ -468,8 +496,9 @@ tile_set = ExtResource("4_8722x")
 z_index = -1000
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(-96.5271, -8.27375)
 offset = Vector2(0, -45)
-zoom = Vector2(5, 5)
+zoom = Vector2(5.2, 5.2)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -478,44 +507,45 @@ libraries = {
 autoplay = "intro"
 
 [node name="tomato" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -9)
+position = Vector2(171, -161)
 scale = Vector2(0.08, 0.08)
 sprite_frames = SubResource("SpriteFrames_2c1is")
-animation = &"idle"
+animation = &"stuck"
 offset = Vector2(0, -50)
 
 [node name="hand" type="AnimatedSprite2D" parent="."]
-position = Vector2(204, -190)
+position = Vector2(243, -230)
 rotation = -2.49582
 scale = Vector2(0.25, 0.25)
 sprite_frames = SubResource("SpriteFrames_8722x")
-animation = &"open"
+animation = &"close"
 
 [node name="pasta" type="AnimatedSprite2D" parent="."]
-position = Vector2(-30, -13)
+position = Vector2(-140, -12)
 scale = Vector2(0.05, 0.05)
 sprite_frames = SubResource("SpriteFrames_dsaqx")
-animation = &"idle"
+animation = &"sad"
+flip_h = true
 
 [node name="broccoli" type="AnimatedSprite2D" parent="."]
-position = Vector2(115, -13)
+position = Vector2(286, -39)
 scale = Vector2(0.07, 0.07)
 sprite_frames = SubResource("SpriteFrames_ugq5c")
-animation = &"idle"
+animation = &"stuck"
 
 [node name="bacon" type="AnimatedSprite2D" parent="."]
-position = Vector2(27, -12)
+position = Vector2(31, -218)
 scale = Vector2(0.07, 0.07)
 sprite_frames = SubResource("SpriteFrames_50gjr")
-animation = &"idle"
+animation = &"stuck"
 autoplay = "idle"
 
 [node name="hand2" type="AnimatedSprite2D" parent="."]
-position = Vector2(35, -275)
+position = Vector2(35, -270)
 rotation = -3.08574
 scale = Vector2(0.25, 0.25)
 sprite_frames = SubResource("SpriteFrames_8722x")
-animation = &"open"
+animation = &"close"
 flip_h = true
 
 [node name="hand3" type="AnimatedSprite2D" parent="."]
@@ -523,4 +553,4 @@ position = Vector2(340, -51)
 rotation = -1.82387
 scale = Vector2(0.25, 0.25)
 sprite_frames = SubResource("SpriteFrames_8722x")
-animation = &"open"
+animation = &"close"
