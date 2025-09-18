@@ -359,5 +359,14 @@ position = Vector2(362, -73)
 [node name="Tomato" parent="." instance=ExtResource("16_ttsc2")]
 position = Vector2(334, -152)
 
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+modulate = Color(1, 0, 0, 0.3)
+offset_left = -1553.0
+offset_top = -1049.0
+offset_right = 1950.0
+offset_bottom = 619.0
+color = Color(0.933, 0, 0, 0.304)
+
 [connection signal="body_entered" from="BoilingPot/Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_entered" from="Pit" to="." method="_on_pit_body_entered"]

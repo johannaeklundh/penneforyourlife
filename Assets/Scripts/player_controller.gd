@@ -7,6 +7,7 @@ class_name PlayerController
 @export var coyote_time := 0.15   # seconds after leaving ground you can still jump
 @export var jump_buffer := 0.15   # seconds before landing that a jump press is stored
 
+var can_move := true
 var speed_multiplier = 30.0
 var jump_multiplier = -30.0
 
@@ -20,6 +21,10 @@ var coyote_timer := 0.0
 var jump_buffer_timer := 0.0
 
 func _physics_process(delta: float) -> void:
+	if not can_move:
+		velocity = Vector2.ZERO
+		return
+	
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
