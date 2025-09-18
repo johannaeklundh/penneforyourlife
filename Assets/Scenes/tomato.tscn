@@ -78,8 +78,8 @@ script = ExtResource("1_3j8gi")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.08, 0.08)
 sprite_frames = SubResource("SpriteFrames_acwbv")
-animation = &"stuck"
-frame_progress = 0.275355
+animation = &"idle"
+frame_progress = 0.314431
 offset = Vector2(0, -50)
 
 [node name="Area2D" type="Area2D" parent="."]

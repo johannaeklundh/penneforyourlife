@@ -244,14 +244,12 @@ animation = &"boilingPot"
 autoplay = "boilingPot"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BoilingPot"]
-visible = false
 position = Vector2(-1, -1)
 shape = SubResource("CapsuleShape2D_f20k6")
 
 [node name="Area2D" type="Area2D" parent="BoilingPot"]
 
 [node name="CollisionShapeArea" type="CollisionShape2D" parent="BoilingPot/Area2D"]
-visible = false
 position = Vector2(-1, -1)
 shape = SubResource("CapsuleShape2D_0ufq0")
 

@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="penne4YourLife"
-run/main_scene="uid://1h24hba514qq"
+run/main_scene="uid://br3xou1o8uj8o"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
