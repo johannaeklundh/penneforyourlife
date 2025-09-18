@@ -9,7 +9,7 @@ extends Node2D
 var player_near := false
 var freed := false
 var press_count := 0
-const PRESS_LIMIT := 10
+const PRESS_LIMIT := 5
 
 func _ready() -> void:
 	anim_sprite.play("stuck")

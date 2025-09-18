@@ -78,7 +78,7 @@ height = 26.0
 [node name="Player" type="CharacterBody2D"]
 position = Vector2(0, -5)
 script = ExtResource("1_7dd06")
-speed = 5.0
+speed = 8.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, 25)
