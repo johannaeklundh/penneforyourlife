@@ -24,6 +24,12 @@ func _ready():
 
 		# First prompt
 		forward_button.show_prompt()
+	
+	for friend in get_tree().get_nodes_in_group("friends"):
+		print(friend.name)
+		print(friend.freed)
+		
+		
 
 func _on_forward_done():
 	backward_button.show_prompt()
@@ -69,18 +75,6 @@ func show_hurt_overlay() -> void:
 	tween.tween_property(overlay, "modulate:a", 0.6, 0.1) # fade in
 	tween.tween_property(overlay, "modulate:a", 0.0, 0.5) # fade out
 	tween.finished.connect(func(): overlay.hide())
-
-#
-#func screen_shake(camera: Camera2D, intensity: float = 5.0, duration: float = 0.3) -> void:
-	#var tween = create_tween()
-	#var steps = int(duration / 0.05)
-	#for i in range(steps):
-		#var rand_offset = Vector2(
-			#randf_range(-intensity, intensity),
-			#randf_range(-intensity, intensity)
-		#)
-		#tween.tween_property(camera, "offset", rand_offset, 0.05)
-	#tween.tween_property(camera, "offset", Vector2.ZERO, 0.05) # reset
 
 func screen_shake(camera: Camera2D, intensity: float = 8.0, duration: float = 0.3, frequency: float = 0.05) -> void:
 	var base_offset = camera.offset # save original offset

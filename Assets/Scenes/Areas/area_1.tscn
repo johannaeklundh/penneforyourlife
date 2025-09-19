@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://1h24hba514qq"]
+[gd_scene load_steps=44 format=3 uid="uid://1h24hba514qq"]
 
 [ext_resource type="Script" uid="uid://drvp2h6p6ennw" path="res://Assets/Scenes/Areas/area_1.gd" id="1_7fk0h"]
 [ext_resource type="PackedScene" uid="uid://br4bmuwc5rwhj" path="res://Assets/Scenes/player.tscn" id="2_3uyhe"]
@@ -10,9 +10,14 @@
 [ext_resource type="Texture2D" uid="uid://ch7ajoyfxrh25" path="res://Assets/Sprites/forwardButton.png" id="6_msn23"]
 [ext_resource type="Texture2D" uid="uid://ctijk4drnxtua" path="res://Assets/Sprites/backwardButton.png" id="8_f20k6"]
 [ext_resource type="Texture2D" uid="uid://cj527o0asfxi1" path="res://Assets/Sprites/spaceButton.png" id="9_0ufq0"]
+[ext_resource type="Texture2D" uid="uid://4rg4kgpb7xmp" path="res://Assets/Sprites/broccoliIdle.png" id="11_xl8b6"]
+[ext_resource type="Script" uid="uid://dunbiuy65qgs4" path="res://Assets/Scenes/Areas/friend_slots.gd" id="14_xl8b6"]
 [ext_resource type="PackedScene" uid="uid://cc5s47rhrhqtp" path="res://Assets/Scenes/broccoli.tscn" id="15_ttsc2"]
 [ext_resource type="PackedScene" uid="uid://c5v2wki4am6s0" path="res://Assets/Scenes/bacon.tscn" id="16_lbrap"]
 [ext_resource type="PackedScene" uid="uid://bw2lp40psx22t" path="res://Assets/Scenes/tomato.tscn" id="16_ttsc2"]
+[ext_resource type="Texture2D" uid="uid://dmd358lw1k2ff" path="res://Assets/Sprites/tomato.png" id="17_xai42"]
+[ext_resource type="Texture2D" uid="uid://deimo4p1ggjjd" path="res://Assets/Sprites/bacon.png" id="18_c8jce"]
+[ext_resource type="Texture2D" uid="uid://ce7r6sxeyd0aq" path="res://Assets/Sprites/OverlayUtan.png" id="18_xai42"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0ufq0"]
 radius = 25.0
@@ -119,6 +124,72 @@ animations = [{
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_6rwvx"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_klwya"]
+atlas = ExtResource("18_c8jce")
+region = Rect2(1300, 0, 260, 402)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j7vlb"]
+atlas = ExtResource("18_c8jce")
+region = Rect2(1040, 0, 260, 402)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g3rwo"]
+animations = [{
+"frames": [{
+"duration": 10.0,
+"texture": SubResource("AtlasTexture_klwya")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j7vlb")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5cg6o"]
+atlas = ExtResource("17_xai42")
+region = Rect2(780, 0, 260, 402)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u0xoj"]
+atlas = ExtResource("17_xai42")
+region = Rect2(1040, 0, 260, 402)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_p11o7"]
+animations = [{
+"frames": [{
+"duration": 10.0,
+"texture": SubResource("AtlasTexture_5cg6o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u0xoj")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ttsc2"]
+atlas = ExtResource("11_xl8b6")
+region = Rect2(0, 0, 267, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lbrap"]
+atlas = ExtResource("11_xl8b6")
+region = Rect2(534, 0, 267, 400)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xai42"]
+animations = [{
+"frames": [{
+"duration": 10.0,
+"texture": SubResource("AtlasTexture_ttsc2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lbrap")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="Area1" type="Node2D"]
 script = ExtResource("1_7fk0h")
 
@@ -141,7 +212,7 @@ position = Vector2(-498, -4.5)
 
 [node name="background" parent="." instance=ExtResource("3_8wi1m")]
 z_index = -1000
-position = Vector2(26, -133)
+position = Vector2(41, -127)
 scale = Vector2(2.5, 2.5)
 
 [node name="Obstacle" parent="." instance=ExtResource("5_5cg6o")]
@@ -217,14 +288,14 @@ rotation = 1.5708
 scale = Vector2(5, 300)
 shape = SubResource("SegmentShape2D_6rwvx")
 
-[node name="Broccoli" parent="." instance=ExtResource("15_ttsc2")]
+[node name="Broccoli" parent="." groups=["friends"] instance=ExtResource("15_ttsc2")]
 position = Vector2(182, -74)
 
-[node name="Bacon" parent="." instance=ExtResource("16_lbrap")]
+[node name="Bacon" parent="." groups=["friends"] instance=ExtResource("16_lbrap")]
 position = Vector2(362, -73)
 friend_name = "bacon"
 
-[node name="Tomato" parent="." instance=ExtResource("16_ttsc2")]
+[node name="Tomato" parent="." groups=["friends"] instance=ExtResource("16_ttsc2")]
 position = Vector2(334, -152)
 friend_name = "tomato"
 
@@ -237,6 +308,44 @@ offset_right = 1950.0
 offset_bottom = 619.0
 color = Color(0.933, 0, 0, 0.304)
 
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="FriendSlots" type="Control" parent="HUD"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("14_xl8b6")
+
+[node name="Overlay" type="TextureRect" parent="HUD/FriendSlots"]
+layout_mode = 0
+offset_right = 280.0
+offset_bottom = 164.0
+texture = ExtResource("18_xai42")
+expand_mode = 3
+
+[node name="Slot1" type="AnimatedSprite2D" parent="HUD/FriendSlots"]
+visible = false
+position = Vector2(87, 77.2442)
+scale = Vector2(0.146154, 0.123163)
+sprite_frames = SubResource("SpriteFrames_g3rwo")
+
+[node name="Slot2" type="AnimatedSprite2D" parent="HUD/FriendSlots"]
+visible = false
+position = Vector2(135, 79)
+scale = Vector2(0.153846, 0.130769)
+sprite_frames = SubResource("SpriteFrames_p11o7")
+
+[node name="Slot3" type="AnimatedSprite2D" parent="HUD/FriendSlots"]
+visible = false
+position = Vector2(188, 81)
+scale = Vector2(0.136704, 0.13246)
+sprite_frames = SubResource("SpriteFrames_xai42")
+frame_progress = 0.56561
+
 [connection signal="body_entered" from="Obstacle/Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_entered" from="BoilingPot/Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_entered" from="Pit" to="." method="_on_pit_body_entered"]
+[connection signal="freed_friend" from="Broccoli" to="HUD/FriendSlots" method="_on_broccoli_freed_friend"]
+[connection signal="freed_friend" from="Bacon" to="HUD/FriendSlots" method="_on_bacon_freed_friend"]
+[connection signal="freed_friend" from="Tomato" to="HUD/FriendSlots" method="_on_tomato_freed_friend"]

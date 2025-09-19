@@ -7,11 +7,14 @@ extends Node2D
 @onready var particles: CPUParticles2D = $RopeParticles
 
 @export var friend_name: String = "broccoli"
+@export var freed := false
 
 var player_near := false
-var freed := false
+#var freed := false
 var press_count := 0
 const PRESS_LIMIT := 5
+
+signal freed_friend(friend)
 
 func _ready() -> void:
 	anim_sprite.play("stuck")
@@ -60,7 +63,9 @@ func _free_friend() -> void:
 	#await get_tree().create_timer(3.0).timeout
 	#queue_free()
 	
-	print("Friend is freed!")
+	#emit_signal("freed_friend", self)	
+	freed_friend.emit(self)
+	print(friend_name, " is freed!")
 
 func shake_friend():
 	var tween = create_tween()
