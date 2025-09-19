@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://1h24hba514qq"]
+[gd_scene load_steps=45 format=3 uid="uid://1h24hba514qq"]
 
 [ext_resource type="Script" uid="uid://drvp2h6p6ennw" path="res://Assets/Scenes/Areas/area_1.gd" id="1_7fk0h"]
 [ext_resource type="PackedScene" uid="uid://br4bmuwc5rwhj" path="res://Assets/Scenes/player.tscn" id="2_3uyhe"]
@@ -18,6 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://dmd358lw1k2ff" path="res://Assets/Sprites/tomato.png" id="17_xai42"]
 [ext_resource type="Texture2D" uid="uid://deimo4p1ggjjd" path="res://Assets/Sprites/bacon.png" id="18_c8jce"]
 [ext_resource type="Texture2D" uid="uid://ce7r6sxeyd0aq" path="res://Assets/Sprites/OverlayUtan.png" id="18_xai42"]
+[ext_resource type="Texture2D" uid="uid://4qrp1chh0fdg" path="res://Assets/Sprites/star.png" id="19_c8jce"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0ufq0"]
 radius = 25.0
@@ -342,6 +343,63 @@ position = Vector2(188, 81)
 scale = Vector2(0.136704, 0.13246)
 sprite_frames = SubResource("SpriteFrames_xai42")
 frame_progress = 0.56561
+
+[node name="Glitter1" type="CPUParticles2D" parent="HUD/FriendSlots"]
+position = Vector2(87, 80)
+scale = Vector2(0.05, 0.05)
+emitting = false
+amount = 20
+texture = ExtResource("19_c8jce")
+one_shot = true
+preprocess = 0.06
+speed_scale = 3.3
+explosiveness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(100, 100)
+particle_flag_align_y = true
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 1000.0
+initial_velocity_max = 1000.0
+
+[node name="Glitter2" type="CPUParticles2D" parent="HUD/FriendSlots"]
+position = Vector2(135, 79)
+scale = Vector2(0.05, 0.05)
+emitting = false
+amount = 20
+texture = ExtResource("19_c8jce")
+one_shot = true
+preprocess = 0.06
+speed_scale = 3.3
+explosiveness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(100, 100)
+particle_flag_align_y = true
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 1000.0
+initial_velocity_max = 1000.0
+
+[node name="Glitter3" type="CPUParticles2D" parent="HUD/FriendSlots"]
+position = Vector2(189, 81)
+scale = Vector2(0.04, 0.04)
+emitting = false
+amount = 20
+texture = ExtResource("19_c8jce")
+one_shot = true
+preprocess = 0.06
+speed_scale = 3.3
+explosiveness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(100, 100)
+particle_flag_align_y = true
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 1000.0
+initial_velocity_max = 1000.0
 
 [connection signal="body_entered" from="Obstacle/Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_entered" from="BoilingPot/Area2D" to="." method="_on_area_2d_body_entered"]

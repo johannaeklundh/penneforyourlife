@@ -1,0 +1,40 @@
+[gd_scene load_steps=2 format=3 uid="uid://dbuo8woucfv8n"]
+
+[ext_resource type="Texture2D" uid="uid://4qrp1chh0fdg" path="res://Assets/Sprites/star.png" id="2_uhmfb"]
+
+[node name="CPUParticles2D" type="CPUParticles2D"]
+emitting = false
+speed_scale = 0.9
+explosiveness = 1.0
+emission_shape = 2
+emission_sphere_radius = 128.0
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 413.75
+initial_velocity_max = 1000.0
+linear_accel_min = 89.3
+linear_accel_max = 89.3
+radial_accel_min = 58.25
+radial_accel_max = 58.45
+angle_min = -79.0
+angle_max = 48.5
+scale_amount_min = 0.0
+scale_amount_max = 1.95
+color = Color(1, 0.373887, 0.586529, 1)
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+scale = Vector2(5, 5)
+amount = 50
+texture = ExtResource("2_uhmfb")
+preprocess = 0.06
+speed_scale = 3.3
+explosiveness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(100, 100)
+particle_flag_align_y = true
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 1000.0
+initial_velocity_max = 1000.0
