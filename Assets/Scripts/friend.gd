@@ -6,6 +6,8 @@ extends Node2D
 @onready var e_button: Area2D = $placeholderEButton
 @onready var particles: CPUParticles2D = $RopeParticles
 
+@export var friend_name: String = "broccoli"
+
 var player_near := false
 var freed := false
 var press_count := 0
@@ -47,8 +49,17 @@ func _on_area_body_exited(body: Node2D) -> void:
 
 func _free_friend() -> void:
 	freed = true
-	#anim_sprite.frame = 1  # happy
 	anim_sprite.play("idle")
+	
+	## notify the HUD manager
+	#var hud = get_tree().get_first_node_in_group("HUDManager")
+	#if hud:
+		#hud.send_friend_to_hud(self, friend_name)
+	#
+	## remove from the level after some delay
+	#await get_tree().create_timer(3.0).timeout
+	#queue_free()
+	
 	print("Friend is freed!")
 
 func shake_friend():

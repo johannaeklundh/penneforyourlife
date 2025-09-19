@@ -11,6 +11,33 @@
 [ext_resource type="Texture2D" uid="uid://dydojivpgfxdj" path="res://Assets/Sprites/broccoliStuck.png" id="8_xbf8j"]
 [ext_resource type="Texture2D" uid="uid://deimo4p1ggjjd" path="res://Assets/Sprites/bacon.png" id="9_iuflw"]
 
+[sub_resource type="Animation" id="Animation_xbf8j"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("hand:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(243, -230)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("tomato:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(171, -161)]
+}
+
 [sub_resource type="Animation" id="Animation_s2mtd"]
 resource_name = "intro"
 length = 7.5
@@ -218,33 +245,6 @@ tracks/16/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(0, 0), Vector2(0, 0), Vector2(-50, -9), Vector2(-96.5271, -8.27375)]
-}
-
-[sub_resource type="Animation" id="Animation_xbf8j"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("hand:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(243, -230)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("tomato:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(171, -161)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_v7hcg"]

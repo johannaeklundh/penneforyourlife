@@ -1,18 +1,25 @@
-[gd_scene load_steps=30 format=3 uid="uid://1h24hba514qq"]
+[gd_scene load_steps=48 format=3 uid="uid://1h24hba514qq"]
 
 [ext_resource type="Script" uid="uid://drvp2h6p6ennw" path="res://Assets/Scenes/Areas/area_1.gd" id="1_7fk0h"]
 [ext_resource type="PackedScene" uid="uid://br4bmuwc5rwhj" path="res://Assets/Scenes/player.tscn" id="2_3uyhe"]
 [ext_resource type="TileSet" uid="uid://jnpp80o3230q" path="res://Assets/Sprites/my_tileset.tres" id="2_6rwvx"]
 [ext_resource type="PackedScene" uid="uid://cit4kytxcbs6u" path="res://Assets/Scenes/background.tscn" id="3_8wi1m"]
-[ext_resource type="PackedScene" uid="uid://c2ny5ebpxsh2r" path="res://Assets/Scenes/obstacle.tscn" id="5_5cg6o"]
+[ext_resource type="PackedScene" uid="uid://c2ny5ebpxsh2r" path="res://obstacle.tscn" id="5_5cg6o"]
 [ext_resource type="Texture2D" uid="uid://c374lurfl1ew0" path="res://Assets/Sprites/boilingPot.png" id="5_nlyig"]
 [ext_resource type="Script" uid="uid://coojivlj7ytxw" path="res://Assets/Scripts/tutorial_button.gd" id="6_f20k6"]
 [ext_resource type="Texture2D" uid="uid://ch7ajoyfxrh25" path="res://Assets/Sprites/forwardButton.png" id="6_msn23"]
 [ext_resource type="Texture2D" uid="uid://ctijk4drnxtua" path="res://Assets/Sprites/backwardButton.png" id="8_f20k6"]
 [ext_resource type="Texture2D" uid="uid://cj527o0asfxi1" path="res://Assets/Sprites/spaceButton.png" id="9_0ufq0"]
+[ext_resource type="Script" uid="uid://mi2edq0k7tpa" path="res://Assets/Scripts/friend.gd" id="10_u1wc8"]
+[ext_resource type="Texture2D" uid="uid://4rg4kgpb7xmp" path="res://Assets/Sprites/broccoliIdle.png" id="11_xl8b6"]
+[ext_resource type="Texture2D" uid="uid://dydojivpgfxdj" path="res://Assets/Sprites/broccoliStuck.png" id="12_ys1tx"]
+[ext_resource type="Texture2D" uid="uid://2a384vec7jy6" path="res://Assets/Sprites/placeholderEButton.png" id="14_xl8b6"]
 [ext_resource type="PackedScene" uid="uid://cc5s47rhrhqtp" path="res://Assets/Scenes/broccoli.tscn" id="15_ttsc2"]
-[ext_resource type="PackedScene" uid="uid://c5v2wki4am6s0" path="res://Assets/Scenes/bacon.tscn" id="16_lbrap"]
+[ext_resource type="Texture2D" uid="uid://ugu08h1sfs0t" path="res://Assets/Sprites/ropeSprinkles.png" id="15_ys1tx"]
+[ext_resource type="PackedScene" uid="uid://c5v2wki4am6s0" path="res://bacon.tscn" id="16_lbrap"]
 [ext_resource type="PackedScene" uid="uid://bw2lp40psx22t" path="res://Assets/Scenes/tomato.tscn" id="16_ttsc2"]
+[ext_resource type="Script" uid="uid://hbwbi8gsqyhx" path="res://Assets/Scripts/friend_hud_manager.gd" id="18_c8jce"]
+[ext_resource type="Texture2D" uid="uid://ce7r6sxeyd0aq" path="res://Assets/Sprites/OverlayUtan.png" id="18_xai42"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0ufq0"]
 radius = 25.0
@@ -117,6 +124,92 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_ttsc2"]
+atlas = ExtResource("11_xl8b6")
+region = Rect2(0, 0, 267, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lbrap"]
+atlas = ExtResource("11_xl8b6")
+region = Rect2(534, 0, 267, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ys1tx"]
+atlas = ExtResource("12_ys1tx")
+region = Rect2(0, 0, 370, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xai42"]
+atlas = ExtResource("12_ys1tx")
+region = Rect2(370, 0, 370, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c8jce"]
+atlas = ExtResource("12_ys1tx")
+region = Rect2(740, 0, 370, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5cg6o"]
+atlas = ExtResource("12_ys1tx")
+region = Rect2(0, 0, 370, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u0xoj"]
+atlas = ExtResource("12_ys1tx")
+region = Rect2(370, 0, 370, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p11o7"]
+atlas = ExtResource("12_ys1tx")
+region = Rect2(740, 0, 370, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_klwya"]
+atlas = ExtResource("12_ys1tx")
+region = Rect2(1110, 0, 370, 400)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_u0xoj"]
+animations = [{
+"frames": [{
+"duration": 10.0,
+"texture": SubResource("AtlasTexture_ttsc2")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_lbrap")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ys1tx")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_xai42")
+}, {
+"duration": 3.0,
+"texture": SubResource("AtlasTexture_c8jce")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_xai42")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ys1tx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5cg6o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u0xoj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p11o7")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_klwya")
+}],
+"loop": true,
+"name": &"stuck",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7lgy5"]
+radius = 5.5
+height = 23.0
+
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_6rwvx"]
 
 [node name="Area1" type="Node2D"]
@@ -209,6 +302,59 @@ animation = &"blink"
 autoplay = "blink"
 frame_progress = 0.904331
 
+[node name="BroccoliFriend" type="Node2D" parent="."]
+visible = false
+position = Vector2(305, -128)
+script = ExtResource("10_u1wc8")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="BroccoliFriend"]
+position = Vector2(107, -42)
+scale = Vector2(0.07, 0.07)
+sprite_frames = SubResource("SpriteFrames_u0xoj")
+animation = &"stuck"
+offset = Vector2(0, -50)
+
+[node name="Area2D" type="Area2D" parent="BroccoliFriend"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BroccoliFriend/Area2D"]
+visible = false
+position = Vector2(107, -43)
+rotation = 1.5708
+scale = Vector2(2, 2)
+shape = SubResource("CapsuleShape2D_7lgy5")
+
+[node name="RopeBar" type="TextureProgressBar" parent="BroccoliFriend"]
+visible = false
+offset_left = 87.0
+offset_top = -66.0
+offset_right = 287.0
+offset_bottom = -46.0
+scale = Vector2(0.2, 0.2)
+max_value = 20.0
+
+[node name="RopeParticles" type="CPUParticles2D" parent="BroccoliFriend"]
+position = Vector2(106, -43)
+emitting = false
+amount = 6
+texture = ExtResource("15_ys1tx")
+lifetime = 0.4
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+emission_shape = 2
+emission_sphere_radius = 8.0
+spread = 180.0
+initial_velocity_min = 20.0
+initial_velocity_max = 20.0
+
+[node name="placeholderEButton" type="Area2D" parent="BroccoliFriend"]
+visible = false
+
+[node name="Sprite2D" type="Sprite2D" parent="BroccoliFriend/placeholderEButton"]
+position = Vector2(119, -57)
+scale = Vector2(0.133333, 0.133333)
+texture = ExtResource("14_xl8b6")
+
 [node name="Pit" type="Area2D" parent="."]
 position = Vector2(1533, 303)
 
@@ -236,6 +382,28 @@ offset_top = -1049.0
 offset_right = 1950.0
 offset_bottom = 619.0
 color = Color(0.933, 0, 0, 0.304)
+
+[node name="FriendHUDManager" type="CanvasLayer" parent="."]
+script = ExtResource("18_c8jce")
+
+[node name="TextureRect" type="TextureRect" parent="FriendHUDManager"]
+offset_right = 240.0
+offset_bottom = 140.0
+texture = ExtResource("18_xai42")
+expand_mode = 2
+stretch_mode = 6
+
+[node name="Broccoli" parent="FriendHUDManager" instance=ExtResource("15_ttsc2")]
+visible = false
+position = Vector2(182, -74)
+
+[node name="Bacon" parent="FriendHUDManager" instance=ExtResource("16_lbrap")]
+visible = false
+position = Vector2(362, -73)
+
+[node name="Tomato" parent="FriendHUDManager" instance=ExtResource("16_ttsc2")]
+visible = false
+position = Vector2(334, -152)
 
 [connection signal="body_entered" from="Obstacle/Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_entered" from="BoilingPot/Area2D" to="." method="_on_area_2d_body_entered"]
