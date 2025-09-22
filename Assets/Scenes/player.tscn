@@ -1,27 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://br4bmuwc5rwhj"]
+[gd_scene load_steps=12 format=3 uid="uid://br4bmuwc5rwhj"]
 
 [ext_resource type="Script" uid="uid://cy1cyiq3gmfsu" path="res://Assets/Scripts/player_controller.gd" id="1_7dd06"]
 [ext_resource type="Script" uid="uid://o414gm4wpvwf" path="res://Assets/Scripts/player_animator.gd" id="2_38rej"]
 [ext_resource type="Texture2D" uid="uid://ctexeaeea0nec" path="res://Assets/Sprites/pastaRun.png" id="4_23lac"]
 [ext_resource type="Texture2D" uid="uid://bbcvqm4df2n01" path="res://Assets/Sprites/pastaIdle.png" id="4_t1xgp"]
-
-[sub_resource type="GDScript" id="GDScript_38rej"]
-script/source = "extends Camera2D
-
-@export var target: Node2D
-
-var fixed_y: float
-
-func _ready():
-	if target:
-		# Remember camera's initial Y (lock it)
-		fixed_y = global_position.y
-
-func _process(_delta):
-	if target:
-		global_position.x = lerp(global_position.x, target.global_position.x, 0.1)
-		global_position.y = fixed_y
-"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_23lac"]
 atlas = ExtResource("4_t1xgp")
@@ -79,18 +61,6 @@ height = 26.0
 position = Vector2(0, -5)
 script = ExtResource("1_7dd06")
 speed = 8.0
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(0, 25)
-offset = Vector2(50, -100)
-zoom = Vector2(2.8, 2.8)
-position_smoothing_speed = 10.0
-drag_horizontal_enabled = true
-drag_vertical_enabled = true
-drag_horizontal_offset = 0.4
-drag_top_margin = 1.0
-drag_bottom_margin = 0.0
-script = SubResource("GDScript_38rej")
 
 [node name="PlayerAnimator" type="Node2D" parent="." node_paths=PackedStringArray("player_controller")]
 position = Vector2(0, -1)

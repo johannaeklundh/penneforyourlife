@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://1h24hba514qq"]
+[gd_scene load_steps=47 format=3 uid="uid://1h24hba514qq"]
 
 [ext_resource type="Script" uid="uid://drvp2h6p6ennw" path="res://Assets/Scenes/Areas/area_1.gd" id="1_7fk0h"]
 [ext_resource type="PackedScene" uid="uid://br4bmuwc5rwhj" path="res://Assets/Scenes/player.tscn" id="2_3uyhe"]
@@ -11,8 +11,8 @@
 [ext_resource type="Texture2D" uid="uid://ctijk4drnxtua" path="res://Assets/Sprites/backwardButton.png" id="8_f20k6"]
 [ext_resource type="Texture2D" uid="uid://cj527o0asfxi1" path="res://Assets/Sprites/spaceButton.png" id="9_0ufq0"]
 [ext_resource type="Texture2D" uid="uid://4rg4kgpb7xmp" path="res://Assets/Sprites/broccoliIdle.png" id="11_xl8b6"]
-[ext_resource type="Script" uid="uid://bnic6xqlvt8sr" path="res://Assets/Scripts/follower.gd" id="12_5cg6o"]
-[ext_resource type="Script" path="res://Assets/Scenes/Areas/friend_slots.gd" id="14_xl8b6"]
+[ext_resource type="Script" path="res://Assets/Scripts/follower.gd" id="12_5cg6o"]
+[ext_resource type="Script" uid="uid://dunbiuy65qgs4" path="res://Assets/Scenes/Areas/friend_slots.gd" id="14_xl8b6"]
 [ext_resource type="PackedScene" uid="uid://cc5s47rhrhqtp" path="res://Assets/Scenes/broccoli.tscn" id="15_ttsc2"]
 [ext_resource type="PackedScene" uid="uid://c5v2wki4am6s0" path="res://Assets/Scenes/bacon.tscn" id="16_lbrap"]
 [ext_resource type="PackedScene" uid="uid://bw2lp40psx22t" path="res://Assets/Scenes/tomato.tscn" id="16_ttsc2"]
@@ -20,6 +20,24 @@
 [ext_resource type="Texture2D" uid="uid://deimo4p1ggjjd" path="res://Assets/Sprites/bacon.png" id="18_c8jce"]
 [ext_resource type="Texture2D" uid="uid://ce7r6sxeyd0aq" path="res://Assets/Sprites/OverlayUtan.png" id="18_xai42"]
 [ext_resource type="Texture2D" uid="uid://4qrp1chh0fdg" path="res://Assets/Sprites/star.png" id="19_c8jce"]
+
+[sub_resource type="GDScript" id="GDScript_5cg6o"]
+script/source = "extends Camera2D
+
+@export var target: Node2D
+
+var fixed_y: float
+
+func _ready():
+	if target:
+		# Remember camera's initial Y (lock it)
+		fixed_y = global_position.y
+
+func _process(_delta):
+	if target:
+		global_position.x = lerp(global_position.x, target.global_position.x, 0.1)
+		global_position.y = fixed_y
+"
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0ufq0"]
 radius = 25.0
@@ -211,6 +229,18 @@ tile_set = ExtResource("2_6rwvx")
 
 [node name="Player" parent="." instance=ExtResource("2_3uyhe")]
 position = Vector2(-498, -4.5)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2(0, 25)
+offset = Vector2(50, -100)
+zoom = Vector2(2.8, 2.8)
+position_smoothing_speed = 10.0
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+drag_horizontal_offset = 0.4
+drag_top_margin = 1.0
+drag_bottom_margin = 0.0
+script = SubResource("GDScript_5cg6o")
 
 [node name="background" parent="." instance=ExtResource("3_8wi1m")]
 z_index = -1000
