@@ -51,8 +51,15 @@ func _on_area_body_exited(body: Node2D) -> void:
 		rope_bar.hide()
 
 func _free_friend() -> void:
+	#freed = true
+	#anim_sprite.play("idle")
+	#
 	freed = true
 	anim_sprite.play("idle")
+
+	var ai = get_node("AI")
+	ai.rescue()   # <-- anropar rätt metod i follower.gd
+	print("Friend is freed!")
 	
 	## notify the HUD manager
 	#var hud = get_tree().get_first_node_in_group("HUDManager")
