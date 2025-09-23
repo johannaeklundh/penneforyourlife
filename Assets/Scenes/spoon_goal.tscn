@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://68rn20sr6wos"]
+
+[ext_resource type="Texture2D" uid="uid://th5i0664xyt" path="res://Assets/Sprites/spoon.png" id="1_r4fg7"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_r4fg7"]
+radius = 11.0
+height = 132.325
+
+[node name="SpoonGoal" type="Area2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = -1.78896
+scale = Vector2(1, 1)
+shape = SubResource("CapsuleShape2D_r4fg7")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_r4fg7")

@@ -92,3 +92,9 @@ func screen_shake(camera: Camera2D, intensity: float = 8.0, duration: float = 0.
 
 	# reset to center
 	tween.tween_property(camera, "offset", base_offset, frequency)
+
+func _on_spoon_goal_body_entered(body: Node2D) -> void:
+	if GameState.freed_friends.all(func(x): return x):
+		print("Success") #REPLACE WITH ANIMATION
+	else:
+		print('Not SAVED')

@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=4 uid="uid://1h24hba514qq"]
+[gd_scene load_steps=48 format=4 uid="uid://1h24hba514qq"]
 
 [ext_resource type="Script" uid="uid://drvp2h6p6ennw" path="res://Assets/Scenes/Areas/area_1.gd" id="1_7fk0h"]
 [ext_resource type="PackedScene" uid="uid://br4bmuwc5rwhj" path="res://Assets/Scenes/player.tscn" id="2_3uyhe"]
@@ -20,6 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://deimo4p1ggjjd" path="res://Assets/Sprites/bacon.png" id="18_c8jce"]
 [ext_resource type="Texture2D" uid="uid://ce7r6sxeyd0aq" path="res://Assets/Sprites/OverlayUtan.png" id="18_xai42"]
 [ext_resource type="Texture2D" uid="uid://4qrp1chh0fdg" path="res://Assets/Sprites/star.png" id="19_c8jce"]
+[ext_resource type="PackedScene" uid="uid://68rn20sr6wos" path="res://Assets/Scenes/spoon_goal.tscn" id="21_u0xoj"]
 
 [sub_resource type="GDScript" id="GDScript_5cg6o"]
 script/source = "extends Camera2D
@@ -447,9 +448,13 @@ gravity = Vector2(0, 0)
 initial_velocity_min = 1000.0
 initial_velocity_max = 1000.0
 
+[node name="SpoonGoal" parent="." instance=ExtResource("21_u0xoj")]
+position = Vector2(1078, -20)
+
 [connection signal="body_entered" from="Obstacle/Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_entered" from="BoilingPot/Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_entered" from="Pit" to="." method="_on_pit_body_entered"]
 [connection signal="freed_friend" from="Broccoli" to="HUD/FriendSlots" method="_on_broccoli_freed_friend"]
 [connection signal="freed_friend" from="Bacon" to="HUD/FriendSlots" method="_on_bacon_freed_friend"]
 [connection signal="freed_friend" from="Tomato" to="HUD/FriendSlots" method="_on_tomato_freed_friend"]
+[connection signal="body_entered" from="SpoonGoal" to="." method="_on_spoon_goal_body_entered"]
