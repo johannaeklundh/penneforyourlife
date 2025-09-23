@@ -8,6 +8,7 @@ extends Node2D
 
 @export var friend_name: String = "broccoli"
 @export var freed := false
+@export var friendIndex := 0
 
 var player_near := false
 #var freed := false
@@ -17,7 +18,10 @@ const PRESS_LIMIT := 5
 signal freed_friend(friend)
 
 func _ready() -> void:
-	anim_sprite.play("stuck")
+	if GameState.freed_friends[friendIndex]:
+		anim_sprite.play("idle")
+	else:
+		anim_sprite.play("stuck")
 	rope_bar.min_value = 0
 	rope_bar.max_value = PRESS_LIMIT
 	rope_bar.value = 0

@@ -25,11 +25,11 @@ func _ready():
 		# First prompt
 		forward_button.show_prompt()
 	
-	for friend in get_tree().get_nodes_in_group("friends"):
-		print(friend.name)
-		print(friend.freed)
-		
-		
+	
+func reset_game_state():
+	GameState.start_prompt_shown = false
+	GameState.tutorial_finished = false
+	GameState.freed_friends = [false, false, false]
 
 func _on_forward_done():
 	backward_button.show_prompt()

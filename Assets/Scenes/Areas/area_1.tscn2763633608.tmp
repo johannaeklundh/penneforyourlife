@@ -11,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://ctijk4drnxtua" path="res://Assets/Sprites/backwardButton.png" id="8_f20k6"]
 [ext_resource type="Texture2D" uid="uid://cj527o0asfxi1" path="res://Assets/Sprites/spaceButton.png" id="9_0ufq0"]
 [ext_resource type="Texture2D" uid="uid://4rg4kgpb7xmp" path="res://Assets/Sprites/broccoliIdle.png" id="11_xl8b6"]
-[ext_resource type="Script" uid="uid://bnic6xqlvt8sr" path="res://Assets/Scripts/follower.gd" id="12_5cg6o"]
+[ext_resource type="Script" path="res://Assets/Scripts/follower.gd" id="12_5cg6o"]
 [ext_resource type="Script" uid="uid://dunbiuy65qgs4" path="res://Assets/Scenes/Areas/friend_slots.gd" id="14_xl8b6"]
 [ext_resource type="PackedScene" uid="uid://cc5s47rhrhqtp" path="res://Assets/Scenes/broccoli.tscn" id="15_ttsc2"]
 [ext_resource type="PackedScene" uid="uid://c5v2wki4am6s0" path="res://Assets/Scenes/bacon.tscn" id="16_lbrap"]
@@ -323,7 +323,6 @@ shape = SubResource("SegmentShape2D_6rwvx")
 
 [node name="Broccoli" parent="." groups=["friends"] instance=ExtResource("15_ttsc2")]
 position = Vector2(182, -74)
-friendIndex = 2
 
 [node name="AI" type="Node2D" parent="Broccoli" node_paths=PackedStringArray("player")]
 script = ExtResource("12_5cg6o")
@@ -336,7 +335,6 @@ friend_name = "bacon"
 [node name="Tomato" parent="." groups=["friends"] instance=ExtResource("16_ttsc2")]
 position = Vector2(334, -152)
 friend_name = "tomato"
-friendIndex = 1
 
 [node name="ColorRect" type="ColorRect" parent="."]
 visible = false

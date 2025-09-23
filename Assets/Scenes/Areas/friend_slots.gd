@@ -4,13 +4,26 @@ extends Control
 @onready var glitter = [$Glitter1, $Glitter2, $Glitter3] 
 @onready var camera: Camera2D = $"../../Player/Camera2D"
 
+#func _ready() -> void:
+	#for i in GameState.freed_friends.size():
+		#if GameState.freed_friends[i]:
+			#slots[i].visible = true
+			#var friend_node = slots[i].get_parent() # if the slot contains the friend node
+			#if friend_node and friend_node.has_method("_free_friend"):
+				#friend_node._free_friend()
+
+
+
 func _on_bacon_freed_friend(friend: Node2D) -> void:
+	GameState.freed_friends[0] = true
 	animate_friend_to_slot(friend, 0)
 
 func _on_tomato_freed_friend(friend: Node2D) -> void:
+	GameState.freed_friends[1] = true
 	animate_friend_to_slot(friend, 1)
 
 func _on_broccoli_freed_friend(friend: Node2D) -> void:
+	GameState.freed_friends[2] = true
 	animate_friend_to_slot(friend, 2)
 
 func animate_friend_to_slot(friend: Node2D, index: int) -> void:
@@ -30,10 +43,7 @@ func animate_friend_to_slot(friend: Node2D, index: int) -> void:
 
 	var local_pos: Vector2 = get_global_transform_with_canvas().affine_inverse() * screen_pos
 	
-
-
 	sprite.position = local_pos
-
 
 	# Tween to HUD slot
 	var tween = create_tween()
@@ -44,4 +54,5 @@ func animate_friend_to_slot(friend: Node2D, index: int) -> void:
 		sprite.queue_free()
 		slots[index].visible = true
 		glitter[index].emitting = true
+		
 	)
