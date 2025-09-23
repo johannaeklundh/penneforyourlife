@@ -12,6 +12,11 @@ extends Control
 			#if friend_node and friend_node.has_method("_free_friend"):
 				#friend_node._free_friend()
 
+func _ready() -> void:
+	# On load, fill slots for already freed friends
+	for i in GameState.freed_friends.size():
+		if GameState.freed_friends[i]:
+			fill_slot(i)
 
 
 func _on_bacon_freed_friend(friend: Node2D) -> void:
@@ -52,7 +57,9 @@ func animate_friend_to_slot(friend: Node2D, index: int) -> void:
 	#tween.tween_property(sprite, "global_position", slots[index].global_position, 0.8)
 	tween.finished.connect(func():
 		sprite.queue_free()
-		slots[index].visible = true
-		glitter[index].emitting = true
-		
+		fill_slot(index)
 	)
+	
+func fill_slot(index: int) -> void:
+	slots[index].visible = true
+	glitter[index].emitting = true
