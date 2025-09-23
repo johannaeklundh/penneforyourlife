@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://c5v2wki4am6s0"]
+[gd_scene load_steps=14 format=3 uid="uid://c5v2wki4am6s0"]
 
 [ext_resource type="Script" uid="uid://mi2edq0k7tpa" path="res://Assets/Scripts/friend.gd" id="1_1rtig"]
 [ext_resource type="Texture2D" uid="uid://deimo4p1ggjjd" path="res://Assets/Sprites/bacon.png" id="2_rvjsq"]
@@ -91,7 +91,10 @@ animations = [{
 radius = 5.5
 height = 23.0
 
-[node name="Bacon" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vfwhs"]
+size = Vector2(11, 28)
+
+[node name="Bacon" type="CharacterBody2D"]
 script = ExtResource("1_1rtig")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -139,3 +142,7 @@ visible = false
 position = Vector2(13, -17)
 scale = Vector2(0.133333, 0.133333)
 texture = ExtResource("5_cvf7k")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, -4)
+shape = SubResource("RectangleShape2D_vfwhs")

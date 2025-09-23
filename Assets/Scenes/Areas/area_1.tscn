@@ -333,10 +333,18 @@ player = NodePath("../../Player")
 position = Vector2(362, -73)
 friend_name = "bacon"
 
+[node name="AI" type="Node2D" parent="Bacon" node_paths=PackedStringArray("player")]
+script = ExtResource("12_5cg6o")
+player = NodePath("../../Player")
+
 [node name="Tomato" parent="." groups=["friends"] instance=ExtResource("16_ttsc2")]
 position = Vector2(334, -152)
 friend_name = "tomato"
 friendIndex = 1
+
+[node name="AI" type="Node2D" parent="Tomato" node_paths=PackedStringArray("player")]
+script = ExtResource("12_5cg6o")
+player = NodePath("../../Player")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 visible = false

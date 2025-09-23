@@ -92,7 +92,7 @@ animations = [{
 radius = 5.5
 height = 23.0
 
-[node name="Friend" type="Node2D"]
+[node name="Friend" type="CharacterBody2D"]
 script = ExtResource("1_onesv")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cc5s47rhrhqtp"]
+[gd_scene load_steps=18 format=3 uid="uid://cc5s47rhrhqtp"]
 
 [ext_resource type="Script" uid="uid://mi2edq0k7tpa" path="res://Assets/Scripts/friend.gd" id="1_2i2eb"]
 [ext_resource type="Texture2D" uid="uid://4rg4kgpb7xmp" path="res://Assets/Sprites/broccoliIdle.png" id="2_h14lv"]
@@ -92,7 +92,10 @@ animations = [{
 radius = 5.5
 height = 23.0
 
-[node name="Broccoli" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2i2eb"]
+size = Vector2(18, 25)
+
+[node name="Broccoli" type="CharacterBody2D"]
 script = ExtResource("1_2i2eb")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -139,3 +142,7 @@ visible = false
 position = Vector2(13, -17)
 scale = Vector2(0.133333, 0.133333)
 texture = ExtResource("5_40udc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -3.5)
+shape = SubResource("RectangleShape2D_2i2eb")
