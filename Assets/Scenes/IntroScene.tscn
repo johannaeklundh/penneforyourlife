@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://br3xou1o8uj8o"]
+[gd_scene load_steps=38 format=3 uid="uid://br3xou1o8uj8o"]
 
 [ext_resource type="Texture2D" uid="uid://dmd358lw1k2ff" path="res://Assets/Sprites/tomato.png" id="1_kxtio"]
 [ext_resource type="Script" uid="uid://dep4rg48wsony" path="res://Assets/Scenes/intro_scene.gd" id="1_xbf8j"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://4rg4kgpb7xmp" path="res://Assets/Sprites/broccoliIdle.png" id="7_v7hcg"]
 [ext_resource type="Texture2D" uid="uid://dydojivpgfxdj" path="res://Assets/Sprites/broccoliStuck.png" id="8_xbf8j"]
 [ext_resource type="Texture2D" uid="uid://deimo4p1ggjjd" path="res://Assets/Sprites/bacon.png" id="9_iuflw"]
+[ext_resource type="Texture2D" uid="uid://c4plwkw6om6wt" path="res://Assets/Sprites/textToSkip.png" id="11_iuflw"]
 
 [sub_resource type="Animation" id="Animation_xbf8j"]
 length = 0.001
@@ -552,3 +553,17 @@ rotation = -1.82387
 scale = Vector2(0.25, 0.25)
 sprite_frames = SubResource("SpriteFrames_8722x")
 animation = &"open"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 50.0
+offset_top = -95.0
+offset_right = 527.0
+grow_vertical = 0
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("11_iuflw")
+stretch_mode = 2
