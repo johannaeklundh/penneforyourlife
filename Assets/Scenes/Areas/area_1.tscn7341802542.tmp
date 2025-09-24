@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=4 uid="uid://1h24hba514qq"]
+[gd_scene load_steps=50 format=4 uid="uid://1h24hba514qq"]
 
 [ext_resource type="Script" uid="uid://drvp2h6p6ennw" path="res://Assets/Scenes/Areas/area_1.gd" id="1_7fk0h"]
 [ext_resource type="PackedScene" uid="uid://br4bmuwc5rwhj" path="res://Assets/Scenes/player.tscn" id="2_3uyhe"]
@@ -40,6 +40,9 @@ func _process(_delta):
 		global_position.x = lerp(global_position.x, target.global_position.x, 0.1)
 		global_position.y = fixed_y
 "
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p11o7"]
+size = Vector2(40, 300)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0ufq0"]
 radius = 25.0
@@ -252,8 +255,13 @@ position = Vector2(41, -127)
 scale = Vector2(2.5, 2.5)
 
 [node name="ObstacleFaucet" parent="." instance=ExtResource("22_p11o7")]
-z_index = -1
 position = Vector2(-230, -30)
+
+[node name="WaterArea2" type="Area2D" parent="ObstacleFaucet"]
+
+[node name="CollisionShapeArea" type="CollisionShape2D" parent="ObstacleFaucet/WaterArea2"]
+position = Vector2(-70, 76.6667)
+shape = SubResource("RectangleShape2D_p11o7")
 
 [node name="Obstacle" parent="." instance=ExtResource("5_5cg6o")]
 position = Vector2(28, -11)
@@ -459,6 +467,7 @@ initial_velocity_max = 1000.0
 [node name="SpoonGoal" parent="." instance=ExtResource("21_u0xoj")]
 position = Vector2(1150, -18)
 
+[connection signal="body_entered" from="ObstacleFaucet/WaterArea2" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_entered" from="Obstacle/Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_entered" from="BoilingPot/Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_entered" from="Pit" to="." method="_on_pit_body_entered"]

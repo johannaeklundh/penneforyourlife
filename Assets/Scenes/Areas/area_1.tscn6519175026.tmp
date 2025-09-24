@@ -216,7 +216,6 @@ animations = [{
 script = ExtResource("1_7fk0h")
 
 [node name="TileMap" type="TileMap" parent="."]
-z_index = -2
 tile_set = ExtResource("2_6rwvx")
 format = 2
 layer_0/name = "one_way_ground"
@@ -250,10 +249,6 @@ script = SubResource("GDScript_5cg6o")
 z_index = -1000
 position = Vector2(41, -127)
 scale = Vector2(2.5, 2.5)
-
-[node name="ObstacleFaucet" parent="." instance=ExtResource("22_p11o7")]
-z_index = -1
-position = Vector2(-230, -30)
 
 [node name="Obstacle" parent="." instance=ExtResource("5_5cg6o")]
 position = Vector2(28, -11)
@@ -458,6 +453,9 @@ initial_velocity_max = 1000.0
 
 [node name="SpoonGoal" parent="." instance=ExtResource("21_u0xoj")]
 position = Vector2(1150, -18)
+
+[node name="obstacleFaucet" parent="." instance=ExtResource("22_p11o7")]
+position = Vector2(-145, -29)
 
 [connection signal="body_entered" from="Obstacle/Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_entered" from="BoilingPot/Area2D" to="." method="_on_area_2d_body_entered"]

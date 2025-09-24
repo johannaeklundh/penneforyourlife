@@ -252,7 +252,6 @@ position = Vector2(41, -127)
 scale = Vector2(2.5, 2.5)
 
 [node name="ObstacleFaucet" parent="." instance=ExtResource("22_p11o7")]
-z_index = -1
 position = Vector2(-230, -30)
 
 [node name="Obstacle" parent="." instance=ExtResource("5_5cg6o")]

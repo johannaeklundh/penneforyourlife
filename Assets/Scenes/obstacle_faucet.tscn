@@ -1,0 +1,58 @@
+[gd_scene load_steps=9 format=3 uid="uid://bckai1logl3na"]
+
+[ext_resource type="Script" uid="uid://bikrl064i6tur" path="res://Assets/Scripts/obstacle_faucet.gd" id="1_032cq"]
+[ext_resource type="Texture2D" uid="uid://bebhjvrg5v4g1" path="res://Assets/Sprites/faucet.png" id="2_ymx2i"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ymx2i"]
+atlas = ExtResource("2_ymx2i")
+region = Rect2(756, 0, 756, 472)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ckcww"]
+atlas = ExtResource("2_ymx2i")
+region = Rect2(1512, 0, 756, 472)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_032cq"]
+atlas = ExtResource("2_ymx2i")
+region = Rect2(0, 0, 756, 472)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ct3wt"]
+animations = [{
+"frames": [{
+"duration": 4.0,
+"texture": SubResource("AtlasTexture_ymx2i")
+}, {
+"duration": 4.0,
+"texture": SubResource("AtlasTexture_ckcww")
+}, {
+"duration": 4.0,
+"texture": SubResource("AtlasTexture_032cq")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ororg"]
+size = Vector2(103, 171.167)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nx85x"]
+size = Vector2(40, 293.333)
+
+[node name="ObstacleFaucet" type="StaticBody2D"]
+scale = Vector2(0.1, 0.15)
+script = ExtResource("1_032cq")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_ct3wt")
+autoplay = "default"
+frame_progress = 0.419357
+
+[node name="FaucetCollision" type="CollisionShape2D" parent="."]
+position = Vector2(-50, -152.25)
+shape = SubResource("RectangleShape2D_ororg")
+
+[node name="WaterArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WaterArea"]
+position = Vector2(-70, 80)
+shape = SubResource("RectangleShape2D_nx85x")

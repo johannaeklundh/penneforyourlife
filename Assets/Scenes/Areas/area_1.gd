@@ -58,6 +58,24 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		await get_tree().create_timer(0.8).timeout
 		call_deferred("_restart_scene")
 
+func _on_water_entered(body: Node) -> void:
+	if body.name == "Player":
+		# Hurt logic – this can be local or call into area_1
+		if body.has_node("PlayerAnimator"):
+			body.get_node("PlayerAnimator").play_hurt()
+
+		if body.has_node("Camera2D"):
+			var cam: Camera2D = body.get_node("Camera2D")
+			# optional: call up to parent if needed
+			if get_parent().has_method("screen_shake"):
+				get_parent().screen_shake(cam, 8.0, 0.4, 0.05)
+
+		if get_parent().has_method("show_hurt_overlay"):
+			get_parent().show_hurt_overlay()
+
+		await get_tree().create_timer(0.8).timeout
+		get_tree().reload_current_scene()
+
 func _restart_scene():
 	get_tree().reload_current_scene()
 
