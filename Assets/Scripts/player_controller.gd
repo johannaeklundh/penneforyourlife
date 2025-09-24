@@ -56,4 +56,9 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, speed * speed_multiplier)
 
+	if Input.is_action_just_pressed("interact"):
+		if has_node("PlayerAnimator"):
+			get_node("PlayerAnimator").play_attack()
+
+
 	move_and_slide()

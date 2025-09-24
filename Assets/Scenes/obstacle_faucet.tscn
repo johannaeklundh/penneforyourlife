@@ -45,7 +45,7 @@ script = ExtResource("1_032cq")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ct3wt")
 autoplay = "default"
-frame_progress = 0.490793
+frame_progress = 0.214723
 
 [node name="FaucetCollision" type="CollisionShape2D" parent="."]
 position = Vector2(-50, -152.25)

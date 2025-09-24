@@ -5,17 +5,31 @@ extends Node2D
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 var is_blinking := false
+var is_attacking := false
 
 func _process(_delta):
+	
+	if is_attacking:
+		# Let the hit animation finish, don’t override
+		if not sprite.is_playing():
+			is_attacking = false
+		else:
+			return
+	
 	if player_controller.direction == 1:
 		sprite.flip_h = false
 	elif player_controller.direction == -1:
 		sprite.flip_h = true
+
 		
 	if abs(player_controller.velocity.x) > 0.0:
 		sprite.play("run")
 	else:
 		sprite.play("idle")
+
+func play_attack():
+	is_attacking = true
+	sprite.play("hit") 
 
 func play_hurt():
 	if is_blinking: 

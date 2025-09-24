@@ -48,7 +48,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		# Animator is a child of Player
 		var animator = body.get_node("PlayerAnimator")
 		animator.play_hurt()
-		
+				
 		show_hurt_overlay()
 		# find the camera on the player
 		var cam = body.get_node("Camera2D")
@@ -64,7 +64,6 @@ func _restart_scene():
 func _on_pit_body_entered(body: Node2D) -> void:
 	if body.name == "Player":
 		call_deferred("_restart_scene")
-		
 		
 func show_hurt_overlay() -> void:
 	overlay.show()
