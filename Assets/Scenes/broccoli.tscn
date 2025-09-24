@@ -1,10 +1,10 @@
-[gd_scene load_steps=18 format=3 uid="uid://cc5s47rhrhqtp"]
+[gd_scene load_steps=21 format=3 uid="uid://cc5s47rhrhqtp"]
 
 [ext_resource type="Script" uid="uid://mi2edq0k7tpa" path="res://Assets/Scripts/friend.gd" id="1_2i2eb"]
 [ext_resource type="Texture2D" uid="uid://4rg4kgpb7xmp" path="res://Assets/Sprites/broccoliIdle.png" id="2_h14lv"]
 [ext_resource type="Texture2D" uid="uid://dydojivpgfxdj" path="res://Assets/Sprites/broccoliStuck.png" id="3_ovxw1"]
 [ext_resource type="Texture2D" uid="uid://ugu08h1sfs0t" path="res://Assets/Sprites/ropeSprinkles.png" id="4_h02k6"]
-[ext_resource type="Texture2D" uid="uid://2a384vec7jy6" path="res://Assets/Sprites/placeholderEButton.png" id="5_40udc"]
+[ext_resource type="Texture2D" uid="uid://cpaqrxs3yk00a" path="res://Assets/Sprites/eButton.png" id="5_2i2eb"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ttsc2"]
 atlas = ExtResource("2_h14lv")
@@ -95,6 +95,28 @@ height = 23.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2i2eb"]
 size = Vector2(18, 25)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_5uw41"]
+atlas = ExtResource("5_2i2eb")
+region = Rect2(0, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pw32c"]
+atlas = ExtResource("5_2i2eb")
+region = Rect2(150, 0, 150, 150)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h14lv"]
+animations = [{
+"frames": [{
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_5uw41")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_pw32c")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="Broccoli" type="CharacterBody2D"]
 script = ExtResource("1_2i2eb")
 
@@ -135,14 +157,15 @@ spread = 180.0
 initial_velocity_min = 20.0
 initial_velocity_max = 20.0
 
-[node name="placeholderEButton" type="Area2D" parent="."]
-visible = false
-
-[node name="Sprite2D" type="Sprite2D" parent="placeholderEButton"]
-position = Vector2(13, -17)
-scale = Vector2(0.133333, 0.133333)
-texture = ExtResource("5_40udc")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -3.5)
 shape = SubResource("RectangleShape2D_2i2eb")
+
+[node name="EButton" type="Area2D" parent="."]
+visible = false
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="EButton"]
+position = Vector2(18.375, -14.625)
+scale = Vector2(0.101667, 0.101667)
+sprite_frames = SubResource("SpriteFrames_h14lv")
+autoplay = "default"

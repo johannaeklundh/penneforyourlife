@@ -3,7 +3,7 @@ extends Node2D
 @onready var anim_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var area: Area2D = $Area2D
 @onready var rope_bar: TextureProgressBar = $RopeBar
-@onready var e_button: Area2D = $placeholderEButton
+@onready var e_button: Area2D = $EButton
 @onready var particles: CPUParticles2D = $RopeParticles
 
 @export var friend_name: String = "broccoli"

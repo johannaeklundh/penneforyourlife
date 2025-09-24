@@ -1,9 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://c5v2wki4am6s0"]
+[gd_scene load_steps=17 format=3 uid="uid://c5v2wki4am6s0"]
 
 [ext_resource type="Script" uid="uid://mi2edq0k7tpa" path="res://Assets/Scripts/friend.gd" id="1_1rtig"]
 [ext_resource type="Texture2D" uid="uid://deimo4p1ggjjd" path="res://Assets/Sprites/bacon.png" id="2_rvjsq"]
 [ext_resource type="Texture2D" uid="uid://ugu08h1sfs0t" path="res://Assets/Sprites/ropeSprinkles.png" id="4_fxtva"]
-[ext_resource type="Texture2D" uid="uid://2a384vec7jy6" path="res://Assets/Sprites/placeholderEButton.png" id="5_cvf7k"]
+[ext_resource type="Texture2D" uid="uid://cpaqrxs3yk00a" path="res://Assets/Sprites/eButton.png" id="4_vfwhs"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1rtig"]
 atlas = ExtResource("2_rvjsq")
@@ -94,6 +94,28 @@ height = 23.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vfwhs"]
 size = Vector2(11, 28)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_5uw41"]
+atlas = ExtResource("4_vfwhs")
+region = Rect2(0, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pw32c"]
+atlas = ExtResource("4_vfwhs")
+region = Rect2(150, 0, 150, 150)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_chj1k"]
+animations = [{
+"frames": [{
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_5uw41")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_pw32c")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="Bacon" type="CharacterBody2D"]
 script = ExtResource("1_1rtig")
 
@@ -135,14 +157,15 @@ spread = 180.0
 initial_velocity_min = 20.0
 initial_velocity_max = 20.0
 
-[node name="placeholderEButton" type="Area2D" parent="."]
-visible = false
-
-[node name="Sprite2D" type="Sprite2D" parent="placeholderEButton"]
-position = Vector2(13, -17)
-scale = Vector2(0.133333, 0.133333)
-texture = ExtResource("5_cvf7k")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, -4)
 shape = SubResource("RectangleShape2D_vfwhs")
+
+[node name="EButton" type="Area2D" parent="."]
+visible = false
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="EButton"]
+position = Vector2(18.375, -14.625)
+scale = Vector2(0.101667, 0.101667)
+sprite_frames = SubResource("SpriteFrames_chj1k")
+autoplay = "default"

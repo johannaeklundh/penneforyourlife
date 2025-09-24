@@ -1,9 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://bw2lp40psx22t"]
+[gd_scene load_steps=16 format=3 uid="uid://bw2lp40psx22t"]
 
 [ext_resource type="Script" uid="uid://mi2edq0k7tpa" path="res://Assets/Scripts/friend.gd" id="1_3j8gi"]
 [ext_resource type="Texture2D" uid="uid://dmd358lw1k2ff" path="res://Assets/Sprites/tomato.png" id="2_d1kpk"]
+[ext_resource type="Texture2D" uid="uid://cpaqrxs3yk00a" path="res://Assets/Sprites/eButton.png" id="4_d1kpk"]
 [ext_resource type="Texture2D" uid="uid://ugu08h1sfs0t" path="res://Assets/Sprites/ropeSprinkles.png" id="4_llklh"]
-[ext_resource type="Texture2D" uid="uid://2a384vec7jy6" path="res://Assets/Sprites/placeholderEButton.png" id="5_7n77d"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3j8gi"]
 atlas = ExtResource("2_d1kpk")
@@ -75,6 +75,28 @@ height = 23.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d1kpk"]
 size = Vector2(20, 27)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_5uw41"]
+atlas = ExtResource("4_d1kpk")
+region = Rect2(0, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pw32c"]
+atlas = ExtResource("4_d1kpk")
+region = Rect2(150, 0, 150, 150)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3j8gi"]
+animations = [{
+"frames": [{
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_5uw41")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_pw32c")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="Tomato" type="CharacterBody2D"]
 script = ExtResource("1_3j8gi")
 
@@ -116,14 +138,15 @@ spread = 180.0
 initial_velocity_min = 20.0
 initial_velocity_max = 20.0
 
-[node name="placeholderEButton" type="Area2D" parent="."]
-visible = false
-
-[node name="Sprite2D" type="Sprite2D" parent="placeholderEButton"]
-position = Vector2(13, -17)
-scale = Vector2(0.133333, 0.133333)
-texture = ExtResource("5_7n77d")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -4.5)
 shape = SubResource("RectangleShape2D_d1kpk")
+
+[node name="EButton" type="Area2D" parent="."]
+visible = false
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="EButton"]
+position = Vector2(18.375, -14.625)
+scale = Vector2(0.101667, 0.101667)
+sprite_frames = SubResource("SpriteFrames_3j8gi")
+autoplay = "default"
