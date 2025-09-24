@@ -16,11 +16,28 @@ var direction = 0.0
 #const JUMP_VELOCITY = -400.0
 var jumps_left := max_jumps
 
+var launched := false
+
+
 # Timers for smoother jumps
 var coyote_timer := 0.0
 var jump_buffer_timer := 0.0
 
+func catapult_launch(vel: Vector2, duration: float = 0.6) -> void:
+	launched = true
+	velocity = vel
+	# the function yields so the launch is honored for `duration` seconds
+	await get_tree().create_timer(duration).timeout
+	launched = false
+
+
 func _physics_process(delta: float) -> void:
+	
+	if launched:
+		velocity += get_gravity() * delta
+		move_and_slide()
+		return 
+		
 	if not can_move:
 		velocity = Vector2.ZERO
 		return

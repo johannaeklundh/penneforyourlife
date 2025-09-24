@@ -405,7 +405,11 @@ initial_velocity_max = 1000.0
 
 [node name="SpoonGoal" parent="." instance=ExtResource("21_u0xoj")]
 z_index = -1
-position = Vector2(1109, -8)
+position = Vector2(993, -2.00002)
+rotation = 0.471239
+launch_force = 20.0
+launch_angle = Vector2(50, -40)
+launch_duration = 0.5
 
 [connection signal="body_entered" from="Obstacle/Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_entered" from="Pit" to="." method="_on_pit_body_entered"]
