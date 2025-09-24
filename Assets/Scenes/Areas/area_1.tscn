@@ -324,11 +324,12 @@ shape = SubResource("SegmentShape2D_6rwvx")
 
 [node name="Broccoli" parent="." groups=["friends"] instance=ExtResource("15_ttsc2")]
 position = Vector2(182, -74)
-friendIndex = 2
+friend_index = 2
 
 [node name="AI" type="Node2D" parent="Broccoli" node_paths=PackedStringArray("player")]
 script = ExtResource("12_5cg6o")
 player = NodePath("../../Player")
+friend_index = 2
 
 [node name="Bacon" parent="." groups=["friends"] instance=ExtResource("16_lbrap")]
 position = Vector2(362, -73)
@@ -341,11 +342,12 @@ player = NodePath("../../Player")
 [node name="Tomato" parent="." groups=["friends"] instance=ExtResource("16_ttsc2")]
 position = Vector2(334, -152)
 friend_name = "tomato"
-friendIndex = 1
+friend_index = 1
 
 [node name="AI" type="Node2D" parent="Tomato" node_paths=PackedStringArray("player")]
 script = ExtResource("12_5cg6o")
 player = NodePath("../../Player")
+friend_index = 1
 
 [node name="ColorRect" type="ColorRect" parent="."]
 visible = false

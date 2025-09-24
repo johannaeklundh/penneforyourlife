@@ -4,20 +4,11 @@ extends Control
 @onready var glitter = [$Glitter1, $Glitter2, $Glitter3] 
 @onready var camera: Camera2D = $"../../Player/Camera2D"
 
-#func _ready() -> void:
-	#for i in GameState.freed_friends.size():
-		#if GameState.freed_friends[i]:
-			#slots[i].visible = true
-			#var friend_node = slots[i].get_parent() # if the slot contains the friend node
-			#if friend_node and friend_node.has_method("_free_friend"):
-				#friend_node._free_friend()
-
 func _ready() -> void:
 	# On load, fill slots for already freed friends
 	for i in GameState.freed_friends.size():
 		if GameState.freed_friends[i]:
 			fill_slot(i)
-
 
 func _on_bacon_freed_friend(friend: Node2D) -> void:
 	GameState.freed_friends[0] = true
@@ -54,7 +45,6 @@ func animate_friend_to_slot(friend: Node2D, index: int) -> void:
 	var tween = create_tween()
 	tween.tween_property(sprite, "position", slots[index].position, 0.9).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 
-	#tween.tween_property(sprite, "global_position", slots[index].global_position, 0.8)
 	tween.finished.connect(func():
 		sprite.queue_free()
 		fill_slot(index)

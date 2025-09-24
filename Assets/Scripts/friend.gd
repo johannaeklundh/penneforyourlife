@@ -8,17 +8,19 @@ extends Node2D
 
 @export var friend_name: String = "broccoli"
 @export var freed := false
-@export var friendIndex := 0
+@export var friend_index := 0
 
 var player_near := false
-#var freed := false
 var press_count := 0
 const PRESS_LIMIT := 5
 
 signal freed_friend(friend)
 
 func _ready() -> void:
-	if GameState.freed_friends[friendIndex]:
+	
+	freed = GameState.freed_friends[friend_index]
+	
+	if freed:
 		anim_sprite.play("idle")
 	else:
 		anim_sprite.play("stuck")
@@ -55,26 +57,15 @@ func _on_area_body_exited(body: Node2D) -> void:
 		rope_bar.hide()
 
 func _free_friend() -> void:
-	#freed = true
-	#anim_sprite.play("idle")
-	#
 	freed = true
 	anim_sprite.play("idle")
+	
+	GameState.freed_friends[friend_index] = true
 
 	var ai = get_node("AI")
 	ai.rescue()   # <-- anropar rätt metod i follower.gd
 	print("Friend is freed!")
 	
-	## notify the HUD manager
-	#var hud = get_tree().get_first_node_in_group("HUDManager")
-	#if hud:
-		#hud.send_friend_to_hud(self, friend_name)
-	#
-	## remove from the level after some delay
-	#await get_tree().create_timer(3.0).timeout
-	#queue_free()
-	
-	#emit_signal("freed_friend", self)	
 	freed_friend.emit(self)
 	print(friend_name, " is freed!")
 

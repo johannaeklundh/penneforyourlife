@@ -3,11 +3,14 @@ extends Node2D
 @export var speed := 100.0
 @export var gravity := 800.0
 @export var player: Node2D
+@export var friend_index := 0
 
 var is_rescued := false
 var tree_root
 
 func _ready() -> void:
+	if GameState.freed_friends[friend_index]:
+		is_rescued = true
 	_build_behavior_tree()
 
 func _physics_process(delta: float) -> void:
