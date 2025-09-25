@@ -58,11 +58,11 @@ func try_jump_toward_player(delta: float) -> void:
 	if parent == null or player == null:
 		return
 	
-	var vertical_diff = player.global_position.y - parent.global_position.y
+	var vertical_diff = abs(player.global_position.y - parent.global_position.y)
 
 	# If player is above us by at least ~20px and we are on floor
-	if vertical_diff < -20 and parent.is_on_floor():
-		parent.velocity.y = -300  # tune this to match your player's jump_power * multiplier
+	if vertical_diff > 150 and parent.is_on_floor():
+		parent.velocity.y = -200  # tune this to match your player's jump_power * multiplier
 
 func try_drop_down_toward_player() -> void:
 	var parent = get_parent() as CharacterBody2D
