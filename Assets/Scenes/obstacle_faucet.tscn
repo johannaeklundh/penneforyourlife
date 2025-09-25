@@ -40,6 +40,8 @@ size = Vector2(40, 293.333)
 
 [node name="ObstacleFaucet" type="StaticBody2D"]
 scale = Vector2(0.1, 0.15)
+collision_layer = 8
+collision_mask = 2
 script = ExtResource("1_032cq")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -52,6 +54,8 @@ position = Vector2(-50, -152.25)
 shape = SubResource("RectangleShape2D_ororg")
 
 [node name="WaterArea" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WaterArea"]
 position = Vector2(-70, 80)

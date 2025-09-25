@@ -72,8 +72,9 @@ animations = [{
 radius = 5.5
 height = 23.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_d1kpk"]
-size = Vector2(20, 27)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d1kpk"]
+radius = 8.0
+height = 27.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5uw41"]
 atlas = ExtResource("4_d1kpk")
@@ -98,6 +99,7 @@ animations = [{
 }]
 
 [node name="Tomato" type="CharacterBody2D"]
+collision_layer = 4
 script = ExtResource("1_3j8gi")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -108,6 +110,8 @@ frame_progress = 0.314431
 offset = Vector2(0, -50)
 
 [node name="Area2D" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 visible = false
@@ -139,8 +143,8 @@ initial_velocity_min = 20.0
 initial_velocity_max = 20.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -4.5)
-shape = SubResource("RectangleShape2D_d1kpk")
+position = Vector2(0, -4)
+shape = SubResource("CapsuleShape2D_d1kpk")
 
 [node name="EButton" type="Area2D" parent="."]
 visible = false

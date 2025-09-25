@@ -68,6 +68,28 @@ class MoveTowardPlayer extends BTNode:
 		actor.move_toward_player(delta)
 		return Status.SUCCESS
 
+class JumpTowardPlayer extends BTNode:
+	func tick(actor, delta) -> int:
+		var parent = actor.get_parent() as CharacterBody2D
+		if parent == null or actor.player == null:
+			return Status.FAILURE
+
+		var vertical_diff = actor.player.global_position.y - parent.global_position.y
+
+		# Only trigger jump if on floor
+		if vertical_diff < -20 and parent.is_on_floor():
+			parent.velocity.y = -300  # jump impulse
+			return Status.SUCCESS
+
+		# Don’t keep forcing jump
+		return Status.FAILURE
+
+class IsPlayerAbove extends BTNode:
+	func tick(actor, delta) -> int:
+		if actor.player == null:
+			return Status.FAILURE
+		return Status.SUCCESS if actor.player.global_position.y < actor.global_position.y - 20 else Status.FAILURE
+
 
 class IdleAnimation extends BTNode:
 	func tick(actor, delta) -> int:

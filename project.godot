@@ -63,6 +63,14 @@ interact={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="ground"
+2d_physics/layer_2="player"
+2d_physics/layer_3="friends"
+2d_physics/layer_4="obstacles"
+2d_physics/layer_5="interact"
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
