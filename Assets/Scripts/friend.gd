@@ -16,14 +16,14 @@ const PRESS_LIMIT := 5
 
 signal freed_friend(friend)
 
-func _ready() -> void:
-	
+func _ready() -> void:	
 	freed = GameState.freed_friends[friend_index]
 	
 	if freed:
 		anim_sprite.play("idle")
 	else:
 		anim_sprite.play("stuck")
+		
 	rope_bar.min_value = 0
 	rope_bar.max_value = PRESS_LIMIT
 	rope_bar.value = 0
@@ -42,6 +42,9 @@ func _process(_delta: float) -> void:
 		if press_count >= PRESS_LIMIT:
 			e_button.hide()
 			_free_friend()
+	
+	if abs(self.velocity.x) > 0.0 and freed:
+		anim_sprite.play("run")
 
 func _on_area_body_entered(body: Node2D) -> void:
 	if body.name == "Player" and not freed:

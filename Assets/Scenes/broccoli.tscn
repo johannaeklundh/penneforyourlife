@@ -84,6 +84,38 @@ animations = [{
 "texture": SubResource("AtlasTexture_klwya")
 }],
 "loop": true,
+"name": &"run",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ys1tx")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_xai42")
+}, {
+"duration": 3.0,
+"texture": SubResource("AtlasTexture_c8jce")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_xai42")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ys1tx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5cg6o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u0xoj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p11o7")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_klwya")
+}],
+"loop": true,
 "name": &"stuck",
 "speed": 5.0
 }]
@@ -127,6 +159,7 @@ script = ExtResource("1_2i2eb")
 scale = Vector2(0.07, 0.07)
 sprite_frames = SubResource("SpriteFrames_kdb68")
 animation = &"idle"
+autoplay = "stuck"
 offset = Vector2(0, -50)
 
 [node name="Area2D" type="Area2D" parent="."]
