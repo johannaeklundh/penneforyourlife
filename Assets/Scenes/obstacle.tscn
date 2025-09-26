@@ -45,5 +45,6 @@ animation = &"boilingPot"
 autoplay = "boilingPot"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(-1, -1)
 shape = SubResource("CapsuleShape2D_vcivv")

@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://68rn20sr6wos"]
 
-[ext_resource type="Script" uid="uid://c8i4delpkonys" path="res://Assets/Scenes/spoon_goal.gd" id="1_mluox"]
+[ext_resource type="Script" uid="uid://c8i4delpkonys" path="res://Assets/Scripts/spoon_goal.gd" id="1_mluox"]
 [ext_resource type="Texture2D" uid="uid://th5i0664xyt" path="res://Assets/Sprites/spoon.png" id="1_r4fg7"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_r4fg7"]

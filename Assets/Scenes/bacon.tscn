@@ -163,6 +163,7 @@ initial_velocity_min = 20.0
 initial_velocity_max = 20.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, -4)
 shape = SubResource("CapsuleShape2D_vfwhs")
 

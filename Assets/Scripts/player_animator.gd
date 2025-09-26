@@ -28,6 +28,7 @@ func _process(_delta):
 		sprite.play("idle")
 
 func play_attack():
+				
 	is_attacking = true
 	sprite.play("hit") 
 

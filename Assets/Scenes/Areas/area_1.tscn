@@ -1,6 +1,6 @@
-[gd_scene load_steps=43 format=4 uid="uid://1h24hba514qq"]
+[gd_scene load_steps=46 format=4 uid="uid://1h24hba514qq"]
 
-[ext_resource type="Script" uid="uid://drvp2h6p6ennw" path="res://Assets/Scenes/Areas/area_1.gd" id="1_7fk0h"]
+[ext_resource type="Script" uid="uid://drvp2h6p6ennw" path="res://Assets/Scripts/area_1.gd" id="1_7fk0h"]
 [ext_resource type="PackedScene" uid="uid://br4bmuwc5rwhj" path="res://Assets/Scenes/player.tscn" id="2_3uyhe"]
 [ext_resource type="TileSet" uid="uid://jnpp80o3230q" path="res://Assets/Sprites/my_tileset.tres" id="2_6rwvx"]
 [ext_resource type="PackedScene" uid="uid://cit4kytxcbs6u" path="res://Assets/Scenes/background.tscn" id="3_8wi1m"]
@@ -11,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://cj527o0asfxi1" path="res://Assets/Sprites/spaceButton.png" id="9_0ufq0"]
 [ext_resource type="Texture2D" uid="uid://4rg4kgpb7xmp" path="res://Assets/Sprites/broccoliIdle.png" id="11_xl8b6"]
 [ext_resource type="Script" uid="uid://bnic6xqlvt8sr" path="res://Assets/Scripts/follower.gd" id="12_5cg6o"]
-[ext_resource type="Script" uid="uid://dunbiuy65qgs4" path="res://Assets/Scenes/Areas/friend_slots.gd" id="14_xl8b6"]
+[ext_resource type="Script" uid="uid://dunbiuy65qgs4" path="res://Assets/Scripts/friend_slots.gd" id="14_xl8b6"]
 [ext_resource type="PackedScene" uid="uid://cc5s47rhrhqtp" path="res://Assets/Scenes/broccoli.tscn" id="15_ttsc2"]
 [ext_resource type="PackedScene" uid="uid://c5v2wki4am6s0" path="res://Assets/Scenes/bacon.tscn" id="16_lbrap"]
 [ext_resource type="PackedScene" uid="uid://bw2lp40psx22t" path="res://Assets/Scenes/tomato.tscn" id="16_ttsc2"]
@@ -19,8 +19,11 @@
 [ext_resource type="Texture2D" uid="uid://deimo4p1ggjjd" path="res://Assets/Sprites/bacon.png" id="18_c8jce"]
 [ext_resource type="Texture2D" uid="uid://ce7r6sxeyd0aq" path="res://Assets/Sprites/OverlayUtan.png" id="18_xai42"]
 [ext_resource type="Texture2D" uid="uid://4qrp1chh0fdg" path="res://Assets/Sprites/star.png" id="19_c8jce"]
+[ext_resource type="Texture2D" uid="uid://c6ktskl6xao1v" path="res://Assets/Sprites/doubleJumpMessage.png" id="21_j7vlb"]
 [ext_resource type="PackedScene" uid="uid://68rn20sr6wos" path="res://Assets/Scenes/spoon_goal.tscn" id="21_u0xoj"]
+[ext_resource type="PackedScene" uid="uid://cpj4enb6bro6x" path="res://Assets/Scenes/double_jump_power_up.tscn" id="22_klwya"]
 [ext_resource type="PackedScene" uid="uid://bckai1logl3na" path="res://Assets/Scenes/obstacle_faucet.tscn" id="22_p11o7"]
+[ext_resource type="Script" uid="uid://cjwxun4qh412x" path="res://Assets/Scripts/double_jump_message.gd" id="24_g3rwo"]
 
 [sub_resource type="GDScript" id="GDScript_5cg6o"]
 script/source = "extends Camera2D
@@ -230,6 +233,7 @@ collision_layer = 8
 collision_mask = 2
 
 [node name="CollisionShapeArea" type="CollisionShape2D" parent="Obstacle/Area2D"]
+visible = false
 position = Vector2(-1, -1)
 shape = SubResource("CapsuleShape2D_0ufq0")
 
@@ -407,13 +411,25 @@ gravity = Vector2(0, 0)
 initial_velocity_min = 1000.0
 initial_velocity_max = 1000.0
 
+[node name="doubleJumpMessage" type="Sprite2D" parent="HUD" groups=["message"]]
+visible = false
+position = Vector2(550, 280)
+scale = Vector2(0.723022, 0.649148)
+texture = ExtResource("21_j7vlb")
+script = ExtResource("24_g3rwo")
+
 [node name="SpoonGoal" parent="." instance=ExtResource("21_u0xoj")]
 z_index = -1
 position = Vector2(993, -2.00002)
 rotation = 0.471239
+collision_layer = 16
+collision_mask = 2
 launch_force = 20.0
 launch_angle = Vector2(50, -40)
 launch_duration = 0.5
+
+[node name="doubleJump" parent="." instance=ExtResource("22_klwya")]
+position = Vector2(106, -60)
 
 [connection signal="body_entered" from="Obstacle/Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_entered" from="Pit" to="." method="_on_pit_body_entered"]
