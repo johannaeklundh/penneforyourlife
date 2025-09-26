@@ -15,7 +15,7 @@ func _on_body_entered(body: Node) -> void:
 	if not GameState.freed_friends.all(func(x): return x):
 		print("Not SAVED")
 		wiggle_spoon()
-		#highlight_overlay()
+		highlight_overlay()
 		return
 
 	# animate spoon rotating like a catapult
@@ -44,15 +44,21 @@ func wiggle_spoon() -> void:
 	tween.tween_property(self, "rotation_degrees", -10, 0.1)
 	tween.tween_property(self, "rotation_degrees", 10, 0.2)
 	tween.tween_property(self, "rotation_degrees", 0, 0.2)
-	
-#func highlight_overlay() -> void: #THIS STAYS RED IF STANDING TOO LONG ON THE SPOON
-	#var overlay = get_tree().current_scene.get_node("HUD/FriendSlots/Overlay")
-	#if overlay:
-		## Save original color so we can return to it
-		#var original_color: Color = overlay.modulate
-		#var tween = create_tween()
-		#
-		## Flash red
-		#tween.tween_property(overlay, "modulate", Color(1, 0, 0, 1), 0.1)
-		## Go back to original (gray) after
-		#tween.tween_property(overlay, "modulate", original_color, 0.1).set_delay(0.1)
+var is_flashing := false
+
+func highlight_overlay() -> void:
+	if is_flashing:
+		return
+	is_flashing = true
+
+	var overlay = get_tree().current_scene.get_node("HUD/FriendSlots/Overlay")
+	if not overlay:
+		is_flashing = false
+		return
+
+	var original_color: Color = overlay.modulate
+	var tween = create_tween()
+
+	tween.tween_property(overlay, "modulate", Color(1, 0, 0, 0.5), 0.1)
+	tween.tween_property(overlay, "modulate", original_color, 0.1).set_delay(0.1)
+	tween.finished.connect(func(): is_flashing = false)
