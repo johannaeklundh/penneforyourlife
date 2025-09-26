@@ -34,14 +34,13 @@ func _process(_delta: float) -> void:
 	if player_near and not freed and Input.is_action_just_pressed("interact"):
 		press_count += 1
 		rope_bar.value = press_count
-		
-		e_button.hide() #should update with an animation
-		
+				
 		# feedback
 		shake_friend()
 		burst_particles()
 
 		if press_count >= PRESS_LIMIT:
+			e_button.hide()
 			_free_friend()
 
 func _on_area_body_entered(body: Node2D) -> void:

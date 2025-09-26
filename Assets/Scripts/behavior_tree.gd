@@ -6,7 +6,7 @@ enum Status { SUCCESS, FAILURE, RUNNING }
 
 # --- Basnoder ---
 class BTNode:
-	func tick(actor, delta) -> int:
+	func tick(_actor, _delta) -> int:
 		return Status.FAILURE
 
 class Selector extends BTNode:
@@ -29,23 +29,23 @@ class Sequence extends BTNode:
 
 # --- Condition nodes ---
 class IsRescued extends BTNode:
-	func tick(actor, delta) -> int:
+	func tick(actor, _delta) -> int:
 		return Status.SUCCESS if actor.is_rescued else Status.FAILURE
 
 class IsFarFromPlayer extends BTNode:
-	func tick(actor, delta) -> int:
+	func tick(actor, _delta) -> int:
 		if actor.player == null:
 			return Status.FAILURE
 		return Status.SUCCESS if actor.global_position.distance_to(actor.player.global_position) > 60 else Status.FAILURE
 
 class IsCloseToPlayer extends BTNode:
-	func tick(actor, delta) -> int:
+	func tick(actor, _delta) -> int:
 		if actor.player == null:
 			return Status.FAILURE
 		return Status.SUCCESS if actor.global_position.distance_to(actor.player.global_position) <= 60 else Status.FAILURE
 
 class IsGroundAhead extends BTNode:
-	func tick(actor, delta) -> int:
+	func tick(actor, _delta) -> int:
 		var dir_x = sign(actor.player.global_position.x - actor.global_position.x)
 		if dir_x == 0:
 			return Status.FAILURE
@@ -61,7 +61,6 @@ class IsGroundAhead extends BTNode:
 
 		return Status.SUCCESS if result else Status.FAILURE
 
-
 # --- Action nodes ---
 class MoveTowardPlayer extends BTNode:
 	func tick(actor, delta) -> int:
@@ -69,7 +68,7 @@ class MoveTowardPlayer extends BTNode:
 		return Status.SUCCESS
 
 class JumpTowardPlayer extends BTNode:
-	func tick(actor, delta) -> int:
+	func tick(actor, _delta) -> int:
 		var parent = actor.get_parent() as CharacterBody2D
 		if parent == null or actor.player == null:
 			return Status.FAILURE
@@ -85,13 +84,12 @@ class JumpTowardPlayer extends BTNode:
 		return Status.FAILURE
 
 class IsPlayerAbove extends BTNode:
-	func tick(actor, delta) -> int:
+	func tick(actor, _delta) -> int:
 		if actor.player == null:
 			return Status.FAILURE
 		return Status.SUCCESS if actor.player.global_position.y < actor.global_position.y - 20 else Status.FAILURE
 
-
 class IdleAnimation extends BTNode:
-	func tick(actor, delta) -> int:
+	func tick(actor, _delta) -> int:
 		actor.idle()
 		return Status.SUCCESS
