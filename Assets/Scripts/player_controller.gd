@@ -3,7 +3,7 @@ class_name PlayerController
 
 @export var speed = 10.0
 @export var jump_power = 10.0
-@export var max_jumps := 2   # <-- how many jumps allowed (2 = double jump)
+@export var max_jumps := 1   # <-- how many jumps allowed (2 = double jump)
 @export var coyote_time := 0.15   # seconds after leaving ground you can still jump
 @export var jump_buffer := 0.15   # seconds before landing that a jump press is stored
 
@@ -22,6 +22,13 @@ var launched := false
 # Timers for smoother jumps
 var coyote_timer := 0.0
 var jump_buffer_timer := 0.0
+
+func _ready() -> void:
+	if GameState.has_double_jump:
+		max_jumps = 2
+	else:
+		max_jumps = 1
+
 
 func catapult_launch(vel: Vector2, duration: float = 0.6) -> void:
 	launched = true
