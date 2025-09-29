@@ -45,6 +45,16 @@ func _process(_delta: float) -> void:
 	
 	if abs(self.velocity.x) > 0.0 and freed:
 		anim_sprite.play("run")
+	elif freed:
+		anim_sprite.play("idle") 
+	else:
+		anim_sprite.play("stuck")
+		
+	if freed:
+		if self.velocity.x > 0:
+			anim_sprite.flip_h = false
+		elif self.velocity.x < 0:
+			anim_sprite.flip_h = true
 
 func _on_area_body_entered(body: Node2D) -> void:
 	if body.name == "Player" and not freed:
