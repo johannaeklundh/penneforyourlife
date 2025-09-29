@@ -61,7 +61,7 @@ func try_jump_toward_player(delta: float) -> void:
 	var vertical_diff = player.global_position.y - parent.global_position.y
 
 	if vertical_diff < 150 and parent.is_on_floor():
-		parent.velocity.y = -200  # tune this to match your player's jump_power * multiplier
+		parent.velocity.y = -300  # tune this to match your player's jump_power * multiplier
 
 func try_drop_down_toward_player() -> void:
 	var parent = get_parent() as CharacterBody2D
@@ -80,6 +80,14 @@ func idle() -> void:
 		return
 	parent.velocity.x = 0
 	parent.move_and_slide()
+
+func play_teleport_effect(pos: Vector2) -> void:
+	var particles = get_node_or_null("../Glitter")
+	if particles:
+		particles.global_position = pos
+		particles.emitting = false
+		await get_tree().process_frame
+		particles.emitting = true
 
 func _build_behavior_tree() -> void:
 	
@@ -108,5 +116,12 @@ func _build_behavior_tree() -> void:
 	BehaviorTree.IsPlayerAbove.new(), # simple condition node
 	BehaviorTree.JumpTowardPlayer.new()
 ]
-	root.children = [follow_seq, jump_seq, idle_seq]
+
+	var teleport_seq = BehaviorTree.Sequence.new()
+	teleport_seq.children = [
+		BehaviorTree.IsRescued.new(),
+		BehaviorTree.TeleportIfTooFar.new()
+	]
+
+	root.children = [jump_seq, follow_seq, teleport_seq, idle_seq]
 	tree_root = root

@@ -51,15 +51,19 @@ class IsGroundAhead extends BTNode:
 			return Status.FAILURE
 
 		var space_state = actor.get_world_2d().direct_space_state
-		var start = actor.global_position + Vector2(dir_x * 16, 0)
+		var start = actor.global_position + Vector2(dir_x * 16, 16)  # lower ray origin
 		var end = start + Vector2(0, 32)
 
 		var query = PhysicsRayQueryParameters2D.create(start, end)
 		query.exclude = [actor]
-
 		var result = space_state.intersect_ray(query)
 
-		return Status.SUCCESS if result else Status.FAILURE
+		# Also move if player is higher/lower
+		if result or abs(actor.player.global_position.y - actor.global_position.y) > 40:
+			return Status.SUCCESS
+
+		return Status.FAILURE
+
 
 # --- Action nodes ---
 class MoveTowardPlayer extends BTNode:
@@ -93,3 +97,30 @@ class IdleAnimation extends BTNode:
 	func tick(actor, _delta) -> int:
 		actor.idle()
 		return Status.SUCCESS
+
+
+class TeleportIfTooFar extends BTNode:
+	func tick(actor, _delta) -> int:
+		var parent = actor.get_parent() as CharacterBody2D
+		if parent == null or actor.player == null:
+			return Status.FAILURE
+
+		var distance = parent.global_position.distance_to(actor.player.global_position)
+		if distance > 500:  # Teleport threshold
+			# Play teleport effect before moving
+			actor.play_teleport_effect(parent.global_position)
+
+			# Determine offset
+			var offset = Vector2(50, 0)
+			if actor.player.global_position.x < parent.global_position.x:
+				offset.x *= -1
+
+			# Teleport
+			parent.global_position = actor.player.global_position + offset
+
+			# Play effect after teleport
+			actor.play_teleport_effect(parent.global_position)
+
+			return Status.SUCCESS
+
+		return Status.FAILURE
