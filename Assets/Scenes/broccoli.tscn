@@ -155,7 +155,7 @@ scale = Vector2(0.07, 0.07)
 sprite_frames = SubResource("SpriteFrames_kdb68")
 animation = &"stuck"
 autoplay = "stuck"
-frame_progress = 0.674243
+frame_progress = 0.744464
 offset = Vector2(0, -50)
 
 [node name="Area2D" type="Area2D" parent="."]

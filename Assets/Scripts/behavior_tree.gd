@@ -64,6 +64,12 @@ class IsGroundAhead extends BTNode:
 
 		return Status.FAILURE
 
+class IsPlayerAbove extends BTNode:
+	func tick(actor, _delta) -> int:
+		if actor.player == null:
+			return Status.FAILURE
+		return Status.SUCCESS if actor.player.global_position.y < actor.global_position.y - 20 else Status.FAILURE
+
 
 # --- Action nodes ---
 class MoveTowardPlayer extends BTNode:
@@ -87,17 +93,10 @@ class JumpTowardPlayer extends BTNode:
 		# Don’t keep forcing jump
 		return Status.FAILURE
 
-class IsPlayerAbove extends BTNode:
-	func tick(actor, _delta) -> int:
-		if actor.player == null:
-			return Status.FAILURE
-		return Status.SUCCESS if actor.player.global_position.y < actor.global_position.y - 20 else Status.FAILURE
-
 class IdleAnimation extends BTNode:
 	func tick(actor, _delta) -> int:
 		actor.idle()
 		return Status.SUCCESS
-
 
 class TeleportIfTooFar extends BTNode:
 	func tick(actor, _delta) -> int:
@@ -106,7 +105,7 @@ class TeleportIfTooFar extends BTNode:
 			return Status.FAILURE
 
 		var distance = parent.global_position.distance_to(actor.player.global_position)
-		if distance > 500:  # Teleport threshold
+		if distance > 600:  # Teleport threshold
 			# Play teleport effect before moving
 			actor.play_teleport_effect(parent.global_position)
 

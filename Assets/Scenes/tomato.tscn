@@ -127,8 +127,8 @@ script = ExtResource("1_3j8gi")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.08, 0.08)
 sprite_frames = SubResource("SpriteFrames_acwbv")
-animation = &"run"
-frame_progress = 0.519837
+animation = &"idle"
+frame_progress = 0.947233
 offset = Vector2(0, -50)
 
 [node name="Area2D" type="Area2D" parent="."]

@@ -20,11 +20,11 @@ func _on_body_entered(body: Node) -> void:
 
 	# animate spoon rotating like a catapult
 	var tween = create_tween()
-	tween.tween_property(sprite, "rotation_degrees", -45.0, 0.18).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	tween.tween_property(sprite, "rotation_degrees", -45.0, 0.6).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	tween.tween_property(sprite, "rotation_degrees", 0.0, 0.35).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT)
 
 	# small delay so the rotation is visible before the player leaves
-	await get_tree().create_timer(0.12).timeout
+	await get_tree().create_timer(0.65).timeout
 
 	# compute velocity and launch
 	var vel := launch_angle * launch_force

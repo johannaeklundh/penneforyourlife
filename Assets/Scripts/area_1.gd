@@ -65,6 +65,8 @@ func _on_pit_body_entered(body: Node2D) -> void:
 	if body.name == "Player":
 		call_deferred("_restart_scene")
 		
+
+
 func show_hurt_overlay() -> void:
 	overlay.show()
 	overlay.modulate.a = 0.0
@@ -90,3 +92,17 @@ func screen_shake(camera: Camera2D, intensity: float = 8.0, duration: float = 0.
 
 	# reset to center
 	tween.tween_property(camera, "offset", base_offset, frequency)
+
+
+func _on_finish_line_body_entered(body: Node2D) -> void:
+	if body.name == "Player":
+		var cam: Camera2D = body.get_node("Camera2D")
+
+		# Stop camera following the player
+
+		cam.position = global_position  # lock at finish line position
+		cam.make_current() # ADD CAMERA TO FINSIHLINE TO MAKE IT CURRENT
+
+		# Get the finish text from HUD (in global group "endMessage")
+		var finish_text = get_tree().get_first_node_in_group("endMessage")
+		finish_text.show_and_fade()

@@ -100,7 +100,7 @@ func _build_behavior_tree() -> void:
 	BehaviorTree.IsGroundAhead.new(),
 	BehaviorTree.MoveTowardPlayer.new(),
 	BehaviorTree.JumpTowardPlayer.new(),
-]
+	]
 
 	var idle_seq = BehaviorTree.Sequence.new()
 	idle_seq.children = [
@@ -113,9 +113,9 @@ func _build_behavior_tree() -> void:
 	jump_seq.children = [
 	BehaviorTree.IsRescued.new(),
 	BehaviorTree.IsFarFromPlayer.new(),
-	BehaviorTree.IsPlayerAbove.new(), # simple condition node
+	BehaviorTree.IsPlayerAbove.new(),
 	BehaviorTree.JumpTowardPlayer.new()
-]
+	]
 
 	var teleport_seq = BehaviorTree.Sequence.new()
 	teleport_seq.children = [

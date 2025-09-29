@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://1h24hba514qq"]
+[gd_scene load_steps=49 format=3 uid="uid://1h24hba514qq"]
 
 [ext_resource type="Script" uid="uid://drvp2h6p6ennw" path="res://Assets/Scripts/area_1.gd" id="1_7fk0h"]
 [ext_resource type="PackedScene" uid="uid://br4bmuwc5rwhj" path="res://Assets/Scenes/player.tscn" id="2_3uyhe"]
@@ -23,7 +23,9 @@
 [ext_resource type="PackedScene" uid="uid://68rn20sr6wos" path="res://Assets/Scenes/spoon_goal.tscn" id="21_u0xoj"]
 [ext_resource type="PackedScene" uid="uid://cpj4enb6bro6x" path="res://Assets/Scenes/double_jump_power_up.tscn" id="22_klwya"]
 [ext_resource type="PackedScene" uid="uid://bckai1logl3na" path="res://Assets/Scenes/obstacle_faucet.tscn" id="22_p11o7"]
+[ext_resource type="Texture2D" uid="uid://68ahorgp3e5w" path="res://Assets/Sprites/EndText.png" id="23_g3rwo"]
 [ext_resource type="Script" uid="uid://cjwxun4qh412x" path="res://Assets/Scripts/double_jump_message.gd" id="24_g3rwo"]
+[ext_resource type="Script" uid="uid://bc4lyjhx2hagh" path="res://Assets/Scenes/Areas/finish_text.gd" id="24_sxlx6"]
 
 [sub_resource type="GDScript" id="GDScript_5cg6o"]
 script/source = "extends Camera2D
@@ -182,6 +184,10 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_j7vlb"]
+a = Vector2(-324.268, -565.649)
+b = Vector2(136.268, 240.023)
+
 [node name="Area1" type="Node2D"]
 script = ExtResource("1_7fk0h")
 
@@ -215,7 +221,7 @@ script = SubResource("GDScript_5cg6o")
 
 [node name="background" parent="." instance=ExtResource("3_8wi1m")]
 z_index = -1000
-position = Vector2(41, -127)
+position = Vector2(1289, -127)
 scale = Vector2(2.5, 2.5)
 
 [node name="ObstacleFaucet" parent="." instance=ExtResource("22_p11o7")]
@@ -485,9 +491,16 @@ scale = Vector2(0.723022, 0.649148)
 texture = ExtResource("21_j7vlb")
 script = ExtResource("24_g3rwo")
 
+[node name="finishText" type="Sprite2D" parent="HUD" groups=["endMessage"]]
+visible = false
+position = Vector2(962, 528)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("23_g3rwo")
+script = ExtResource("24_sxlx6")
+
 [node name="SpoonGoal" parent="." instance=ExtResource("21_u0xoj")]
 z_index = -1
-position = Vector2(1684, -5.00002)
+position = Vector2(1662, -5.00006)
 rotation = 0.471239
 collision_layer = 16
 collision_mask = 2
@@ -528,6 +541,17 @@ collision_mask = 2
 position = Vector2(-1, -1)
 shape = SubResource("CapsuleShape2D_0ufq0")
 
+[node name="FinishLine" type="Area2D" parent="."]
+z_index = 3
+position = Vector2(-424, -26)
+collision_layer = 8
+collision_mask = 2
+priority = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FinishLine"]
+rotation = 0.523598
+shape = SubResource("SegmentShape2D_j7vlb")
+
 [connection signal="body_entered" from="Obstacle/Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_entered" from="Pit" to="." method="_on_pit_body_entered"]
 [connection signal="freed_friend" from="Broccoli" to="HUD/FriendSlots" method="_on_broccoli_freed_friend"]
@@ -536,3 +560,4 @@ shape = SubResource("CapsuleShape2D_0ufq0")
 [connection signal="body_entered" from="SpoonGoal" to="." method="_on_spoon_goal_body_entered"]
 [connection signal="body_entered" from="Obstacle2/Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_entered" from="Obstacle3/Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="FinishLine" to="." method="_on_finish_line_body_entered"]
