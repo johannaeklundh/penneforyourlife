@@ -20,12 +20,22 @@ func _process(_delta):
 		sprite.flip_h = false
 	elif player_controller.direction == -1:
 		sprite.flip_h = true
-
+	
+		# Falling check (y increasing means going down in Godot)
+	if not player_controller.is_on_floor() and player_controller.velocity.y > 0.0:
+		sprite.play("fall")
+		return
 		
+	if not player_controller.is_on_floor() and player_controller.velocity.y < 0.0:
+		sprite.play("jump")
+		return
+	
 	if abs(player_controller.velocity.x) > 0.0:
 		sprite.play("run")
 	else:
 		sprite.play("idle")
+		
+
 
 func play_attack():
 				

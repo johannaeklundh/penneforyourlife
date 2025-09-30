@@ -38,6 +38,14 @@ func catapult_launch(vel: Vector2, duration: float = 0.6) -> void:
 	launched = false
 
 
+func spawn_jump_puff():
+	var puff_scene = preload("res://Assets/Scenes/puff.tscn") # adjust path
+	var puff = puff_scene.instantiate()
+	get_parent().add_child(puff)
+	# Position near player feet
+	puff.global_position = global_position + Vector2(0, 8)
+
+
 func _physics_process(delta: float) -> void:
 	
 	if launched:
@@ -71,6 +79,7 @@ func _physics_process(delta: float) -> void:
 		velocity.y = jump_power * jump_multiplier
 		jumps_left -= 1
 		jump_buffer_timer = 0  # consume buffer
+		spawn_jump_puff()
 
 
 	# Handle movement
