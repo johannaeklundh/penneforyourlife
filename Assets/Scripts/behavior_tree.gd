@@ -141,6 +141,10 @@ class TeleportIfTooFar extends BTNode:
 		if parent == null or actor.player == null:
 			return Status.FAILURE
 
+		var distance = parent.global_position.distance_to(actor.player.global_position)
+		# Debug: skriv ut avståndet
+		# print("Avstånd mellan vän och pastan: ", distance)
+
 		# Om vi redan håller på att teleportera
 		if teleporting:
 			timer -= delta
@@ -150,7 +154,6 @@ class TeleportIfTooFar extends BTNode:
 			return Status.RUNNING
 
 		# Starta teleport
-		var distance = parent.global_position.distance_to(actor.player.global_position)
 		if distance > 600:
 			# Spela start-effekt
 			actor.play_teleport_effect(parent.global_position)
@@ -184,7 +187,10 @@ static var node_registry := {
 	"JumpTowardPlayer": JumpTowardPlayer,
 	"IdleAnimation": IdleAnimation,
 	"TeleportIfTooFar": TeleportIfTooFar,
+	"Wait": Wait,
+	"MoveTowardPlayerFast": MoveTowardPlayerFast,
 }
+
 
 static func build_tree(definition: Dictionary) -> BTNode:
 	var node_type = definition.get("type", null)
@@ -202,3 +208,37 @@ static func build_tree(definition: Dictionary) -> BTNode:
 				node.children.append(child)
 	
 	return node
+
+
+# --- Extra noder för variation mellan vänner ---
+
+# Vänta en viss tid (ex. blyg vän innan den följer)
+class Wait extends BTNode:
+	var time := 1.0
+	var timer := 0.0
+	var waiting := false
+
+	func tick(actor, delta) -> int:
+		if not waiting:
+			timer = time
+			waiting = true
+		
+		timer -= delta
+		if timer <= 0:
+			waiting = false
+			return Status.SUCCESS
+		return Status.RUNNING
+
+
+# Variant av MoveTowardPlayer som rör sig snabbare
+class MoveTowardPlayerFast extends MoveTowardPlayer:
+	func tick(actor, delta) -> int:
+		var parent = actor.get_parent() as CharacterBody2D
+		if parent == null or actor.player == null:
+			return Status.FAILURE
+
+		var old_speed = actor.speed
+		actor.speed *= 1.5   # snabbare!
+		var result = super.tick(actor, delta)
+		actor.speed = old_speed
+		return result

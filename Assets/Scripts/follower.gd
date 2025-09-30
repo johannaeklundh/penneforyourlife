@@ -89,33 +89,60 @@ func play_teleport_effect(pos: Vector2) -> void:
 		await get_tree().process_frame
 		particles.emitting = true
 
+# -------------------------------------------------------------------
+# Träd-definitioner för olika vänner
+# -------------------------------------------------------------------
 func _build_behavior_tree() -> void:
-	var tree_def = {
+	var tree_def = get_base_friend_bt()
+
+	match friend_index:
+		0: # blyg vän → lägg till en Wait innan Move
+			var follow_seq = tree_def["children"][2]  # tredje barnet = follow-seq
+			follow_seq["children"].insert(1, {"type": "Wait", "time": 2.0})
+
+		1: # snabb vän → byt MoveTowardPlayer mot MoveTowardPlayerFast
+			var follow_seq = tree_def["children"][2]
+			follow_seq["children"][3] = {"type": "MoveTowardPlayerFast"}
+
+		2: # trött vän → lägg till Wait innan Idle
+			var idle_seq = tree_def["children"][3]  # fjärde barnet = idle-seq
+			idle_seq["children"].insert(2, {"type": "Wait", "time": 1.5})
+
+		_: # default → inga ändringar
+			pass
+
+	tree_root = BehaviorTree.build_tree(tree_def)
+
+
+# Standard (alla vänner utan specialbeteende)
+func get_base_friend_bt() -> Dictionary:
+	return {
 		"type": "Selector",
 		"children": [
+			# Teleport först
+			{ "type": "Sequence", "children": [
+				{ "type": "IsRescued" },
+				{ "type": "TeleportIfTooFar" }
+			]},
+			# Hoppa om spelaren är ovanför
 			{ "type": "Sequence", "children": [
 				{ "type": "IsRescued" },
 				{ "type": "IsFarFromPlayer" },
 				{ "type": "IsPlayerAbove" },
 				{ "type": "JumpTowardPlayer" }
 			]},
+			# Följ på marken
 			{ "type": "Sequence", "children": [
 				{ "type": "IsRescued" },
 				{ "type": "IsFarFromPlayer" },
 				{ "type": "IsGroundAhead" },
-				{ "type": "MoveTowardPlayer" },
-				{ "type": "JumpTowardPlayer" }
+				{ "type": "MoveTowardPlayer" } # <- kan ersättas med Fast-varianten
 			]},
-			{ "type": "Sequence", "children": [
-				{ "type": "IsRescued" },
-				{ "type": "TeleportIfTooFar" }
-			]},
+			# Idla när nära spelaren
 			{ "type": "Sequence", "children": [
 				{ "type": "IsRescued" },
 				{ "type": "IsCloseToPlayer" },
-				{ "type": "IdleAnimation" }
+				{ "type": "IdleAnimation" } # <- kan kompletteras med Wait
 			]}
 		]
 	}
-	
-	tree_root = BehaviorTree.build_tree(tree_def)
