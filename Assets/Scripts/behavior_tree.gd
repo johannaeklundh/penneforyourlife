@@ -78,19 +78,52 @@ class MoveTowardPlayer extends BTNode:
 		return Status.SUCCESS
 
 class JumpTowardPlayer extends BTNode:
-	func tick(actor, _delta) -> int:
+	var jumping := false
+	var cooldown := 0.0
+	
+	func tick(actor, delta) -> int:
 		var parent = actor.get_parent() as CharacterBody2D
 		if parent == null or actor.player == null:
 			return Status.FAILURE
 
+		# Cooldown
+		if cooldown > 0.0:
+			cooldown -= delta
+			return Status.FAILURE
+
+		# Om vi redan hoppar → vänta på landning
+		if jumping:
+			if parent.is_on_floor():
+				jumping = false
+				cooldown = 0.3
+				return Status.SUCCESS
+			return Status.RUNNING
+
+		# --- Gap eller hinder framför? ---
+		var dir_x = sign(actor.player.global_position.x - actor.global_position.x)
+		if dir_x != 0 and parent.is_on_floor():
+			var space_state = actor.get_world_2d().direct_space_state
+			
+			# gap-kontroll (samma princip som IsGroundAhead)
+			var start = actor.global_position + Vector2(dir_x * 16, 16)
+			var end = start + Vector2(0, 32)
+			var query = PhysicsRayQueryParameters2D.create(start, end)
+			query.exclude = [actor, parent]
+			var ground_ahead = space_state.intersect_ray(query)
+			
+			if not ground_ahead:
+				# Använd befintlig hjälpfunktion
+				actor.try_jump_toward_player(delta)
+				jumping = true
+				return Status.RUNNING
+
+		# --- Spelaren ovanför? ---
 		var vertical_diff = actor.player.global_position.y - parent.global_position.y
+		if vertical_diff < -40 and parent.is_on_floor():
+			actor.try_jump_toward_player(delta)
+			jumping = true
+			return Status.RUNNING
 
-		# Only trigger jump if on floor
-		if vertical_diff < -20 and parent.is_on_floor():
-			parent.velocity.y = -300  # jump impulse
-			return Status.SUCCESS
-
-		# Don’t keep forcing jump
 		return Status.FAILURE
 
 class IdleAnimation extends BTNode:
@@ -99,30 +132,44 @@ class IdleAnimation extends BTNode:
 		return Status.SUCCESS
 
 class TeleportIfTooFar extends BTNode:
-	func tick(actor, _delta) -> int:
+	var teleporting := false
+	var timer := 0.0
+	var duration := 0.5  # tid för teleport-effekt
+
+	func tick(actor, delta) -> int:
 		var parent = actor.get_parent() as CharacterBody2D
 		if parent == null or actor.player == null:
 			return Status.FAILURE
 
+		# Om vi redan håller på att teleportera
+		if teleporting:
+			timer -= delta
+			if timer <= 0.0:
+				teleporting = false
+				return Status.SUCCESS
+			return Status.RUNNING
+
+		# Starta teleport
 		var distance = parent.global_position.distance_to(actor.player.global_position)
-		if distance > 600:  # Teleport threshold
-			# Play teleport effect before moving
+		if distance > 600:
+			# Spela start-effekt
 			actor.play_teleport_effect(parent.global_position)
 
-			# Determine offset
+			# Teleportera direkt (eller efter delay om ni vill)
 			var offset = Vector2(50, 0)
 			if actor.player.global_position.x < parent.global_position.x:
 				offset.x *= -1
-
-			# Teleport
 			parent.global_position = actor.player.global_position + offset
 
-			# Play effect after teleport
+			# Spela slut-effekt
 			actor.play_teleport_effect(parent.global_position)
 
-			return Status.SUCCESS
+			teleporting = true
+			timer = duration
+			return Status.RUNNING
 
 		return Status.FAILURE
+
 
 
 static var node_registry := {
