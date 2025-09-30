@@ -53,7 +53,7 @@ func move_toward_player(delta: float) -> void:
 	parent.velocity.x = dir_x * speed
 
 
-func try_jump_toward_player(delta: float) -> void:
+func try_jump_toward_player(_delta: float) -> void:
 	var parent = get_parent() as CharacterBody2D
 	if parent == null or player == null:
 		return

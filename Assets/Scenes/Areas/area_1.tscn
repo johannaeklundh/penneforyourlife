@@ -25,7 +25,7 @@
 [ext_resource type="PackedScene" uid="uid://bckai1logl3na" path="res://Assets/Scenes/obstacle_faucet.tscn" id="22_p11o7"]
 [ext_resource type="Texture2D" uid="uid://68ahorgp3e5w" path="res://Assets/Sprites/EndText.png" id="23_g3rwo"]
 [ext_resource type="Script" uid="uid://cjwxun4qh412x" path="res://Assets/Scripts/double_jump_message.gd" id="24_g3rwo"]
-[ext_resource type="Script" path="res://Assets/Scenes/Areas/finish_text.gd" id="24_sxlx6"]
+[ext_resource type="Script" uid="uid://bc4lyjhx2hagh" path="res://Assets/Scenes/Areas/finish_text.gd" id="24_sxlx6"]
 
 [sub_resource type="GDScript" id="GDScript_5cg6o"]
 script/source = "extends Camera2D
@@ -184,9 +184,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_j7vlb"]
-a = Vector2(-324.268, -565.649)
-b = Vector2(136.268, 240.023)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sxlx6"]
 
 [node name="Area1" type="Node2D"]
 script = ExtResource("1_7fk0h")
@@ -205,7 +203,7 @@ use_parent_material = true
 tile_set = ExtResource("2_6rwvx")
 
 [node name="Player" parent="." instance=ExtResource("2_3uyhe")]
-position = Vector2(-585, -5)
+position = Vector2(-588, -5)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(0, 25)
@@ -543,14 +541,23 @@ shape = SubResource("CapsuleShape2D_0ufq0")
 
 [node name="FinishLine" type="Area2D" parent="."]
 z_index = 3
-position = Vector2(-424, -26)
+position = Vector2(2435, -13)
 collision_layer = 8
 collision_mask = 2
 priority = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FinishLine"]
-rotation = 0.523598
-shape = SubResource("SegmentShape2D_j7vlb")
+scale = Vector2(1, 100)
+shape = SubResource("RectangleShape2D_sxlx6")
+
+[node name="Camera2D" type="Camera2D" parent="FinishLine"]
+position = Vector2(11, -125)
+offset = Vector2(-350, 0)
+zoom = Vector2(2.8, 2.8)
+position_smoothing_speed = 10.0
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+script = SubResource("GDScript_5cg6o")
 
 [connection signal="body_entered" from="Obstacle/Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_entered" from="Pit" to="." method="_on_pit_body_entered"]
