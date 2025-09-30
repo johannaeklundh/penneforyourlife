@@ -90,38 +90,32 @@ func play_teleport_effect(pos: Vector2) -> void:
 		particles.emitting = true
 
 func _build_behavior_tree() -> void:
+	var tree_def = {
+		"type": "Selector",
+		"children": [
+			{ "type": "Sequence", "children": [
+				{ "type": "IsRescued" },
+				{ "type": "IsFarFromPlayer" },
+				{ "type": "IsPlayerAbove" },
+				{ "type": "JumpTowardPlayer" }
+			]},
+			{ "type": "Sequence", "children": [
+				{ "type": "IsRescued" },
+				{ "type": "IsFarFromPlayer" },
+				{ "type": "IsGroundAhead" },
+				{ "type": "MoveTowardPlayer" },
+				{ "type": "JumpTowardPlayer" }
+			]},
+			{ "type": "Sequence", "children": [
+				{ "type": "IsRescued" },
+				{ "type": "TeleportIfTooFar" }
+			]},
+			{ "type": "Sequence", "children": [
+				{ "type": "IsRescued" },
+				{ "type": "IsCloseToPlayer" },
+				{ "type": "IdleAnimation" }
+			]}
+		]
+	}
 	
-	var root = BehaviorTree.Selector.new()
-
-	var follow_seq = BehaviorTree.Sequence.new()
-	follow_seq.children = [
-	BehaviorTree.IsRescued.new(),
-	BehaviorTree.IsFarFromPlayer.new(),
-	BehaviorTree.IsGroundAhead.new(),
-	BehaviorTree.MoveTowardPlayer.new(),
-	BehaviorTree.JumpTowardPlayer.new(),
-	]
-
-	var idle_seq = BehaviorTree.Sequence.new()
-	idle_seq.children = [
-		BehaviorTree.IsRescued.new(),
-		BehaviorTree.IsCloseToPlayer.new(),
-		BehaviorTree.IdleAnimation.new()
-	]
-	
-	var jump_seq = BehaviorTree.Sequence.new()
-	jump_seq.children = [
-	BehaviorTree.IsRescued.new(),
-	BehaviorTree.IsFarFromPlayer.new(),
-	BehaviorTree.IsPlayerAbove.new(),
-	BehaviorTree.JumpTowardPlayer.new()
-	]
-
-	var teleport_seq = BehaviorTree.Sequence.new()
-	teleport_seq.children = [
-		BehaviorTree.IsRescued.new(),
-		BehaviorTree.TeleportIfTooFar.new()
-	]
-
-	root.children = [jump_seq, follow_seq, teleport_seq, idle_seq]
-	tree_root = root
+	tree_root = BehaviorTree.build_tree(tree_def)

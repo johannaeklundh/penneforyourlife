@@ -123,3 +123,35 @@ class TeleportIfTooFar extends BTNode:
 			return Status.SUCCESS
 
 		return Status.FAILURE
+
+
+static var node_registry := {
+	"Selector": Selector,
+	"Sequence": Sequence,
+	"IsRescued": IsRescued,
+	"IsFarFromPlayer": IsFarFromPlayer,
+	"IsCloseToPlayer": IsCloseToPlayer,
+	"IsGroundAhead": IsGroundAhead,
+	"IsPlayerAbove": IsPlayerAbove,
+	"MoveTowardPlayer": MoveTowardPlayer,
+	"JumpTowardPlayer": JumpTowardPlayer,
+	"IdleAnimation": IdleAnimation,
+	"TeleportIfTooFar": TeleportIfTooFar,
+}
+
+static func build_tree(definition: Dictionary) -> BTNode:
+	var node_type = definition.get("type", null)
+	if node_type == null or not node_registry.has(node_type):
+		push_error("Unknown node type: %s" % node_type)
+		return null
+	
+	var node = node_registry[node_type].new()
+	
+	# Bygg barn rekursivt om det finns
+	if definition.has("children"):
+		for child_def in definition["children"]:
+			var child = build_tree(child_def)
+			if child != null:
+				node.children.append(child)
+	
+	return node

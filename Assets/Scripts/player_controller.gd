@@ -1,15 +1,15 @@
 extends CharacterBody2D
 class_name PlayerController
 
-@export var speed = 10.0
-@export var jump_power = 10.0
-@export var max_jumps := 1   # <-- how many jumps allowed (2 = double jump)
-@export var coyote_time := 0.15   # seconds after leaving ground you can still jump
-@export var jump_buffer := 0.15   # seconds before landing that a jump press is stored
+@export var speed = 27.0
+@export var jump_power = 22.0
+@export var max_jumps := 1
+@export var coyote_time := 0.2
+@export var jump_buffer := 0.15
 
+var speed_multiplier = 15.0
+var jump_multiplier = -15.0
 var can_move := true
-var speed_multiplier = 30.0
-var jump_multiplier = -30.0
 
 var direction = 0.0
 #const SPEED = 300.0

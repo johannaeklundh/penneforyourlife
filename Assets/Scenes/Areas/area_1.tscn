@@ -25,7 +25,7 @@
 [ext_resource type="PackedScene" uid="uid://bckai1logl3na" path="res://Assets/Scenes/obstacle_faucet.tscn" id="22_p11o7"]
 [ext_resource type="Texture2D" uid="uid://68ahorgp3e5w" path="res://Assets/Sprites/EndText.png" id="23_g3rwo"]
 [ext_resource type="Script" uid="uid://cjwxun4qh412x" path="res://Assets/Scripts/double_jump_message.gd" id="24_g3rwo"]
-[ext_resource type="Script" uid="uid://bc4lyjhx2hagh" path="res://Assets/Scenes/Areas/finish_text.gd" id="24_sxlx6"]
+[ext_resource type="Script" path="res://Assets/Scenes/Areas/finish_text.gd" id="24_sxlx6"]
 
 [sub_resource type="GDScript" id="GDScript_5cg6o"]
 script/source = "extends Camera2D
