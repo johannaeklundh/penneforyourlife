@@ -287,6 +287,7 @@ shape = SubResource("SegmentShape2D_6rwvx")
 
 [node name="Broccoli" parent="." groups=["friends"] instance=ExtResource("15_ttsc2")]
 position = Vector2(90, -298)
+collision_mask = 1
 friend_index = 2
 
 [node name="AI" type="Node2D" parent="Broccoli" node_paths=PackedStringArray("player")]
@@ -319,6 +320,7 @@ scale_amount_max = 0.4
 
 [node name="Bacon" parent="." groups=["friends"] instance=ExtResource("16_lbrap")]
 position = Vector2(434, -459)
+collision_mask = 1
 friend_name = "bacon"
 
 [node name="AI" type="Node2D" parent="Bacon" node_paths=PackedStringArray("player")]
@@ -350,6 +352,7 @@ scale_amount_max = 0.4
 
 [node name="Tomato" parent="." groups=["friends"] instance=ExtResource("16_ttsc2")]
 position = Vector2(903, -474)
+collision_mask = 1
 friend_name = "tomato"
 friend_index = 1
 

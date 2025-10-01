@@ -114,7 +114,7 @@ func _build_behavior_tree() -> void:
 	tree_root = BehaviorTree.build_tree(tree_def)
 
 
-# Standard (alla vänner utan specialbeteende)
+ #   Standard (alla vänner utan specialbeteende)
 func get_base_friend_bt() -> Dictionary:
 	return {
 		"type": "Selector",
