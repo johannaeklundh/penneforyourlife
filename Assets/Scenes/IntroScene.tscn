@@ -1,7 +1,7 @@
 [gd_scene load_steps=38 format=3 uid="uid://br3xou1o8uj8o"]
 
 [ext_resource type="Texture2D" uid="uid://dmd358lw1k2ff" path="res://Assets/Sprites/tomato.png" id="1_kxtio"]
-[ext_resource type="Script" uid="uid://dep4rg48wsony" path="res://Assets/Scripts/intro_scene.gd" id="1_xbf8j"]
+[ext_resource type="Script" path="res://Assets/Scripts/intro_scene.gd" id="1_xbf8j"]
 [ext_resource type="Texture2D" uid="uid://dfchokneoj3m4" path="res://Assets/Sprites/hand.png" id="2_2c1is"]
 [ext_resource type="PackedScene" uid="uid://cit4kytxcbs6u" path="res://Assets/Scenes/background.tscn" id="3_4sqw7"]
 [ext_resource type="TileSet" uid="uid://jnpp80o3230q" path="res://Assets/Sprites/my_tileset.tres" id="4_8722x"]
