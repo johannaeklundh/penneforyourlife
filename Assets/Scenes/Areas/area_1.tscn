@@ -26,7 +26,7 @@
 [ext_resource type="Texture2D" uid="uid://68ahorgp3e5w" path="res://Assets/Sprites/EndText.png" id="23_g3rwo"]
 [ext_resource type="Script" uid="uid://cjwxun4qh412x" path="res://Assets/Scripts/double_jump_message.gd" id="24_g3rwo"]
 [ext_resource type="Script" uid="uid://bc4lyjhx2hagh" path="res://Assets/Scenes/Areas/finish_text.gd" id="24_sxlx6"]
-[ext_resource type="Texture2D" uid="uid://deus33rvxhivb" path="res://Assets/Sprites/kakel.png" id="27_wu28u"]
+[ext_resource type="PackedScene" uid="uid://dqoa3lentq20v" path="res://Assets/Scenes/parallax_background.tscn" id="27_wu28u"]
 
 [sub_resource type="GDScript" id="GDScript_5cg6o"]
 script/source = "extends Camera2D
@@ -564,20 +564,7 @@ drag_horizontal_enabled = true
 drag_vertical_enabled = true
 script = SubResource("GDScript_5cg6o")
 
-[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
-
-[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
-texture_repeat = 2
-motion_scale = Vector2(0.5, 0.5)
-motion_mirroring = Vector2(64, 64)
-
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
-texture_repeat = 2
-position = Vector2(964, 540.5)
-scale = Vector2(1.01789, 1.079)
-texture = ExtResource("27_wu28u")
-region_enabled = true
-region_rect = Rect2(0, 0, 1900, 1000)
+[node name="ParallaxBackground2" parent="." instance=ExtResource("27_wu28u")]
 
 [connection signal="body_entered" from="Obstacle/Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_entered" from="Pit" to="." method="_on_pit_body_entered"]

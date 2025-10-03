@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://dqoa3lentq20v"]
+
+[ext_resource type="Texture2D" uid="uid://deus33rvxhivb" path="res://Assets/Sprites/kakel.png" id="1_xps2r"]
+
+[node name="ParallaxBackground2" type="ParallaxBackground"]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="."]
+texture_repeat = 2
+motion_scale = Vector2(0.5, 0.5)
+motion_mirroring = Vector2(64, 64)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxLayer"]
+texture_repeat = 2
+position = Vector2(964, 540.5)
+scale = Vector2(1.01789, 1.079)
+texture = ExtResource("1_xps2r")
+region_enabled = true
+region_rect = Rect2(0, 0, 1900, 1000)
