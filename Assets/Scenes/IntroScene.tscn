@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://dfchokneoj3m4" path="res://Assets/Sprites/hand.png" id="2_2c1is"]
 [ext_resource type="PackedScene" uid="uid://dqoa3lentq20v" path="res://Assets/Scenes/parallax_background.tscn" id="2_dsaqx"]
 [ext_resource type="PackedScene" uid="uid://cit4kytxcbs6u" path="res://Assets/Scenes/background.tscn" id="3_4sqw7"]
-[ext_resource type="TileSet" uid="uid://d3jf7rt70skef" path="res://Assets/Sprites/kitchenNew.tres" id="3_dsaqx"]
+[ext_resource type="TileSet" uid="uid://cn7p2focko7be" path="res://Assets/Sprites/kitchenNew.tres" id="3_dsaqx"]
 [ext_resource type="Texture2D" uid="uid://bbcvqm4df2n01" path="res://Assets/Sprites/pastaIdle.png" id="5_wltkf"]
 [ext_resource type="Texture2D" uid="uid://csbgrrqao44a0" path="res://Assets/Sprites/pastaSad.png" id="6_gfn8p"]
 [ext_resource type="Texture2D" uid="uid://4rg4kgpb7xmp" path="res://Assets/Sprites/broccoliIdle.png" id="7_v7hcg"]

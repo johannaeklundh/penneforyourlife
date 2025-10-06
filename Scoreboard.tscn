@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://coii6evfr20xu"]
+
+[ext_resource type="Texture2D" uid="uid://dwselq6siyta6" path="res://Assets/Sprites/Scoreboard/Score.png" id="1_5jfn8"]
+[ext_resource type="Texture2D" uid="uid://06o4tu57m7ka" path="res://Assets/Sprites/Scoreboard/boiled.png" id="2_ide3a"]
+[ext_resource type="Texture2D" uid="uid://fa43lisli6gy" path="res://Assets/Sprites/Scoreboard/flushed.png" id="3_6ddnf"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Score" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 402.0
+offset_bottom = 200.0
+texture = ExtResource("1_5jfn8")
+
+[node name="Boiled" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -11.0
+offset_top = 277.0
+offset_right = 1772.0
+offset_bottom = 477.0
+texture = ExtResource("2_ide3a")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -11.0
+offset_top = 512.0
+offset_right = 1780.0
+offset_bottom = 712.0
+texture = ExtResource("3_6ddnf")
