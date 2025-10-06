@@ -5,6 +5,9 @@ extends Node2D
 @export var player: Node2D
 @export var friend_index := 0
 
+var max_jumps := 2
+var jumps_left := max_jumps
+var just_jumped := false
 var is_rescued := false
 var tree_root
 
@@ -25,7 +28,13 @@ func _physics_process(delta: float) -> void:
 	if not parent.is_on_floor():
 		parent.velocity.y += gravity * delta
 	else:
-		parent.velocity.y = max(parent.velocity.y, 0)
+		# Om vi inte precis hoppat → sätt velocity till 0
+		if not just_jumped:
+			parent.velocity.y = max(parent.velocity.y, 0)
+		
+	# Efter att physics körts klart, återställ flaggan
+	just_jumped = false
+
 
 	# Let behavior tree decide how to modify velocity.x / jump
 	tree_root.tick(self, delta)

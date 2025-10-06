@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://drvp2h6p6ennw" path="res://Assets/Scripts/area_1.gd" id="1_7fk0h"]
 [ext_resource type="PackedScene" uid="uid://br4bmuwc5rwhj" path="res://Assets/Scenes/player.tscn" id="2_3uyhe"]
-[ext_resource type="TileSet" uid="uid://d3jf7rt70skef" path="res://Assets/Sprites/kitchenNew.tres" id="2_citrs"]
+[ext_resource type="TileSet" uid="uid://cn7p2focko7be" path="res://Assets/Sprites/kitchenNew.tres" id="2_citrs"]
 [ext_resource type="PackedScene" uid="uid://cit4kytxcbs6u" path="res://Assets/Scenes/background.tscn" id="3_8wi1m"]
 [ext_resource type="PackedScene" uid="uid://c2ny5ebpxsh2r" path="res://Assets/Scenes/obstacle.tscn" id="5_5cg6o"]
 [ext_resource type="Script" uid="uid://coojivlj7ytxw" path="res://Assets/Scripts/tutorial_button.gd" id="6_f20k6"]
