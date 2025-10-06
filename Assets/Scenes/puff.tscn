@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://by6utsonbc3gq"]
 
 [ext_resource type="Texture2D" uid="uid://ckfayh2x57pqk" path="res://Assets/Sprites/moln.png" id="1_ud66t"]
-[ext_resource type="Script" uid="uid://hyk1v6cqc4ci" path="res://puff.gd" id="2_ye7qn"]
+[ext_resource type="Script" uid="uid://hyk1v6cqc4ci" path="res://Assets/Scripts/puff.gd" id="2_ye7qn"]
 
 [node name="Puff" type="Sprite2D"]
 scale = Vector2(0.04, 0.04)

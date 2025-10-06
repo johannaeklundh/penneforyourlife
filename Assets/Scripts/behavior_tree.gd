@@ -218,7 +218,7 @@ class Wait extends BTNode:
 	var timer := 0.0
 	var waiting := false
 
-	func tick(actor, delta) -> int:
+	func tick(_actor, delta) -> int:
 		if not waiting:
 			timer = time
 			waiting = true

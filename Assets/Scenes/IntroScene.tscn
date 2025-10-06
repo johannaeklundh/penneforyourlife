@@ -1,11 +1,11 @@
 [gd_scene load_steps=39 format=3 uid="uid://br3xou1o8uj8o"]
 
 [ext_resource type="Texture2D" uid="uid://dmd358lw1k2ff" path="res://Assets/Sprites/tomato.png" id="1_kxtio"]
-[ext_resource type="Script" path="res://Assets/Scripts/intro_scene.gd" id="1_xbf8j"]
+[ext_resource type="Script" uid="uid://dep4rg48wsony" path="res://Assets/Scripts/intro_scene.gd" id="1_xbf8j"]
 [ext_resource type="Texture2D" uid="uid://dfchokneoj3m4" path="res://Assets/Sprites/hand.png" id="2_2c1is"]
 [ext_resource type="PackedScene" uid="uid://dqoa3lentq20v" path="res://Assets/Scenes/parallax_background.tscn" id="2_dsaqx"]
 [ext_resource type="PackedScene" uid="uid://cit4kytxcbs6u" path="res://Assets/Scenes/background.tscn" id="3_4sqw7"]
-[ext_resource type="TileSet" uid="uid://jnpp80o3230q" path="res://Assets/Sprites/my_tileset.tres" id="4_8722x"]
+[ext_resource type="TileSet" uid="uid://d3jf7rt70skef" path="res://Assets/Sprites/kitchenNew.tres" id="3_dsaqx"]
 [ext_resource type="Texture2D" uid="uid://bbcvqm4df2n01" path="res://Assets/Sprites/pastaIdle.png" id="5_wltkf"]
 [ext_resource type="Texture2D" uid="uid://csbgrrqao44a0" path="res://Assets/Sprites/pastaSad.png" id="6_gfn8p"]
 [ext_resource type="Texture2D" uid="uid://4rg4kgpb7xmp" path="res://Assets/Sprites/broccoliIdle.png" id="7_v7hcg"]
@@ -484,7 +484,7 @@ script = ExtResource("1_xbf8j")
 [node name="ParallaxBackground2" parent="." instance=ExtResource("2_dsaqx")]
 
 [node name="TileMap" type="TileMap" parent="."]
-tile_set = ExtResource("4_8722x")
+tile_set = ExtResource("3_dsaqx")
 format = 2
 layer_0/name = "one_way_ground"
 layer_1/name = "ground"
@@ -494,7 +494,7 @@ layer_3/tile_data = PackedInt32Array(131084, 65536, 3, 65548, 65536, 2, 12, 6553
 
 [node name="TileLayer" type="TileMapLayer" parent="TileMap"]
 use_parent_material = true
-tile_set = ExtResource("4_8722x")
+tile_set = ExtResource("3_dsaqx")
 
 [node name="background" parent="." instance=ExtResource("3_4sqw7")]
 visible = false

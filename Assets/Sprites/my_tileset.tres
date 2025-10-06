@@ -4,6 +4,7 @@
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sc01f"]
 texture = ExtResource("1_l52vn")
+texture_region_size = Vector2i(40, 40)
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 1
