@@ -32,17 +32,21 @@ class IsRescued extends BTNode:
 	func tick(actor, _delta) -> int:
 		return Status.SUCCESS if actor.is_rescued else Status.FAILURE
 
+# BehaviorTree.gd
 class IsFarFromPlayer extends BTNode:
-	func tick(actor, _delta) -> int:
-		if actor.player == null:
-			return Status.FAILURE
-		return Status.SUCCESS if actor.global_position.distance_to(actor.player.global_position) > 60 else Status.FAILURE
+	var threshold := 10.0
+	func tick(actor, _d) -> int:
+		var p = actor.get_parent() as CharacterBody2D
+		if p == null or actor.player == null: return Status.FAILURE
+		return Status.SUCCESS if p.global_position.distance_to(actor.player.global_position) > threshold else Status.FAILURE
 
 class IsCloseToPlayer extends BTNode:
-	func tick(actor, _delta) -> int:
-		if actor.player == null:
-			return Status.FAILURE
-		return Status.SUCCESS if actor.global_position.distance_to(actor.player.global_position) <= 60 else Status.FAILURE
+	var threshold := 10.0
+	func tick(actor, _d) -> int:
+		var p = actor.get_parent() as CharacterBody2D
+		if p == null or actor.player == null: return Status.FAILURE
+		return Status.SUCCESS if p.global_position.distance_to(actor.player.global_position) <= threshold else Status.FAILURE
+
 
 class IsGroundAhead extends BTNode:
 	func tick(actor, _delta) -> int:
@@ -74,53 +78,126 @@ class IsPlayerAbove extends BTNode:
 # --- Action nodes ---
 class MoveTowardPlayer extends BTNode:
 	func tick(actor, delta) -> int:
-		actor.move_toward_player(delta)
+		var p = actor.get_parent() as CharacterBody2D
+		if p == null or actor.player == null: return Status.FAILURE
+		var dir_x = sign(actor.player.global_position.x - p.global_position.x)
+		p.velocity.x = dir_x * actor.speed
 		return Status.SUCCESS
+
 
 class JumpTowardPlayer extends BTNode:
 	var jumping := false
 	var did_double_jump := false
+	var time_since_jump := 0.0
+	var min_double_delay := 0.08   # avoid instant two jumps same frame
+	var extra_boost := 200.0       # how much upward impulse to add
+	var max_up_speed := -420.0     # clamp so it doesn't get crazy
 
-	func tick(actor, _delta) -> int:
-		var parent = actor.get_parent() as CharacterBody2D
-		if parent == null or actor.player == null:
+	func tick(actor, delta) -> int:
+		var body = actor.get_parent() as CharacterBody2D
+		if body == null or actor.player == null:
 			return Status.FAILURE
 
-		# 1️⃣ Återställ hopp om vi står på marken och inte mitt i ett hopp
-		if parent.is_on_floor() and not jumping:
+		# Reset counters when on floor and not in a jump session
+		if body.is_on_floor() and not jumping:
 			actor.jumps_left = actor.max_jumps
 			did_double_jump = false
+			time_since_jump = 0.0
 
-		# 2️⃣ Om vi redan hoppar → kolla om dubbelhopp behövs
+		# If we are in the air during a jump session
 		if jumping:
-			# Om landat → klart
-			if parent.is_on_floor():
+			time_since_jump += delta
+
+			# Landed -> end jump session
+			if body.is_on_floor():
 				jumping = false
 				return Status.SUCCESS
 
-			# Om spelaren fortfarande är ovanför oss och vi inte redan dubbelhoppat
-			var vertical_diff = actor.player.global_position.y - parent.global_position.y
-			# Inuti if not did_double_jump...
-			if not did_double_jump and actor.jumps_left > 0 and vertical_diff < -60:
-				# Istället för att hårdsätta velocity.y till ett nytt värde:
-				parent.velocity.y = min(parent.velocity.y - 200, -400)
-				actor.jumps_left -= 1
-				did_double_jump = true
-				print("Dubbelhopp!")
+			# --- Decide whether to DOUBLE JUMP while in the air ---
+			if not did_double_jump and actor.jumps_left > 0 and time_since_jump >= min_double_delay:
+				var still_blocked := _obstacle_ahead(actor, body)
+				var still_below_player : bool = (actor.player.global_position.y - body.global_position.y) < -60
+
+				if still_blocked or still_below_player:
+					# add upward impulse instead of resetting to a fixed value
+					body.velocity.y = min(body.velocity.y - extra_boost, max_up_speed)
+					actor.jumps_left -= 1
+					did_double_jump = true
+					actor.just_jumped = true   # if you use this flag in follower.gd
+
 			return Status.RUNNING
 
-		# 3️⃣ Starta första hoppet om vi inte hoppar ännu
-		var vertical_diff = actor.player.global_position.y - parent.global_position.y
-		if vertical_diff < -40 and actor.jumps_left > 0:
-			parent.velocity.y = -300
+		# --- Start first jump if needed (called from sequences before follow) ---
+		var need_jump := false
+		var vertical_diff = actor.player.global_position.y - body.global_position.y
+		if vertical_diff < -40:
+			need_jump = true
+		if _obstacle_ahead(actor, body) and body.is_on_floor():
+			need_jump = true
+
+		if need_jump and actor.jumps_left > 0:
+			body.velocity.y = -300
 			actor.jumps_left -= 1
-			actor.just_jumped = true
 			jumping = true
-			print("Första hopp!")
+			did_double_jump = false
+			time_since_jump = 0.0
+			actor.just_jumped = true
+			#print("FIRST JUMP")
 			return Status.RUNNING
 
 		return Status.FAILURE
 
+	func _obstacle_ahead(actor, body) -> bool:
+		# Short, forward probe ignoring the player & self; only checks level geometry
+		var dir_x = sign(actor.player.global_position.x - body.global_position.x)
+		if dir_x == 0:
+			return false
+		var from = body.global_position + Vector2(dir_x * 12, -4)
+		var to   = from + Vector2(dir_x * 20, 12)
+		var q = PhysicsRayQueryParameters2D.create(from, to)
+		q.exclude = [actor, body, actor.player]
+		var hit = actor.get_world_2d().direct_space_state.intersect_ray(q)
+		if not hit:
+			return false
+		var col = hit.get("collider")
+		return not (col is CharacterBody2D)
+
+
+class IsObstacleAhead extends BTNode:
+	var min_dist_to_player := 48.0   # don’t treat anything as obstacle if we’re already close
+	var ray_len := 20.0              # how far ahead to probe
+
+	func tick(actor, _d) -> int:
+		var body = actor.get_parent() as CharacterBody2D
+		if body == null or actor.player == null:
+			return Status.FAILURE
+
+		# If we’re already close to the player, don’t trigger obstacle logic
+		var dist = body.global_position.distance_to(actor.player.global_position)
+		if dist <= min_dist_to_player:
+			return Status.FAILURE
+
+		# Ray forward toward the player
+		var dir_x = sign(actor.player.global_position.x - body.global_position.x)
+		if dir_x == 0:
+			return Status.FAILURE
+
+		var from = body.global_position + Vector2(dir_x * 12, -4)
+		var to   = from + Vector2(dir_x * ray_len, 12)
+
+		var q = PhysicsRayQueryParameters2D.create(from, to)
+		# Exclude self AND the player so the player is never seen as an obstacle
+		q.exclude = [actor, body, actor.player]
+		var hit = actor.get_world_2d().direct_space_state.intersect_ray(q)
+		if not hit:
+			return Status.FAILURE
+
+		var col = hit.get("collider")
+		# Ignore dynamic characters (other followers, enemies)
+		if col is CharacterBody2D:
+			return Status.FAILURE
+
+		return Status.SUCCESS
 
 
 class IdleAnimation extends BTNode:
@@ -182,6 +259,7 @@ static var node_registry := {
 	"IsPlayerAbove": IsPlayerAbove,
 	"MoveTowardPlayer": MoveTowardPlayer,
 	"JumpTowardPlayer": JumpTowardPlayer,
+	"IsObstacleAhead": IsObstacleAhead,
 	"IdleAnimation": IdleAnimation,
 	"TeleportIfTooFar": TeleportIfTooFar,
 	"Wait": Wait,

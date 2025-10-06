@@ -128,30 +128,40 @@ func get_base_friend_bt() -> Dictionary:
 	return {
 		"type": "Selector",
 		"children": [
-			# Teleport först
+			# 1) Teleport if very far (runs before anything else)
 			{ "type": "Sequence", "children": [
 				{ "type": "IsRescued" },
 				{ "type": "TeleportIfTooFar" }
 			]},
-			# Hoppa om spelaren är ovanför
+
+			# 2) Jump over obstacle when blocked at same height
+			{ "type": "Sequence", "children": [
+				{ "type": "IsRescued" },
+				{ "type": "IsFarFromPlayer" },
+				{ "type": "IsObstacleAhead" },   # <— NEW
+				{ "type": "JumpTowardPlayer" }
+			]},
+
+			# 3) Jump when player is above
 			{ "type": "Sequence", "children": [
 				{ "type": "IsRescued" },
 				{ "type": "IsFarFromPlayer" },
 				{ "type": "IsPlayerAbove" },
 				{ "type": "JumpTowardPlayer" }
 			]},
-			# Följ på marken
+
+			# 4) Follow on ground (no IsGroundAhead gate here)
 			{ "type": "Sequence", "children": [
 				{ "type": "IsRescued" },
 				{ "type": "IsFarFromPlayer" },
-				{ "type": "IsGroundAhead" },
-				{ "type": "MoveTowardPlayer" } # <- kan ersättas med Fast-varianten
+				{ "type": "MoveTowardPlayer" }   # or MoveTowardPlayerFast
 			]},
-			# Idla när nära spelaren
+
+			# 5) Idle when close
 			{ "type": "Sequence", "children": [
 				{ "type": "IsRescued" },
 				{ "type": "IsCloseToPlayer" },
-				{ "type": "IdleAnimation" } # <- kan kompletteras med Wait
+				{ "type": "IdleAnimation" }
 			]}
 		]
 	}
