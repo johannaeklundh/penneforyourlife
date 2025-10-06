@@ -361,7 +361,7 @@ scale_amount_min = 0.4
 scale_amount_max = 0.4
 
 [node name="Tomato" parent="." groups=["friends"] instance=ExtResource("16_ttsc2")]
-position = Vector2(-426, -10)
+position = Vector2(990, -449)
 collision_mask = 1
 friend_name = "tomato"
 friend_index = 1
