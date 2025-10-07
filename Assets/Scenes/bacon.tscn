@@ -120,7 +120,6 @@ height = 23.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vfwhs"]
 radius = 5.5
-height = 28.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5uw41"]
 atlas = ExtResource("4_vfwhs")
@@ -190,7 +189,6 @@ initial_velocity_min = 20.0
 initial_velocity_max = 20.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(0, -4)
 shape = SubResource("CapsuleShape2D_vfwhs")
 
