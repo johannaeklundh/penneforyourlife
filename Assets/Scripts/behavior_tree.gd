@@ -248,7 +248,6 @@ class TeleportIfTooFar extends BTNode:
 		return Status.FAILURE
 
 
-
 static var node_registry := {
 	"Selector": Selector,
 	"Sequence": Sequence,
