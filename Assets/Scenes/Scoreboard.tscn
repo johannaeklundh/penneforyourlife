@@ -1,0 +1,263 @@
+[gd_scene load_steps=19 format=3 uid="uid://coii6evfr20xu"]
+
+[ext_resource type="Texture2D" uid="uid://dwselq6siyta6" path="res://Assets/Sprites/Scoreboard/Score.png" id="1_5jfn8"]
+[ext_resource type="Script" uid="uid://dg3lobp7xd4fh" path="res://Assets/Scripts/scoreboard.gd" id="1_e5dgx"]
+[ext_resource type="Texture2D" uid="uid://06o4tu57m7ka" path="res://Assets/Sprites/Scoreboard/boiled.png" id="2_ide3a"]
+[ext_resource type="Texture2D" uid="uid://fa43lisli6gy" path="res://Assets/Sprites/Scoreboard/flushed.png" id="3_6ddnf"]
+[ext_resource type="Texture2D" uid="uid://dq37sx0xgyfk1" path="res://Assets/Sprites/Scoreboard/digits/1.png" id="3_k2k3h"]
+[ext_resource type="Texture2D" uid="uid://cl34i63ouldcw" path="res://Assets/Sprites/Scoreboard/digits/0.png" id="4_b16ac"]
+[ext_resource type="Texture2D" uid="uid://crqb2j2c6dbef" path="res://Assets/Sprites/Scoreboard/digits/2.png" id="4_d254c"]
+[ext_resource type="Texture2D" uid="uid://hrrm5rw6c2nd" path="res://Assets/Sprites/Scoreboard/digits/3.png" id="5_pb67w"]
+[ext_resource type="Texture2D" uid="uid://bn257fi2ricel" path="res://Assets/Sprites/Scoreboard/bounce.png" id="6_mgru0"]
+[ext_resource type="Texture2D" uid="uid://djpp4oeiyqxqn" path="res://Assets/Sprites/Scoreboard/digits/4.png" id="6_oocw7"]
+[ext_resource type="Texture2D" uid="uid://fjdrb102o2ed" path="res://Assets/Sprites/Scoreboard/digits/5.png" id="7_8jg3i"]
+[ext_resource type="Texture2D" uid="uid://bebndmlk6xw7b" path="res://Assets/Sprites/Scoreboard/seconds.png" id="7_ca358"]
+[ext_resource type="Texture2D" uid="uid://c7drsie3163b2" path="res://Assets/Sprites/Scoreboard/time.png" id="8_eoo7q"]
+[ext_resource type="Texture2D" uid="uid://017xy62rgn1s" path="res://Assets/Sprites/Scoreboard/digits/6.png" id="8_ki3qo"]
+[ext_resource type="Texture2D" uid="uid://chwvawqfl4v86" path="res://Assets/Sprites/Scoreboard/total.png" id="9_hies3"]
+[ext_resource type="Texture2D" uid="uid://boc2hi6it62kb" path="res://Assets/Sprites/Scoreboard/digits/7.png" id="9_snce1"]
+[ext_resource type="Texture2D" uid="uid://kbdum7074jkj" path="res://Assets/Sprites/Scoreboard/digits/8.png" id="10_4lfr6"]
+[ext_resource type="Texture2D" uid="uid://vmxgkxbisb5j" path="res://Assets/Sprites/Scoreboard/digits/9.png" id="11_2shgi"]
+
+[node name="Scoreboard" type="Node2D"]
+position = Vector2(300, 0)
+scale = Vector2(0.65, 0.65)
+script = ExtResource("1_e5dgx")
+digit_textures = Array[Texture2D]([ExtResource("4_b16ac"), ExtResource("3_k2k3h"), ExtResource("4_d254c"), ExtResource("5_pb67w"), ExtResource("6_oocw7"), ExtResource("7_8jg3i"), ExtResource("8_ki3qo"), ExtResource("9_snce1"), ExtResource("10_4lfr6"), ExtResource("11_2shgi")])
+
+[node name="Score" type="TextureRect" parent="."]
+offset_left = 579.0
+offset_top = 64.0
+offset_right = 1278.0
+offset_bottom = 412.0
+texture = ExtResource("1_5jfn8")
+
+[node name="Flushed" type="Node2D" parent="."]
+
+[node name="Label" type="TextureRect" parent="Flushed"]
+offset_left = 66.0
+offset_top = 749.0
+offset_right = 1857.0
+offset_bottom = 949.0
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("3_6ddnf")
+
+[node name="Value" type="Control" parent="Flushed"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1330.0
+offset_top = 688.0
+offset_right = 1370.0
+offset_bottom = 728.0
+
+[node name="digit1" type="TextureRect" parent="Flushed/Value"]
+offset_left = 20.0
+offset_top = 49.0
+offset_right = 175.0
+offset_bottom = 255.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_b16ac")
+
+[node name="digit2" type="TextureRect" parent="Flushed/Value"]
+offset_left = 103.0
+offset_top = 50.0
+offset_right = 258.0
+offset_bottom = 256.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_b16ac")
+
+[node name="digit3" type="TextureRect" parent="Flushed/Value"]
+offset_left = 186.0
+offset_top = 53.0
+offset_right = 341.0
+offset_bottom = 259.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_b16ac")
+
+[node name="Boiled" type="Node2D" parent="."]
+
+[node name="Label" type="TextureRect" parent="Boiled"]
+offset_left = 77.0
+offset_top = 553.0
+offset_right = 1860.0
+offset_bottom = 753.0
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("2_ide3a")
+
+[node name="Value" type="Control" parent="Boiled"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1273.0
+offset_top = 483.0
+offset_right = 1313.0
+offset_bottom = 523.0
+
+[node name="digit1" type="TextureRect" parent="Boiled/Value"]
+offset_left = 20.0
+offset_top = 49.0
+offset_right = 175.0
+offset_bottom = 255.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_b16ac")
+
+[node name="digit2" type="TextureRect" parent="Boiled/Value"]
+offset_left = 103.0
+offset_top = 50.0
+offset_right = 258.0
+offset_bottom = 256.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_b16ac")
+
+[node name="digit3" type="TextureRect" parent="Boiled/Value"]
+offset_left = 186.0
+offset_top = 53.0
+offset_right = 341.0
+offset_bottom = 259.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_b16ac")
+
+[node name="Bounced" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="TextureRect" parent="Bounced"]
+offset_left = 75.0
+offset_top = 958.0
+offset_right = 1822.0
+offset_bottom = 1160.0
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("6_mgru0")
+
+[node name="Value" type="Control" parent="Bounced"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1316.0
+offset_top = 881.0
+offset_right = 1356.0
+offset_bottom = 921.0
+
+[node name="digit1" type="TextureRect" parent="Bounced/Value"]
+offset_left = 20.0
+offset_top = 49.0
+offset_right = 175.0
+offset_bottom = 255.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_b16ac")
+
+[node name="digit2" type="TextureRect" parent="Bounced/Value"]
+offset_left = 103.0
+offset_top = 50.0
+offset_right = 258.0
+offset_bottom = 256.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_b16ac")
+
+[node name="digit3" type="TextureRect" parent="Bounced/Value"]
+offset_left = 186.0
+offset_top = 53.0
+offset_right = 341.0
+offset_bottom = 259.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_b16ac")
+
+[node name="TimeFinish" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="seconds" type="TextureRect" parent="TimeFinish"]
+offset_left = 1412.0
+offset_top = 1146.0
+offset_right = 2232.0
+offset_bottom = 1350.0
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("7_ca358")
+
+[node name="Label" type="TextureRect" parent="TimeFinish"]
+offset_left = 285.0
+offset_top = 1126.0
+offset_right = 1643.0
+offset_bottom = 1328.0
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("8_eoo7q")
+
+[node name="Value" type="Control" parent="TimeFinish"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1117.0
+offset_top = 1072.0
+offset_right = 1157.0
+offset_bottom = 1112.0
+
+[node name="digit1" type="TextureRect" parent="TimeFinish/Value"]
+offset_left = 20.0
+offset_top = 49.0
+offset_right = 175.0
+offset_bottom = 255.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_b16ac")
+
+[node name="digit2" type="TextureRect" parent="TimeFinish/Value"]
+offset_left = 103.0
+offset_top = 50.0
+offset_right = 258.0
+offset_bottom = 256.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_b16ac")
+
+[node name="digit3" type="TextureRect" parent="TimeFinish/Value"]
+offset_left = 186.0
+offset_top = 53.0
+offset_right = 341.0
+offset_bottom = 259.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_b16ac")
+
+[node name="TotalScore" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="TextureRect" parent="TotalScore"]
+offset_left = 248.0
+offset_top = 1437.0
+offset_right = 1575.0
+offset_bottom = 1637.0
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("9_hies3")
+
+[node name="Value" type="Control" parent="TotalScore"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1216.0
+offset_top = 1378.0
+offset_right = 1256.0
+offset_bottom = 1418.0
+
+[node name="digit1" type="TextureRect" parent="TotalScore/Value"]
+offset_left = 25.0
+offset_top = 9.0
+offset_right = 180.0
+offset_bottom = 215.0
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("4_b16ac")
+
+[node name="digit2" type="TextureRect" parent="TotalScore/Value"]
+offset_left = 168.0
+offset_top = 5.0
+offset_right = 323.0
+offset_bottom = 211.0
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("4_b16ac")
+
+[node name="digit3" type="TextureRect" parent="TotalScore/Value"]
+offset_left = 306.0
+offset_top = 9.0
+offset_right = 461.0
+offset_bottom = 215.0
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("4_b16ac")
