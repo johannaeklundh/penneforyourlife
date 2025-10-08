@@ -1,33 +1,40 @@
-[gd_scene load_steps=8 format=3 uid="uid://drwelie4rmrht"]
+[gd_scene load_steps=9 format=3 uid="uid://drwelie4rmrht"]
 
-[ext_resource type="Texture2D" uid="uid://c374lurfl1ew0" path="res://Assets/Sprites/boilingPot.png" id="1_dvm2w"]
+[ext_resource type="Texture2D" uid="uid://hmiqef2fpj8u" path="res://Assets/Sprites/drawedBoilingPot.png" id="1_dvm2w"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qiiam"]
 radius = 24.0
 height = 48.0
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_qiiam"]
+atlas = ExtResource("1_dvm2w")
+region = Rect2(0, 0, 378, 450)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_les6p"]
 atlas = ExtResource("1_dvm2w")
-region = Rect2(0, 0, 45, 46)
+region = Rect2(378, 0, 378, 450)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jyxsd"]
 atlas = ExtResource("1_dvm2w")
-region = Rect2(45, 0, 45, 46)
+region = Rect2(756, 0, 378, 450)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0dh7p"]
 atlas = ExtResource("1_dvm2w")
-region = Rect2(90, 0, 45, 46)
+region = Rect2(1134, 0, 378, 450)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_mom7e"]
 animations = [{
 "frames": [{
-"duration": 1.5,
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_qiiam")
+}, {
+"duration": 2.0,
 "texture": SubResource("AtlasTexture_les6p")
 }, {
-"duration": 1.0,
+"duration": 2.0,
 "texture": SubResource("AtlasTexture_jyxsd")
 }, {
-"duration": 1.0,
+"duration": 2.0,
 "texture": SubResource("AtlasTexture_0dh7p")
 }],
 "loop": true,
@@ -46,10 +53,12 @@ position = Vector2(-1, -1)
 shape = SubResource("CapsuleShape2D_qiiam")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -5)
+scale = Vector2(0.1, 0.1)
 sprite_frames = SubResource("SpriteFrames_mom7e")
 animation = &"boilingPot"
 autoplay = "boilingPot"
-frame_progress = 0.535983
+frame_progress = 0.693151
 
 [node name="Area2D" type="Area2D" parent="."]
 
