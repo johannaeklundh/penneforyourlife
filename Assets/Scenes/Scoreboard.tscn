@@ -51,6 +51,7 @@ offset_right = 1370.0
 offset_bottom = 728.0
 
 [node name="digit1" type="TextureRect" parent="Flushed/Value"]
+layout_mode = 0
 offset_left = 20.0
 offset_top = 49.0
 offset_right = 175.0
@@ -59,6 +60,7 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_b16ac")
 
 [node name="digit2" type="TextureRect" parent="Flushed/Value"]
+layout_mode = 0
 offset_left = 103.0
 offset_top = 50.0
 offset_right = 258.0
@@ -67,6 +69,7 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_b16ac")
 
 [node name="digit3" type="TextureRect" parent="Flushed/Value"]
+layout_mode = 0
 offset_left = 186.0
 offset_top = 53.0
 offset_right = 341.0
@@ -93,6 +96,7 @@ offset_right = 1313.0
 offset_bottom = 523.0
 
 [node name="digit1" type="TextureRect" parent="Boiled/Value"]
+layout_mode = 0
 offset_left = 20.0
 offset_top = 49.0
 offset_right = 175.0
@@ -101,6 +105,7 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_b16ac")
 
 [node name="digit2" type="TextureRect" parent="Boiled/Value"]
+layout_mode = 0
 offset_left = 103.0
 offset_top = 50.0
 offset_right = 258.0
@@ -109,6 +114,7 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_b16ac")
 
 [node name="digit3" type="TextureRect" parent="Boiled/Value"]
+layout_mode = 0
 offset_left = 186.0
 offset_top = 53.0
 offset_right = 341.0
@@ -116,11 +122,7 @@ offset_bottom = 259.0
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_b16ac")
 
-[node name="Bounced" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="Bounced" type="Node2D" parent="."]
 
 [node name="Label" type="TextureRect" parent="Bounced"]
 offset_left = 75.0
@@ -139,6 +141,7 @@ offset_right = 1356.0
 offset_bottom = 921.0
 
 [node name="digit1" type="TextureRect" parent="Bounced/Value"]
+layout_mode = 0
 offset_left = 20.0
 offset_top = 49.0
 offset_right = 175.0
@@ -147,6 +150,7 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_b16ac")
 
 [node name="digit2" type="TextureRect" parent="Bounced/Value"]
+layout_mode = 0
 offset_left = 103.0
 offset_top = 50.0
 offset_right = 258.0
@@ -155,6 +159,7 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_b16ac")
 
 [node name="digit3" type="TextureRect" parent="Bounced/Value"]
+layout_mode = 0
 offset_left = 186.0
 offset_top = 53.0
 offset_right = 341.0
@@ -162,11 +167,7 @@ offset_bottom = 259.0
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_b16ac")
 
-[node name="TimeFinish" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="TimeFinish" type="Node2D" parent="."]
 
 [node name="seconds" type="TextureRect" parent="TimeFinish"]
 offset_left = 1412.0
@@ -193,6 +194,7 @@ offset_right = 1157.0
 offset_bottom = 1112.0
 
 [node name="digit1" type="TextureRect" parent="TimeFinish/Value"]
+layout_mode = 0
 offset_left = 20.0
 offset_top = 49.0
 offset_right = 175.0
@@ -201,6 +203,7 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_b16ac")
 
 [node name="digit2" type="TextureRect" parent="TimeFinish/Value"]
+layout_mode = 0
 offset_left = 103.0
 offset_top = 50.0
 offset_right = 258.0
@@ -209,6 +212,7 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_b16ac")
 
 [node name="digit3" type="TextureRect" parent="TimeFinish/Value"]
+layout_mode = 0
 offset_left = 186.0
 offset_top = 53.0
 offset_right = 341.0
@@ -216,11 +220,7 @@ offset_bottom = 259.0
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_b16ac")
 
-[node name="TotalScore" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="TotalScore" type="Node2D" parent="."]
 
 [node name="Label" type="TextureRect" parent="TotalScore"]
 offset_left = 248.0
@@ -239,6 +239,7 @@ offset_right = 1256.0
 offset_bottom = 1418.0
 
 [node name="digit1" type="TextureRect" parent="TotalScore/Value"]
+layout_mode = 0
 offset_left = 25.0
 offset_top = 9.0
 offset_right = 180.0
@@ -247,6 +248,7 @@ scale = Vector2(0.8, 0.8)
 texture = ExtResource("4_b16ac")
 
 [node name="digit2" type="TextureRect" parent="TotalScore/Value"]
+layout_mode = 0
 offset_left = 168.0
 offset_top = 5.0
 offset_right = 323.0
@@ -255,6 +257,7 @@ scale = Vector2(0.8, 0.8)
 texture = ExtResource("4_b16ac")
 
 [node name="digit3" type="TextureRect" parent="TotalScore/Value"]
+layout_mode = 0
 offset_left = 306.0
 offset_top = 9.0
 offset_right = 461.0
