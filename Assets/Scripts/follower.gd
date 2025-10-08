@@ -28,6 +28,7 @@ func _physics_process(delta: float) -> void:
 	# Always apply gravity
 	if not parent.is_on_floor():
 		parent.velocity.y += gravity * delta
+		# print("I luften, åker neråt") 
 	else:
 		# Om vi inte precis hoppat → sätt velocity till 0
 		if not just_jumped:
@@ -106,15 +107,15 @@ func _build_behavior_tree() -> void:
 	var tree_def = get_base_friend_bt()
 
 	match friend_index:
-		0: # blyg vän → lägg till en Wait innan Move
+		0: # blyg vän → lägg till en Wait innan Move  (Bacon)
 			var follow_seq = tree_def["children"][2]  # tredje barnet = follow-seq
 			follow_seq["children"].insert(1, {"type": "Wait", "time": 2.0})
 
-		1: # snabb vän → byt MoveTowardPlayer mot MoveTowardPlayerFast
-			var follow_seq = tree_def["children"][2]
-			follow_seq["children"][3] = {"type": "MoveTowardPlayerFast"}
+		1: # snabb vän → byt MoveTowardPlayer mot MoveTowardPlayerFast (Tomaten)
+			var follow_seq = tree_def["children"][3]   # gren 4 i trädet (index 3)
+			follow_seq["children"][1] = {"type": "MoveTowardPlayerFast"}
 
-		2: # trött vän → lägg till Wait innan Idle
+		2: # trött vän → lägg till Wait innan Idle (Broccoli)
 			var idle_seq = tree_def["children"][3]  # fjärde barnet = idle-seq
 			idle_seq["children"].insert(2, {"type": "Wait", "time": 1.5})
 

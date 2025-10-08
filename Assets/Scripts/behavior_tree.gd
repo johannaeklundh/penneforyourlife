@@ -39,13 +39,8 @@ class IsFarFromPlayer extends BTNode:
 		if p == null or actor.player == null:
 			return Status.FAILURE
 		var distance = p.global_position.distance_to(actor.player.global_position)
-		print (distance)
+		# print (distance)
 		return Status.SUCCESS if distance > threshold else Status.FAILURE
-		#var threshold = actor.positionsFromPasta[actor.friend_index]
-		#var distance = p.global_position.distance_to(actor.player.global_position)
-		#print ("distance: ", distance, "threshold: ", threshold)
-		#return Status.SUCCESS if distance > threshold else Status.FAILURE
-
 
 class IsCloseToPlayer extends BTNode:
 	var threshold := 10.0
@@ -326,12 +321,9 @@ class Wait extends BTNode:
 # Variant av MoveTowardPlayer som rör sig snabbare
 class MoveTowardPlayerFast extends MoveTowardPlayer:
 	func tick(actor, delta) -> int:
-		var parent = actor.get_parent() as CharacterBody2D
-		if parent == null or actor.player == null:
-			return Status.FAILURE
-
+		print("faster")
 		var old_speed = actor.speed
-		actor.speed *= 1.5   # snabbare!
+		actor.speed *= 1.5  # eller vilken faktor du vill
 		var result = super.tick(actor, delta)
 		actor.speed = old_speed
 		return result
