@@ -88,7 +88,6 @@ class MoveTowardPlayer extends BTNode:
 		var margin = 2.0  # liten buffert så vi inte står och stegar
 		var to_player = actor.player.global_position - p.global_position
 		var dist = to_player.length()
-
 		if dist > threshold + margin:
 			var dir = to_player.normalized()
 			var step = min(actor.speed * delta, dist - threshold)
@@ -304,24 +303,26 @@ static func build_tree(definition: Dictionary) -> BTNode:
 class Wait extends BTNode:
 	var time := 1.0
 	var timer := 0.0
-	var waiting := false
+	var done := false
 
 	func tick(_actor, delta) -> int:
-		if not waiting:
+		if done:
+			return Status.SUCCESS
+
+		if timer <= 0:
 			timer = time
-			waiting = true
-		
+
 		timer -= delta
 		if timer <= 0:
-			waiting = false
+			done = true
 			return Status.SUCCESS
 		return Status.RUNNING
+
 
 
 # Variant av MoveTowardPlayer som rör sig snabbare
 class MoveTowardPlayerFast extends MoveTowardPlayer:
 	func tick(actor, delta) -> int:
-		print("faster")
 		var old_speed = actor.speed
 		actor.speed *= 1.5  # eller vilken faktor du vill
 		var result = super.tick(actor, delta)

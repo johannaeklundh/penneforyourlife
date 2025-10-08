@@ -5,7 +5,7 @@ extends Node2D
 @export var player: Node2D
 @export var friend_index := 0
 
-var positionsFromPasta := [10, 30, 50]
+var positionsFromPasta := [15, 30, 50]
 var max_jumps := 2
 var jumps_left := max_jumps
 var just_jumped := false
@@ -108,7 +108,7 @@ func _build_behavior_tree() -> void:
 
 	match friend_index:
 		0: # blyg vän → lägg till en Wait innan Move  (Bacon)
-			var follow_seq = tree_def["children"][2]  # tredje barnet = follow-seq
+			var follow_seq = tree_def["children"][3]  # fjärde barnet = follow-seq (index 3)
 			follow_seq["children"].insert(1, {"type": "Wait", "time": 2.0})
 
 		1: # snabb vän → byt MoveTowardPlayer mot MoveTowardPlayerFast (Tomaten)
