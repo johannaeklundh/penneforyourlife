@@ -25,7 +25,7 @@
 [ext_resource type="PackedScene" uid="uid://bckai1logl3na" path="res://Assets/Scenes/obstacle_faucet.tscn" id="22_p11o7"]
 [ext_resource type="Texture2D" uid="uid://68ahorgp3e5w" path="res://Assets/Sprites/EndText.png" id="23_g3rwo"]
 [ext_resource type="Script" uid="uid://cjwxun4qh412x" path="res://Assets/Scripts/double_jump_message.gd" id="24_g3rwo"]
-[ext_resource type="Script" uid="uid://bc4lyjhx2hagh" path="res://Assets/Scripts/finish_text.gd" id="24_sxlx6"]
+[ext_resource type="Script" path="res://Assets/Scripts/finish_text.gd" id="24_sxlx6"]
 [ext_resource type="PackedScene" uid="uid://coii6evfr20xu" path="res://Assets/Scenes/Scoreboard.tscn" id="25_citrs"]
 [ext_resource type="PackedScene" uid="uid://dqoa3lentq20v" path="res://Assets/Scenes/parallax_background.tscn" id="27_wu28u"]
 
@@ -297,7 +297,8 @@ scale = Vector2(13.333, 800)
 shape = SubResource("SegmentShape2D_6rwvx")
 
 [node name="Broccoli" parent="." groups=["friends"] instance=ExtResource("15_ttsc2")]
-position = Vector2(86, -289)
+position = Vector2(-454, -14)
+collision_mask = 1
 friend_index = 2
 
 [node name="AI" type="Node2D" parent="Broccoli" node_paths=PackedStringArray("player")]
@@ -329,7 +330,8 @@ scale_amount_min = 0.4
 scale_amount_max = 0.4
 
 [node name="Bacon" parent="." groups=["friends"] instance=ExtResource("16_lbrap")]
-position = Vector2(431, -451)
+position = Vector2(-416, -12)
+collision_mask = 1
 friend_name = "bacon"
 
 [node name="AI" type="Node2D" parent="Bacon" node_paths=PackedStringArray("player")]
@@ -360,7 +362,8 @@ scale_amount_min = 0.4
 scale_amount_max = 0.4
 
 [node name="Tomato" parent="." groups=["friends"] instance=ExtResource("16_ttsc2")]
-position = Vector2(990, -449)
+position = Vector2(-374, -12)
+collision_mask = 1
 friend_name = "tomato"
 friend_index = 1
 

@@ -32,13 +32,20 @@ class IsRescued extends BTNode:
 	func tick(actor, _delta) -> int:
 		return Status.SUCCESS if actor.is_rescued else Status.FAILURE
 
-# BehaviorTree.gd
 class IsFarFromPlayer extends BTNode:
-	var threshold := 10.0
+	var threshold = 10
 	func tick(actor, _d) -> int:
-		var p = actor.get_parent() as CharacterBody2D
-		if p == null or actor.player == null: return Status.FAILURE
-		return Status.SUCCESS if p.global_position.distance_to(actor.player.global_position) > threshold else Status.FAILURE
+		var p = actor.get_parent() as CharacterBody2D  
+		if p == null or actor.player == null:
+			return Status.FAILURE
+		var distance = p.global_position.distance_to(actor.player.global_position)
+		print (distance)
+		return Status.SUCCESS if distance > threshold else Status.FAILURE
+		#var threshold = actor.positionsFromPasta[actor.friend_index]
+		#var distance = p.global_position.distance_to(actor.player.global_position)
+		#print ("distance: ", distance, "threshold: ", threshold)
+		#return Status.SUCCESS if distance > threshold else Status.FAILURE
+
 
 class IsCloseToPlayer extends BTNode:
 	var threshold := 10.0
@@ -79,9 +86,21 @@ class IsPlayerAbove extends BTNode:
 class MoveTowardPlayer extends BTNode:
 	func tick(actor, delta) -> int:
 		var p = actor.get_parent() as CharacterBody2D
-		if p == null or actor.player == null: return Status.FAILURE
-		var dir_x = sign(actor.player.global_position.x - p.global_position.x)
-		p.velocity.x = dir_x * actor.speed
+		if p == null or actor.player == null:
+			return Status.FAILURE
+
+		var threshold = actor.positionsFromPasta[actor.friend_index]
+		var margin = 2.0  # liten buffert så vi inte står och stegar
+		var to_player = actor.player.global_position - p.global_position
+		var dist = to_player.length()
+
+		if dist > threshold + margin:
+			var dir = to_player.normalized()
+			var step = min(actor.speed * delta, dist - threshold)
+			p.velocity = dir * (step / delta)
+		else:
+			p.velocity = Vector2.ZERO
+
 		return Status.SUCCESS
 
 

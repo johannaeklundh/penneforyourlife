@@ -5,6 +5,7 @@ extends Node2D
 @export var player: Node2D
 @export var friend_index := 0
 
+var positionsFromPasta := [10, 30, 50]
 var max_jumps := 2
 var jumps_left := max_jumps
 var just_jumped := false
@@ -138,7 +139,7 @@ func get_base_friend_bt() -> Dictionary:
 			{ "type": "Sequence", "children": [
 				{ "type": "IsRescued" },
 				{ "type": "IsFarFromPlayer" },
-				{ "type": "IsObstacleAhead" },   # <— NEW
+				{ "type": "IsObstacleAhead" },   
 				{ "type": "JumpTowardPlayer" }
 			]},
 
@@ -153,7 +154,6 @@ func get_base_friend_bt() -> Dictionary:
 			# 4) Follow on ground (no IsGroundAhead gate here)
 			{ "type": "Sequence", "children": [
 				{ "type": "IsRescued" },
-				{ "type": "IsFarFromPlayer" },
 				{ "type": "MoveTowardPlayer" }   # or MoveTowardPlayerFast
 			]},
 
