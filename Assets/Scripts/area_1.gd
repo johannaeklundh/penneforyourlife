@@ -104,3 +104,13 @@ func _on_finish_line_body_entered(body: Node2D) -> void:
 
 		var finish_text = get_tree().get_first_node_in_group("endMessage")
 		finish_text.show_and_blink()
+				
+		await get_tree().create_timer(4).timeout
+		
+		finish_text.hide_text()
+		
+		var scoreboard = get_node("HUD/Scoreboard")		
+
+		scoreboard.play()
+
+		

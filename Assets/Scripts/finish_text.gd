@@ -8,14 +8,22 @@ func show_and_blink() -> void:
 	tween.set_loops()  # make it loop forever
 
 	# Fade in from 0 -> 1
-	tween.tween_property(self, "modulate:a", 1.0, 0.5)
+	tween.tween_property(self, "modulate:a", 1.0, 1)
 
 	# Fade out to 0.5
-	tween.tween_property(self, "modulate:a", 0.5, 0.5)
+	tween.tween_property(self, "modulate:a", 0.5, 1)
 
 	# Fade back in to 1
-	tween.tween_property(self, "modulate:a", 1.0, 0.5)
+	tween.tween_property(self, "modulate:a", 1.0, 1)
+	
+	# Fade out to 0
+	tween.tween_property(self, "modulate:a", 0, 1)
+
+		
+		
+func hide_text():
+	visible = false
 
 
 func _on_fade_finished() -> void:
-	visible = true
+	visible = false
