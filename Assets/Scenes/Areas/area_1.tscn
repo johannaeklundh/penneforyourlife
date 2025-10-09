@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://cj527o0asfxi1" path="res://Assets/Sprites/spaceButton.png" id="9_0ufq0"]
 [ext_resource type="Texture2D" uid="uid://4rg4kgpb7xmp" path="res://Assets/Sprites/broccoliIdle.png" id="11_xl8b6"]
 [ext_resource type="Script" uid="uid://bnic6xqlvt8sr" path="res://Assets/Scripts/follower.gd" id="12_5cg6o"]
-[ext_resource type="Script" uid="uid://dunbiuy65qgs4" path="res://Assets/Scripts/friend_slots.gd" id="14_xl8b6"]
+[ext_resource type="Script" path="res://Assets/Scripts/friend_slots.gd" id="14_xl8b6"]
 [ext_resource type="PackedScene" uid="uid://cc5s47rhrhqtp" path="res://Assets/Scenes/broccoli.tscn" id="15_ttsc2"]
 [ext_resource type="PackedScene" uid="uid://c5v2wki4am6s0" path="res://Assets/Scenes/bacon.tscn" id="16_lbrap"]
 [ext_resource type="PackedScene" uid="uid://bw2lp40psx22t" path="res://Assets/Scenes/tomato.tscn" id="16_ttsc2"]
@@ -23,7 +23,7 @@
 [ext_resource type="PackedScene" uid="uid://cpj4enb6bro6x" path="res://Assets/Scenes/double_jump_power_up.tscn" id="22_klwya"]
 [ext_resource type="PackedScene" uid="uid://bckai1logl3na" path="res://Assets/Scenes/obstacle_faucet.tscn" id="22_p11o7"]
 [ext_resource type="Texture2D" uid="uid://68ahorgp3e5w" path="res://Assets/Sprites/EndText.png" id="23_g3rwo"]
-[ext_resource type="Script" uid="uid://cjwxun4qh412x" path="res://Assets/Scripts/double_jump_message.gd" id="24_g3rwo"]
+[ext_resource type="Script" path="res://Assets/Scripts/double_jump_message.gd" id="24_g3rwo"]
 [ext_resource type="Script" uid="uid://bc4lyjhx2hagh" path="res://Assets/Scripts/finish_text.gd" id="24_sxlx6"]
 [ext_resource type="PackedScene" uid="uid://coii6evfr20xu" path="res://Assets/Scenes/Scoreboard.tscn" id="25_citrs"]
 [ext_resource type="PackedScene" uid="uid://dqoa3lentq20v" path="res://Assets/Scenes/parallax_background.tscn" id="27_wu28u"]
@@ -274,7 +274,7 @@ autoplay = "blink"
 frame_progress = 0.904331
 
 [node name="Pit" type="Area2D" parent="."]
-position = Vector2(1957, 296)
+position = Vector2(-3305, 304)
 collision_layer = 8
 collision_mask = 2
 
