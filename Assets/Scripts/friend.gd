@@ -76,10 +76,8 @@ func _free_friend() -> void:
 
 	var ai = get_node("AI")
 	ai.rescue()   # <-- anropar rätt metod i follower.gd
-	print("Friend is freed!")
 	
 	freed_friend.emit(self)
-	print(friend_name, " is freed!")
 
 func shake_friend():
 	var tween = create_tween()

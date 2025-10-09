@@ -37,6 +37,8 @@ func _on_water_entered(body: Node) -> void:
 
 		if get_parent().has_method("show_hurt_overlay"):
 			get_parent().show_hurt_overlay()
+			
+		GameState.flushed_count += 1
 
 		await get_tree().create_timer(0.8).timeout
 		get_tree().reload_current_scene()

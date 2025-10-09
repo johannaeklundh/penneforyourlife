@@ -39,7 +39,6 @@ func _on_backward_done():
 
 func _on_space_done():
 	GameState.tutorial_finished = true
-	print("✅ Tutorial finished!")
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.name == "Player":
@@ -53,6 +52,8 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		# find the camera on the player
 		var cam = body.get_node("Camera2D")
 		screen_shake(cam, 8.0, 0.4, 0.05)
+		
+		GameState.boiled_count += 1
 
 		# restart after blink is done
 		await get_tree().create_timer(0.8).timeout
@@ -65,6 +66,7 @@ func _restart_scene():
 
 func _on_pit_body_entered(body: Node2D) -> void:
 	if body.name == "Player":
+		GameState.out_of_bounds_count += 1
 		call_deferred("_restart_scene")
 		
 
@@ -113,4 +115,5 @@ func _on_finish_line_body_entered(body: Node2D) -> void:
 
 		scoreboard.play()
 
+		GameState.reset_stats()
 		

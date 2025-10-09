@@ -48,25 +48,51 @@ func play():
 	_ready() 
 
 func _ready():
-
-	show_number(boiled_digits, 01)
-	show_number(flushed_digits, 52)
-	show_number(bounced_digits, 10)
-	show_number(time_digits, 154)
-	show_number(total_digits, 949)
 	
+	#Invisible first
 	for line in lines:
 		line.modulate.a = 0.0
 
-	for line in lines:
-		await get_tree().create_timer(0.5).timeout
-		var tween := get_tree().create_tween()
+	if GameState.game_finished:
+		calculate_scores()
 
-		tween.tween_property(line, "modulate:a", 1.0, 1.5)
-			
+		for line in lines:
+			await get_tree().create_timer(0.5).timeout		
+			fade_in_text(line)
 
-func fade_in_text(line: Node2D):
-	line.modulate.a = 0.0  # start invisible
+func calculate_scores():
+	
+	var flushed_times := GameState.flushed_count
+	var boiled_times := GameState.boiled_count
+	var bounced_times := GameState.out_of_bounds_count
+	var total_score := 1000
+	var time = GameState.elapsed_time
+	
+	print(total_score)
+	print((flushed_times*(-10)))
+	print((boiled_times*(-10)))
+	print((bounced_times*(-10)))	
+	total_score -= (flushed_times*(10))
+	total_score -= (boiled_times*(10)) 
+	total_score -= (bounced_times*(10))
+	print(total_score)
+	total_score = total_score - (time*2)
+	print(total_score)
+
+	GameState.score = total_score
+	
+	show_number(boiled_digits, boiled_times)
+	show_number(flushed_digits, flushed_times)
+	show_number(bounced_digits, bounced_times)
+	show_number(time_digits, time)
+	show_number(total_digits, total_score)
+
+func fade_in_text(line):
+	#line.modulate.a = 0.0  # start invisible
+
+	#Dramatic effect
+	if line == $TotalScore:
+		await get_tree().create_timer(1).timeout
 
 	var tween := get_tree().create_tween()
 	tween.tween_property(line, "modulate:a", 1.0, 1.5)
