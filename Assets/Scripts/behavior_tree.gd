@@ -91,9 +91,9 @@ class MoveTowardPlayer extends BTNode:
 		if dist > threshold + margin:
 			var dir = to_player.normalized()
 			var step = min(actor.speed * delta, dist - threshold)
-			p.velocity = dir * (step / delta)
+			p.velocity.x = dir.x * (step / delta)
 		else:
-			p.velocity = Vector2.ZERO
+			p.velocity.x = 0
 
 		return Status.SUCCESS
 

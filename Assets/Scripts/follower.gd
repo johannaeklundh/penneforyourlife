@@ -24,6 +24,9 @@ func _physics_process(delta: float) -> void:
 	var parent = get_parent() as CharacterBody2D
 	if parent == null:
 		return
+		
+	# Let behavior tree decide how to modify velocity.x / jump
+	tree_root.tick(self, delta)
 
 	# Always apply gravity
 	if not parent.is_on_floor():
@@ -36,10 +39,6 @@ func _physics_process(delta: float) -> void:
 		
 	# Efter att physics körts klart, återställ flaggan
 	just_jumped = false
-
-
-	# Let behavior tree decide how to modify velocity.x / jump
-	tree_root.tick(self, delta)
 
 	# Always move with physics
 	parent.move_and_slide()
