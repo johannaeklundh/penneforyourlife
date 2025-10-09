@@ -25,11 +25,11 @@ func _ready():
 		# First prompt
 		forward_button.show_prompt()
 	
-	
 func reset_game_state():
-	GameState.start_prompt_shown = false
+	GameState.start_prompt_shown = false # Maybe remove later with replay button
 	GameState.tutorial_finished = false
 	GameState.freed_friends = [false, false, false]
+	GameState.reset_stats()
 
 func _on_forward_done():
 	backward_button.show_prompt()

@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var digit_textures: Array[Texture2D]    # Assign 0–9 handwritten PNGs
+@export var digit_textures: Array[Texture2D] # Handwritten numbers
 
 @onready var lines = [
 	$Score,
@@ -68,16 +68,10 @@ func calculate_scores():
 	var total_score := 1000
 	var time = GameState.elapsed_time
 	
-	print(total_score)
-	print((flushed_times*(-10)))
-	print((boiled_times*(-10)))
-	print((bounced_times*(-10)))	
 	total_score -= (flushed_times*(10))
 	total_score -= (boiled_times*(10)) 
 	total_score -= (bounced_times*(10))
-	print(total_score)
 	total_score = total_score - (time*2)
-	print(total_score)
 
 	GameState.score = total_score
 	
