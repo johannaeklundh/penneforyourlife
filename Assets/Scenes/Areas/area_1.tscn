@@ -11,10 +11,10 @@
 [ext_resource type="Script" uid="uid://bnic6xqlvt8sr" path="res://Assets/Scripts/follower.gd" id="12_5cg6o"]
 [ext_resource type="Script" uid="uid://dunbiuy65qgs4" path="res://Assets/Scripts/friend_slots.gd" id="14_xl8b6"]
 [ext_resource type="PackedScene" uid="uid://cc5s47rhrhqtp" path="res://Assets/Scenes/broccoli.tscn" id="15_ttsc2"]
+[ext_resource type="Texture2D" uid="uid://cy8m4n344raf3" path="res://Assets/Sprites/OverlayUtanVanner.png" id="16_citrs"]
 [ext_resource type="PackedScene" uid="uid://c5v2wki4am6s0" path="res://Assets/Scenes/bacon.tscn" id="16_lbrap"]
 [ext_resource type="PackedScene" uid="uid://bw2lp40psx22t" path="res://Assets/Scenes/tomato.tscn" id="16_ttsc2"]
 [ext_resource type="Texture2D" uid="uid://evuvnbn5ril1" path="res://Assets/Sprites/baconFilled.png" id="17_citrs"]
-[ext_resource type="Texture2D" uid="uid://ce7r6sxeyd0aq" path="res://Assets/Sprites/OverlayUtan.png" id="18_xai42"]
 [ext_resource type="Texture2D" uid="uid://bixphnyh6jmq4" path="res://Assets/Sprites/tomatoFilled.png" id="18_xb627"]
 [ext_resource type="Texture2D" uid="uid://4qrp1chh0fdg" path="res://Assets/Sprites/star.png" id="19_c8jce"]
 [ext_resource type="Texture2D" uid="uid://b2nv8jbvule5x" path="res://Assets/Sprites/broccoliFilled.png" id="19_me1nw"]
@@ -383,24 +383,24 @@ script = ExtResource("14_xl8b6")
 layout_mode = 0
 offset_right = 280.0
 offset_bottom = 164.0
-texture = ExtResource("18_xai42")
+texture = ExtResource("16_citrs")
 expand_mode = 3
 
 [node name="Slot1" type="AnimatedSprite2D" parent="HUD/FriendSlots"]
 visible = false
-position = Vector2(87, 77.2442)
+position = Vector2(90, 80)
 scale = Vector2(0.146154, 0.123163)
 sprite_frames = SubResource("SpriteFrames_g3rwo")
 
 [node name="Slot2" type="AnimatedSprite2D" parent="HUD/FriendSlots"]
 visible = false
-position = Vector2(135, 79)
+position = Vector2(139, 79)
 scale = Vector2(0.153846, 0.130769)
 sprite_frames = SubResource("SpriteFrames_p11o7")
 
 [node name="Slot3" type="AnimatedSprite2D" parent="HUD/FriendSlots"]
 visible = false
-position = Vector2(188, 81)
+position = Vector2(187, 78)
 scale = Vector2(0.136704, 0.13246)
 sprite_frames = SubResource("SpriteFrames_xai42")
 frame_progress = 0.56561

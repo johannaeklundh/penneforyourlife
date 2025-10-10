@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://c5v2wki4am6s0"]
+[gd_scene load_steps=22 format=3 uid="uid://c5v2wki4am6s0"]
 
 [ext_resource type="Script" uid="uid://mi2edq0k7tpa" path="res://Assets/Scripts/friend.gd" id="1_1rtig"]
 [ext_resource type="Texture2D" uid="uid://evuvnbn5ril1" path="res://Assets/Sprites/baconFilled.png" id="2_chj1k"]
@@ -17,10 +17,6 @@ region = Rect2(1325, 0, 265, 400)
 [sub_resource type="AtlasTexture" id="AtlasTexture_dijuf"]
 atlas = ExtResource("2_chj1k")
 region = Rect2(1590, 0, 265, 400)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_cnk3g"]
-atlas = ExtResource("2_chj1k")
-region = Rect2(265, 0, 265, 400)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8f4qy"]
 atlas = ExtResource("2_chj1k")
@@ -72,9 +68,6 @@ animations = [{
 "speed": 5.0
 }, {
 "frames": [{
-"duration": 0.5,
-"texture": SubResource("AtlasTexture_cnk3g")
-}, {
 "duration": 10.0,
 "texture": SubResource("AtlasTexture_8f4qy")
 }],
@@ -151,7 +144,7 @@ script = ExtResource("1_1rtig")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.08, 0.08)
 sprite_frames = SubResource("SpriteFrames_tgrda")
-animation = &"fall"
+animation = &"jump"
 offset = Vector2(0, -50)
 
 [node name="Area2D" type="Area2D" parent="."]

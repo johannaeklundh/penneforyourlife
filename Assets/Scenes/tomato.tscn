@@ -18,10 +18,6 @@ region = Rect2(1590, 0, 265, 400)
 atlas = ExtResource("2_3j8gi")
 region = Rect2(1325, 0, 265, 400)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_xnvfq"]
-atlas = ExtResource("2_3j8gi")
-region = Rect2(1060, 0, 265, 400)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_fg0ve"]
 atlas = ExtResource("2_3j8gi")
 region = Rect2(265, 0, 265, 400)
@@ -33,6 +29,10 @@ region = Rect2(530, 0, 265, 400)
 [sub_resource type="AtlasTexture" id="AtlasTexture_ryfjj"]
 atlas = ExtResource("2_3j8gi")
 region = Rect2(795, 0, 265, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xnvfq"]
+atlas = ExtResource("2_3j8gi")
+region = Rect2(1060, 0, 265, 400)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_j5vrw"]
 atlas = ExtResource("3_3j8gi")
@@ -68,9 +68,6 @@ animations = [{
 "speed": 5.0
 }, {
 "frames": [{
-"duration": 0.5,
-"texture": SubResource("AtlasTexture_xnvfq")
-}, {
 "duration": 10.0,
 "texture": SubResource("AtlasTexture_fg0ve")
 }],
@@ -148,8 +145,8 @@ script = ExtResource("1_3j8gi")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.08, 0.08)
 sprite_frames = SubResource("SpriteFrames_acwbv")
-animation = &"fall"
-frame_progress = 0.537234
+animation = &"jump"
+frame_progress = 0.742168
 offset = Vector2(0, -50)
 
 [node name="Area2D" type="Area2D" parent="."]

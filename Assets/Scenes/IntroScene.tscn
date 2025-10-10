@@ -468,7 +468,7 @@ position = Vector2(171, -161)
 scale = Vector2(0.08, 0.08)
 sprite_frames = SubResource("SpriteFrames_2c1is")
 animation = &"idle"
-frame_progress = 0.251707
+frame_progress = 0.485568
 offset = Vector2(0, -50)
 
 [node name="hand" type="AnimatedSprite2D" parent="."]
