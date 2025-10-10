@@ -97,6 +97,12 @@ class MoveTowardPlayer extends BTNode:
 
 		return Status.SUCCESS
 
+class RandomChance extends BTNode:
+	var chance := 0.7 # 0.0–1.0
+
+	func tick(_actor, _delta) -> int:
+		return Status.SUCCESS if randf() < chance else Status.FAILURE
+
 
 class JumpTowardPlayer extends BTNode:
 	var jumping := false
@@ -270,12 +276,14 @@ static var node_registry := {
 	"IsGroundAhead": IsGroundAhead,
 	"IsPlayerAbove": IsPlayerAbove,
 	"MoveTowardPlayer": MoveTowardPlayer,
+	"RandomChance": RandomChance,
 	"JumpTowardPlayer": JumpTowardPlayer,
 	"IsObstacleAhead": IsObstacleAhead,
 	"IdleAnimation": IdleAnimation,
 	"TeleportIfTooFar": TeleportIfTooFar,
 	"Wait": Wait,
 	"MoveTowardPlayerFast": MoveTowardPlayerFast,
+	"MoveTowardPlayerSlow": MoveTowardPlayerSlow
 }
 
 
@@ -301,7 +309,7 @@ static func build_tree(definition: Dictionary) -> BTNode:
 
 # Vänta en viss tid (ex. blyg vän innan den följer)
 class Wait extends BTNode:
-	var time := 1.0
+	var time := 2.0
 	var timer := 0.0
 	var done := false
 
@@ -325,6 +333,15 @@ class MoveTowardPlayerFast extends MoveTowardPlayer:
 	func tick(actor, delta) -> int:
 		var old_speed = actor.speed
 		actor.speed *= 1.5  # eller vilken faktor du vill
+		var result = super.tick(actor, delta)
+		actor.speed = old_speed
+		return result
+		
+# Variant av MoveTowardPlayer som rör sig snabbare
+class MoveTowardPlayerSlow extends MoveTowardPlayer:
+	func tick(actor, delta) -> int:
+		var old_speed = actor.speed
+		actor.speed *= 0.5  # eller vilken faktor du vill
 		var result = super.tick(actor, delta)
 		actor.speed = old_speed
 		return result

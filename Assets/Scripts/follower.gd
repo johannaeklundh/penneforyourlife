@@ -50,53 +50,8 @@ func _physics_process(delta: float) -> void:
 	parent.move_and_slide()
 
 
-func rescue() -> void:
-	is_rescued = true
-
-# Hjälpfunktioner som BT kan använda
-func move_toward_player(delta: float) -> void:
-	var parent = get_parent() as CharacterBody2D
-	if parent == null or player == null:
-		return
-
-	if not parent.is_on_floor():
-		parent.velocity.y += gravity * delta
-	else:
-		parent.velocity.y = max(parent.velocity.y, 0)
-
-	# Horizontal movement
-	var dir_x = sign(player.global_position.x - parent.global_position.x)
-	parent.velocity.x = dir_x * speed
-
-
-func try_jump_toward_player(_delta: float) -> void:
-	var parent = get_parent() as CharacterBody2D
-	if parent == null or player == null:
-		return
-	
-	var vertical_diff = player.global_position.y - parent.global_position.y
-
-	if vertical_diff < 150 and parent.is_on_floor():
-		parent.velocity.y = -300  # tune this to match your player's jump_power * multiplier
-
-func try_drop_down_toward_player() -> void:
-	var parent = get_parent() as CharacterBody2D
-	if parent == null or player == null:
-		return
-
-	var vertical_diff = player.global_position.y - parent.global_position.y
-
-	if vertical_diff > 20 and parent.is_on_floor():
-		# Temporarily disable one-way collisions to fall through
-		parent.position.y += 1  # nudge so it falls through
-
-func idle() -> void:
-	var parent = get_parent() as CharacterBody2D
-	if parent == null:
-		return
-	parent.velocity.x = 0
-	parent.move_and_slide()
-
+## Hjälpfunktioner som BT kan använda
+#
 func play_teleport_effect(pos: Vector2) -> void:
 	var particles = get_node_or_null("../Glitter")
 	if particles:
@@ -120,9 +75,22 @@ func _build_behavior_tree() -> void:
 			var follow_seq = tree_def["children"][3]   # gren 4 i trädet (index 3)
 			follow_seq["children"][1] = {"type": "MoveTowardPlayerFast"}
 
-		2: # trött vän → lägg till Wait innan Idle (Broccoli)
-			var idle_seq = tree_def["children"][3]  # fjärde barnet = idle-seq
-			idle_seq["children"].insert(2, {"type": "Wait", "time": 1.5})
+		2: # Trött vän (Broccoli) → 70% normal, 30% trött
+			var follow_seq = tree_def["children"][3]  # fjärde barnet = follow-seq (index 3)
+
+			follow_seq["children"] = [
+				{"type": "IsRescued"},
+				{
+					"type": "Selector", "children": [
+						{ "type": "Sequence", "children": [
+							{ "type": "RandomChance", "chance": 0.7 },
+							{ "type": "MoveTowardPlayer" }   # normal fart
+						]},
+						{ "type": "MoveTowardPlayerSlow" },   # trött fart
+						{ "type": "Wait", "time": 2.0 }
+					]
+				}
+			]
 
 		_: # default → inga ändringar
 			pass
