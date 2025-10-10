@@ -1,114 +1,113 @@
-[gd_scene load_steps=25 format=3 uid="uid://cc5s47rhrhqtp"]
+[gd_scene load_steps=23 format=3 uid="uid://cc5s47rhrhqtp"]
 
 [ext_resource type="Script" uid="uid://mi2edq0k7tpa" path="res://Assets/Scripts/friend.gd" id="1_2i2eb"]
-[ext_resource type="Texture2D" uid="uid://4rg4kgpb7xmp" path="res://Assets/Sprites/broccoliIdle.png" id="2_h14lv"]
-[ext_resource type="Texture2D" uid="uid://cckmy0eosunj5" path="res://Assets/Sprites/broccoliRun.png" id="3_h14lv"]
-[ext_resource type="Texture2D" uid="uid://dydojivpgfxdj" path="res://Assets/Sprites/broccoliStuck.png" id="3_ovxw1"]
+[ext_resource type="Texture2D" uid="uid://b2nv8jbvule5x" path="res://Assets/Sprites/broccoliFilled.png" id="2_h14lv"]
+[ext_resource type="Texture2D" uid="uid://bfsphxe7yolql" path="res://Assets/Sprites/broccoliFilledStuck.png" id="3_2i2eb"]
 [ext_resource type="Texture2D" uid="uid://ugu08h1sfs0t" path="res://Assets/Sprites/ropeSprinkles.png" id="4_h02k6"]
 [ext_resource type="Texture2D" uid="uid://cpaqrxs3yk00a" path="res://Assets/Sprites/eButton.png" id="5_2i2eb"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ttsc2"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_h5d0p"]
 atlas = ExtResource("2_h14lv")
-region = Rect2(0, 0, 267, 400)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lbrap"]
-atlas = ExtResource("2_h14lv")
-region = Rect2(534, 0, 267, 400)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ovxw1"]
-atlas = ExtResource("3_h14lv")
-region = Rect2(0, 0, 265, 400)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_h02k6"]
-atlas = ExtResource("3_h14lv")
 region = Rect2(530, 0, 265, 400)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_40udc"]
-atlas = ExtResource("3_h14lv")
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ayuv"]
+atlas = ExtResource("2_h14lv")
+region = Rect2(0, 0, 265, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1kk44"]
+atlas = ExtResource("2_h14lv")
+region = Rect2(1855, 0, 265, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wfc0s"]
+atlas = ExtResource("2_h14lv")
+region = Rect2(1325, 0, 265, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j6fuv"]
+atlas = ExtResource("2_h14lv")
 region = Rect2(265, 0, 265, 400)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ys1tx"]
-atlas = ExtResource("3_ovxw1")
-region = Rect2(0, 0, 370, 400)
+[sub_resource type="AtlasTexture" id="AtlasTexture_2i2eb"]
+atlas = ExtResource("2_h14lv")
+region = Rect2(1060, 0, 265, 400)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_xai42"]
-atlas = ExtResource("3_ovxw1")
-region = Rect2(370, 0, 370, 400)
+[sub_resource type="AtlasTexture" id="AtlasTexture_h14lv"]
+atlas = ExtResource("2_h14lv")
+region = Rect2(795, 0, 265, 400)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_c8jce"]
-atlas = ExtResource("3_ovxw1")
-region = Rect2(740, 0, 370, 400)
+[sub_resource type="AtlasTexture" id="AtlasTexture_ovxw1"]
+atlas = ExtResource("2_h14lv")
+region = Rect2(1325, 0, 265, 400)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_5cg6o"]
-atlas = ExtResource("3_ovxw1")
-region = Rect2(0, 0, 370, 400)
+[sub_resource type="AtlasTexture" id="AtlasTexture_h02k6"]
+atlas = ExtResource("3_2i2eb")
+region = Rect2(0, 0, 400, 490)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_u0xoj"]
-atlas = ExtResource("3_ovxw1")
-region = Rect2(370, 0, 370, 400)
+[sub_resource type="AtlasTexture" id="AtlasTexture_40udc"]
+atlas = ExtResource("3_2i2eb")
+region = Rect2(400, 0, 400, 490)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_p11o7"]
-atlas = ExtResource("3_ovxw1")
-region = Rect2(740, 0, 370, 400)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_klwya"]
-atlas = ExtResource("3_ovxw1")
-region = Rect2(1110, 0, 370, 400)
+[sub_resource type="AtlasTexture" id="AtlasTexture_0imai"]
+atlas = ExtResource("3_2i2eb")
+region = Rect2(800, 0, 400, 490)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_kdb68"]
 animations = [{
 "frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h5d0p")
+}],
+"loop": true,
+"name": &"fall",
+"speed": 5.0
+}, {
+"frames": [{
 "duration": 10.0,
-"texture": SubResource("AtlasTexture_ttsc2")
+"texture": SubResource("AtlasTexture_5ayuv")
 }, {
 "duration": 0.5,
-"texture": SubResource("AtlasTexture_lbrap")
+"texture": SubResource("AtlasTexture_1kk44")
 }],
 "loop": true,
 "name": &"idle",
 "speed": 5.0
 }, {
 "frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wfc0s")
+}, {
+"duration": 10.0,
+"texture": SubResource("AtlasTexture_j6fuv")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 0.7,
+"texture": SubResource("AtlasTexture_2i2eb")
+}, {
+"duration": 0.7,
+"texture": SubResource("AtlasTexture_h14lv")
+}, {
 "duration": 0.7,
 "texture": SubResource("AtlasTexture_ovxw1")
-}, {
-"duration": 0.7,
-"texture": SubResource("AtlasTexture_h02k6")
-}, {
-"duration": 0.7,
-"texture": SubResource("AtlasTexture_40udc")
 }],
 "loop": true,
 "name": &"run",
 "speed": 5.0
 }, {
 "frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ys1tx")
+"duration": 4.0,
+"texture": SubResource("AtlasTexture_h02k6")
 }, {
-"duration": 0.5,
-"texture": SubResource("AtlasTexture_xai42")
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_40udc")
 }, {
-"duration": 3.0,
-"texture": SubResource("AtlasTexture_c8jce")
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_0imai")
 }, {
-"duration": 0.5,
-"texture": SubResource("AtlasTexture_xai42")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ys1tx")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5cg6o")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_u0xoj")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_p11o7")
-}, {
-"duration": 0.5,
-"texture": SubResource("AtlasTexture_klwya")
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_40udc")
 }],
 "loop": true,
 "name": &"stuck",
@@ -155,7 +154,6 @@ scale = Vector2(0.07, 0.07)
 sprite_frames = SubResource("SpriteFrames_kdb68")
 animation = &"stuck"
 autoplay = "stuck"
-frame_progress = 0.744464
 offset = Vector2(0, -50)
 
 [node name="Area2D" type="Area2D" parent="."]

@@ -50,6 +50,15 @@ func _process(_delta: float) -> void:
 	else:
 		anim_sprite.play("stuck")
 		
+	# Falling check (y increasing means going down in Godot)
+	if self.velocity.y > 0.0:
+		anim_sprite.play("fall")
+		return
+		
+	if self.velocity.y < 0.0:
+		anim_sprite.play("jump")
+		return	
+	
 	if freed:
 		if self.velocity.x > 0:
 			anim_sprite.flip_h = false

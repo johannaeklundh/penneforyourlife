@@ -17,6 +17,12 @@ func _ready() -> void:
 		is_rescued = true
 	_build_behavior_tree()
 
+func is_on_floor() -> bool:
+	var parent = get_parent() as CharacterBody2D
+	if parent == null:
+		return false
+	return parent.is_on_floor()
+
 func _physics_process(delta: float) -> void:
 	if not is_rescued or tree_root == null:
 		return
