@@ -8,7 +8,7 @@ radius = 11.0
 height = 51.7007
 
 [node name="SpoonGoal" type="Area2D"]
-scale = Vector2(0.6, 0.6)
+scale = Vector2(0.8, 0.8)
 script = ExtResource("1_mluox")
 launch_force = 500.0
 launch_angle = Vector2(50, 50)
