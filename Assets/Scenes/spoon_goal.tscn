@@ -23,8 +23,8 @@ shape = SubResource("CapsuleShape2D_r4fg7")
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("1_r4fg7")
 
-[node name="Sprite2D2" type="Sprite2D" parent="."]
-position = Vector2(35, -10)
+[node name="Sprite2D2" type="Sprite2D" parent="Sprite2D"]
+position = Vector2(175, -50)
 rotation = -0.206109
-scale = Vector2(0.05, 0.05)
+scale = Vector2(0.25, 0.25)
 texture = ExtResource("3_5n20o")
