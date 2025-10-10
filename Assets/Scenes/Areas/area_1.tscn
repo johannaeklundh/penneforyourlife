@@ -272,7 +272,7 @@ scale = Vector2(13.333, 800)
 shape = SubResource("SegmentShape2D_6rwvx")
 
 [node name="Broccoli" parent="." groups=["friends"] instance=ExtResource("15_ttsc2")]
-position = Vector2(77, -293)
+position = Vector2(-429, -11)
 collision_mask = 33
 friend_index = 2
 

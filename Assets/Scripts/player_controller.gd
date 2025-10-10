@@ -6,6 +6,7 @@ class_name PlayerController
 @export var max_jumps := 1
 @export var coyote_time := 0.2
 @export var jump_buffer := 0.15
+@export var projectile_scene: PackedScene
 
 var speed_multiplier = 15.0
 var jump_multiplier = -15.0
@@ -31,6 +32,24 @@ func catapult_launch(vel: Vector2, duration: float = 0.6) -> void:
 	velocity = vel
 	await get_tree().create_timer(duration).timeout
 	launched = false
+
+func throw_projectile():
+	if not projectile_scene:
+		return
+	
+	var proj = projectile_scene.instantiate()
+	
+	# Determine facing direction (based on sprite flip)
+	var sprite: AnimatedSprite2D = get_node("PlayerAnimator/AnimatedSprite2D")
+	var facing = -1 if sprite.flip_h else 1
+	
+	# Spawn in front of player
+	var offset = Vector2(12 * facing, -5)
+	proj.global_position = global_position + offset
+	proj.direction = Vector2(facing, 0)
+	
+	get_parent().add_child(proj)
+
 
 
 func spawn_jump_puff():

@@ -40,7 +40,9 @@ func _process(_delta):
 func play_attack():
 				
 	is_attacking = true
-	sprite.play("hit") 
+	sprite.play("hit")
+	player_controller.throw_projectile()
+
 
 func play_hurt():
 	if is_blinking: 

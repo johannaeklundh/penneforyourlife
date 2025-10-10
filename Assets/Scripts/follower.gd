@@ -49,6 +49,52 @@ func _physics_process(delta: float) -> void:
 	# Always move with physics
 	parent.move_and_slide()
 
+func rescue() -> void:
+	is_rescued = true
+
+# Hjälpfunktioner som BT kan använda
+func move_toward_player(delta: float) -> void:
+	var parent = get_parent() as CharacterBody2D
+	if parent == null or player == null:
+		return
+
+	if not parent.is_on_floor():
+		parent.velocity.y += gravity * delta
+	else:
+		parent.velocity.y = max(parent.velocity.y, 0)
+
+	# Horizontal movement
+	var dir_x = sign(player.global_position.x - parent.global_position.x)
+	parent.velocity.x = dir_x * speed
+
+
+func try_jump_toward_player(_delta: float) -> void:
+	var parent = get_parent() as CharacterBody2D
+	if parent == null or player == null:
+		return
+	
+	var vertical_diff = player.global_position.y - parent.global_position.y
+
+	if vertical_diff < 150 and parent.is_on_floor():
+		parent.velocity.y = -300  # tune this to match your player's jump_power * multiplier
+
+func try_drop_down_toward_player() -> void:
+	var parent = get_parent() as CharacterBody2D
+	if parent == null or player == null:
+		return
+
+	var vertical_diff = player.global_position.y - parent.global_position.y
+
+	if vertical_diff > 20 and parent.is_on_floor():
+		# Temporarily disable one-way collisions to fall through
+		parent.position.y += 1  # nudge so it falls through
+
+func idle() -> void:
+	var parent = get_parent() as CharacterBody2D
+	if parent == null:
+		return
+	parent.velocity.x = 0
+	parent.move_and_slide()
 
 ## Hjälpfunktioner som BT kan använda
 #

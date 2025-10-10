@@ -1,0 +1,66 @@
+[gd_scene load_steps=7 format=3 uid="uid://c0fbvea7lomqr"]
+
+[ext_resource type="Script" uid="uid://b4x4b67hldc8d" path="res://projectile.gd" id="1_t7eop"]
+[ext_resource type="Texture2D" uid="uid://fd0hxhcti8en" path="res://Assets/Sprites/projectile.png" id="2_e7peq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1cf02"]
+radius = 50.9902
+
+[sub_resource type="Animation" id="Animation_1cf02"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_e7peq"]
+resource_name = "spin"
+length = 0.75
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.75),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3rnyv"]
+_data = {
+&"RESET": SubResource("Animation_1cf02"),
+&"spin": SubResource("Animation_e7peq")
+}
+
+[node name="Area2D" type="Area2D"]
+collision_layer = 16
+collision_mask = 4
+script = ExtResource("1_t7eop")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("2_e7peq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(0.2, 0.2)
+shape = SubResource("CircleShape2D_1cf02")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_3rnyv")
+}
+autoplay = "spin"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -65,6 +65,19 @@ func _process(_delta: float) -> void:
 		elif self.velocity.x < 0:
 			anim_sprite.flip_h = true
 
+func _on_projectile_hit() -> void:
+	if freed:
+		return
+	
+	press_count += 1
+	rope_bar.value = press_count
+	shake_friend()
+	burst_particles()
+	
+	if press_count >= PRESS_LIMIT:
+		e_button.hide()
+		_free_friend()
+
 func _on_area_body_entered(body: Node2D) -> void:
 	if body.name == "Player" and not freed:
 		player_near = true
