@@ -71,7 +71,7 @@ func calculate_scores():
 	total_score -= (flushed_times*(10))
 	total_score -= (boiled_times*(10)) 
 	total_score -= (bounced_times*(10))
-	total_score = total_score - (time*2)
+	total_score = total_score - floor(time*2)
 
 	GameState.score = total_score
 	

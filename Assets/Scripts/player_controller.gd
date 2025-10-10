@@ -75,11 +75,11 @@ func _physics_process(delta: float) -> void:
 		spawn_jump_puff()
 
 	# Hoppa genom plattformar 
-	#if Input.is_action_pressed("down"):
-		#if is_on_floor():
-			#set_collision_mask_value(1, false)  # anta att layer 1 är plattformarna
-			#await get_tree().create_timer(0.5).timeout
-			#set_collision_mask_value(1, true)
+	if Input.is_action_pressed("down"):
+		if is_on_floor():
+			set_collision_mask_value(6, false)  # anta att layer 6 är plattformarna
+			await get_tree().create_timer(0.5).timeout
+			set_collision_mask_value(6, true)
 	# -------------------------------------
 
 	# Hantera rörelse
