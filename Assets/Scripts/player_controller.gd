@@ -68,7 +68,7 @@ func _physics_process(delta: float) -> void:
 		jump_buffer_timer = max(jump_buffer_timer - delta, 0)
 
 	# Hantera hopp med coyote time + buffering
-	if jump_buffer_timer > 0 and (jumps_left > 0 or coyote_timer > 0):
+	if jump_buffer_timer > 0 and jumps_left > 0:
 		velocity.y = jump_power * jump_multiplier
 		jumps_left -= 1
 		jump_buffer_timer = 0  # consume buffer
