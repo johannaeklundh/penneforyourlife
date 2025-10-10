@@ -146,7 +146,7 @@ script = ExtResource("1_3j8gi")
 scale = Vector2(0.08, 0.08)
 sprite_frames = SubResource("SpriteFrames_acwbv")
 animation = &"jump"
-frame_progress = 0.545592
+frame_progress = 0.742168
 offset = Vector2(0, -50)
 
 [node name="Area2D" type="Area2D" parent="."]

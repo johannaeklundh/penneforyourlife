@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cc5s47rhrhqtp"]
+[gd_scene load_steps=22 format=3 uid="uid://cc5s47rhrhqtp"]
 
 [ext_resource type="Script" uid="uid://mi2edq0k7tpa" path="res://Assets/Scripts/friend.gd" id="1_2i2eb"]
 [ext_resource type="Texture2D" uid="uid://b2nv8jbvule5x" path="res://Assets/Sprites/broccoliFilled.png" id="2_h14lv"]
@@ -17,10 +17,6 @@ region = Rect2(0, 0, 265, 400)
 [sub_resource type="AtlasTexture" id="AtlasTexture_1kk44"]
 atlas = ExtResource("2_h14lv")
 region = Rect2(1855, 0, 265, 400)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_wfc0s"]
-atlas = ExtResource("2_h14lv")
-region = Rect2(1325, 0, 265, 400)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_j6fuv"]
 atlas = ExtResource("2_h14lv")
@@ -72,9 +68,6 @@ animations = [{
 "speed": 5.0
 }, {
 "frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_wfc0s")
-}, {
 "duration": 10.0,
 "texture": SubResource("AtlasTexture_j6fuv")
 }],
@@ -152,7 +145,7 @@ script = ExtResource("1_2i2eb")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.07, 0.07)
 sprite_frames = SubResource("SpriteFrames_kdb68")
-animation = &"stuck"
+animation = &"jump"
 autoplay = "stuck"
 offset = Vector2(0, -50)
 
