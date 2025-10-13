@@ -1,0 +1,572 @@
+[gd_scene load_steps=49 format=4 uid="uid://1h24hba514qq"]
+
+[ext_resource type="Script" uid="uid://drvp2h6p6ennw" path="res://Assets/Scripts/area_1.gd" id="1_7fk0h"]
+[ext_resource type="PackedScene" uid="uid://br4bmuwc5rwhj" path="res://Assets/Scenes/player.tscn" id="2_3uyhe"]
+[ext_resource type="TileSet" uid="uid://cn7p2focko7be" path="res://Assets/Sprites/kitchenNew.tres" id="2_citrs"]
+[ext_resource type="TileSet" uid="uid://c4iyoim8oi3jy" path="res://Assets/Sprites/forShelfs.tres" id="2_xb627"]
+[ext_resource type="PackedScene" uid="uid://cit4kytxcbs6u" path="res://Assets/Scenes/background.tscn" id="3_8wi1m"]
+[ext_resource type="Script" uid="uid://coojivlj7ytxw" path="res://Assets/Scripts/tutorial_button.gd" id="6_f20k6"]
+[ext_resource type="Texture2D" uid="uid://ch7ajoyfxrh25" path="res://Assets/Sprites/forwardButton.png" id="6_msn23"]
+[ext_resource type="Texture2D" uid="uid://ctijk4drnxtua" path="res://Assets/Sprites/backwardButton.png" id="8_f20k6"]
+[ext_resource type="Texture2D" uid="uid://cj527o0asfxi1" path="res://Assets/Sprites/spaceButton.png" id="9_0ufq0"]
+[ext_resource type="Script" uid="uid://bnic6xqlvt8sr" path="res://Assets/Scripts/follower.gd" id="12_5cg6o"]
+[ext_resource type="Script" uid="uid://dunbiuy65qgs4" path="res://Assets/Scripts/friend_slots.gd" id="14_xl8b6"]
+[ext_resource type="PackedScene" uid="uid://cc5s47rhrhqtp" path="res://Assets/Scenes/broccoli.tscn" id="15_ttsc2"]
+[ext_resource type="Texture2D" uid="uid://cy8m4n344raf3" path="res://Assets/Sprites/OverlayUtanVanner.png" id="16_citrs"]
+[ext_resource type="PackedScene" uid="uid://c5v2wki4am6s0" path="res://Assets/Scenes/bacon.tscn" id="16_lbrap"]
+[ext_resource type="PackedScene" uid="uid://bw2lp40psx22t" path="res://Assets/Scenes/tomato.tscn" id="16_ttsc2"]
+[ext_resource type="Texture2D" uid="uid://evuvnbn5ril1" path="res://Assets/Sprites/baconFilled.png" id="17_citrs"]
+[ext_resource type="Texture2D" uid="uid://bixphnyh6jmq4" path="res://Assets/Sprites/tomatoFilled.png" id="18_xb627"]
+[ext_resource type="Texture2D" uid="uid://4qrp1chh0fdg" path="res://Assets/Sprites/star.png" id="19_c8jce"]
+[ext_resource type="Texture2D" uid="uid://b2nv8jbvule5x" path="res://Assets/Sprites/broccoliFilled.png" id="19_me1nw"]
+[ext_resource type="Texture2D" uid="uid://c6ktskl6xao1v" path="res://Assets/Sprites/doubleJumpMessage.png" id="21_j7vlb"]
+[ext_resource type="PackedScene" uid="uid://68rn20sr6wos" path="res://Assets/Scenes/spoon_goal.tscn" id="21_u0xoj"]
+[ext_resource type="PackedScene" uid="uid://cpj4enb6bro6x" path="res://Assets/Scenes/double_jump_power_up.tscn" id="22_klwya"]
+[ext_resource type="PackedScene" uid="uid://bckai1logl3na" path="res://Assets/Scenes/obstacle_faucet.tscn" id="22_p11o7"]
+[ext_resource type="Texture2D" uid="uid://68ahorgp3e5w" path="res://Assets/Sprites/EndText.png" id="23_g3rwo"]
+[ext_resource type="Script" uid="uid://cjwxun4qh412x" path="res://Assets/Scripts/double_jump_message.gd" id="24_g3rwo"]
+[ext_resource type="Script" uid="uid://bc4lyjhx2hagh" path="res://Assets/Scripts/finish_text.gd" id="24_sxlx6"]
+[ext_resource type="PackedScene" uid="uid://coii6evfr20xu" path="res://Assets/Scenes/Scoreboard.tscn" id="25_citrs"]
+[ext_resource type="PackedScene" uid="uid://dqoa3lentq20v" path="res://Assets/Scenes/parallax_background.tscn" id="27_wu28u"]
+[ext_resource type="PackedScene" uid="uid://drwelie4rmrht" path="res://Assets/Scenes/boiling_pot.tscn" id="28_citrs"]
+
+[sub_resource type="GDScript" id="GDScript_5cg6o"]
+script/source = "extends Camera2D
+
+@export var target: Node2D
+
+var fixed_y: float
+
+func _ready():
+	if target:
+		# Remember camera's initial Y (lock it)
+		fixed_y = global_position.y
+
+func _process(_delta):
+	if target:
+		global_position.x = lerp(global_position.x, target.global_position.x, 0.1)
+		global_position.y = fixed_y
+"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ufq0"]
+atlas = ExtResource("6_msn23")
+region = Rect2(0, 0, 150, 125)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u1wc8"]
+atlas = ExtResource("6_msn23")
+region = Rect2(150, 0, 150, 125)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7lgy5"]
+animations = [{
+"frames": [{
+"duration": 3.0,
+"texture": SubResource("AtlasTexture_0ufq0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u1wc8")
+}],
+"loop": true,
+"name": &"blink",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7lgy5"]
+atlas = ExtResource("8_f20k6")
+region = Rect2(0, 0, 150, 125)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pnluw"]
+atlas = ExtResource("8_f20k6")
+region = Rect2(150, 0, 150, 125)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6rwvx"]
+animations = [{
+"frames": [{
+"duration": 3.0,
+"texture": SubResource("AtlasTexture_7lgy5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pnluw")
+}],
+"loop": true,
+"name": &"blink",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6rwvx"]
+atlas = ExtResource("9_0ufq0")
+region = Rect2(0, 0, 249, 125)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xl8b6"]
+atlas = ExtResource("9_0ufq0")
+region = Rect2(249, 0, 249, 125)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ys1tx"]
+animations = [{
+"frames": [{
+"duration": 3.0,
+"texture": SubResource("AtlasTexture_6rwvx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xl8b6")
+}],
+"loop": true,
+"name": &"blink",
+"speed": 5.0
+}]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_6rwvx"]
+a = Vector2(-1.27657, -7.0875)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bpkbw"]
+atlas = ExtResource("17_citrs")
+region = Rect2(1325, 0, 265, 400)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g3rwo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bpkbw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3v4sq"]
+atlas = ExtResource("18_xb627")
+region = Rect2(1590, 0, 265, 400)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_p11o7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3v4sq")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3pfo6"]
+atlas = ExtResource("19_me1nw")
+region = Rect2(0, 0, 265, 400)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xai42"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3pfo6")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sxlx6"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0ufq0"]
+radius = 19.0
+height = 52.0
+
+[node name="Area1" type="Node2D"]
+script = ExtResource("1_7fk0h")
+
+[node name="shelfs" type="TileMap" parent="."]
+tile_set = ExtResource("2_xb627")
+rendering_quadrant_size = 40
+format = 2
+layer_0/name = "Layer1"
+layer_0/tile_data = PackedInt32Array(-131065, 0, 0, -131064, 65536, 0, -131063, 65536, 0, -131062, 131072, 0, -262134, 0, 0, -262133, 65536, 0, -262132, 65536, 0, -262131, 131072, 0, -393210, 0, 0, -393209, 65536, 0, -393208, 131072, 0, -458751, 0, 0, -458750, 65536, 0, -458749, 65536, 0, -458748, 131072, 0, -589818, 0, 0, -589817, 65536, 0, -589816, 131072, 0, -720888, 0, 0, -720887, 65536, 0, -720886, 65536, 0, -720885, 131072, 0, -851955, 0, 0, -851954, 65536, 0, -851953, 131072, 0, -786415, 0, 0, -786414, 65536, 0, -786413, 131072, 0, -720874, 0, 0, -720873, 65536, 0, -720872, 65536, 0, -720871, 131072, 0, -589798, 0, 0, -589797, 65536, 0, -589796, 65536, 0, -589795, 131072, 0, -458726, 0, 0, -458725, 65536, 0, -458724, 65536, 0, -458723, 131072, 0, -327654, 0, 0, -327653, 65536, 0, -327652, 65536, 0, -327651, 131072, 0, -262113, 0, 0, -262112, 65536, 0, -262111, 131072, 0, -131038, 0, 0, -131037, 65536, 0, -131036, 131072, 0, 131087, 0, 0, 131088, 131072, 0)
+
+[node name="Layer0" type="TileMapLayer" parent="shelfs"]
+use_parent_material = true
+tile_set = ExtResource("2_xb627")
+rendering_quadrant_size = 40
+
+[node name="ground" type="TileMap" parent="."]
+z_index = -2
+tile_set = ExtResource("2_citrs")
+rendering_quadrant_size = 40
+format = 2
+
+[node name="TileMapLayer" type="TileMapLayer" parent="ground"]
+tile_set = ExtResource("2_citrs")
+
+[node name="ground" type="TileMapLayer" parent="ground"]
+use_parent_material = true
+tile_map_data = PackedByteArray("AAD0/wIAAAABAAMAAAD0/wEAAAABAAIAAAD0/wAAAAABAAEAAADz/wIAAAABAAMAAADz/wEAAAABAAIAAADz/wAAAAABAAEAAADy/wIAAAABAAMAAADy/wEAAAABAAIAAADy/wAAAAABAAEAAADx/wIAAAABAAMAAADx/wEAAAABAAIAAADx/wAAAAABAAEAAADw/wIAAAABAAMAAADw/wEAAAABAAIAAADw/wAAAAABAAEAAADv/wIAAAABAAMAAADv/wEAAAABAAIAAADv/wAAAAABAAEAAADu/wIAAAABAAMAAADu/wEAAAABAAIAAADu/wAAAAABAAEAAADt/wIAAAAAAAMAAADt/wEAAAAAAAIAAADt/wAAAAAAAAEAAAD2/wEAAAABAAIAAAD2/wAAAAABAAEAAAD1/wEAAAABAAIAAAD1/wAAAAABAAEAAAD3/wIAAAABAAMAAAD2/wIAAAABAAMAAAD1/wIAAAABAAMAAAADAAIAAAABAAMAAAADAAEAAAABAAIAAAADAAAAAAABAAEAAAACAAIAAAABAAMAAAACAAEAAAABAAIAAAACAAAAAAABAAEAAAABAAIAAAABAAMAAAABAAEAAAABAAIAAAABAAAAAAABAAEAAAAAAAIAAAABAAMAAAAAAAEAAAABAAIAAAAAAAAAAAABAAEAAAD//wIAAAABAAMAAAD//wEAAAABAAIAAAD//wAAAAABAAEAAAD+/wIAAAABAAMAAAD+/wEAAAABAAIAAAD+/wAAAAABAAEAAAD9/wIAAAABAAMAAAD9/wEAAAABAAIAAAD9/wAAAAABAAEAAAD8/wIAAAABAAMAAAD8/wEAAAABAAIAAAD8/wAAAAABAAEAAAANAAIAAAACAAMAAAANAAEAAAACAAIAAAAMAAIAAAABAAMAAAAMAAEAAAABAAIAAAAMAAAAAAABAAEAAAALAAIAAAABAAMAAAALAAEAAAABAAIAAAALAAAAAAABAAEAAAAKAAIAAAABAAMAAAAKAAEAAAABAAIAAAAKAAAAAAABAAEAAAAJAAIAAAABAAMAAAAJAAEAAAABAAIAAAAJAAAAAAABAAEAAAAIAAIAAAABAAMAAAAIAAEAAAABAAIAAAAIAAAAAAABAAEAAAAHAAIAAAABAAMAAAAHAAEAAAABAAIAAAAHAAAAAAABAAEAAAAGAAIAAAABAAMAAAAGAAEAAAABAAIAAAAGAAAAAAABAAEAAAAFAAIAAAABAAMAAAAFAAEAAAABAAIAAAAFAAAAAAABAAEAAAAEAAIAAAABAAMAAAAEAAEAAAABAAIAAAAEAAAAAAABAAEAAAANAAAAAAACAAEAAAAqAAIAAAACAAMAAAAqAAEAAAACAAIAAAAqAAAAAAACAAEAAAApAAIAAAABAAMAAAApAAEAAAABAAIAAAApAAAAAAABAAEAAAAoAAIAAAABAAMAAAAoAAEAAAABAAIAAAAoAAAAAAABAAEAAAAnAAIAAAABAAMAAAAnAAEAAAABAAIAAAAnAAAAAAABAAEAAAAmAAIAAAABAAMAAAAmAAEAAAABAAIAAAAmAAAAAAABAAEAAAAlAAIAAAABAAMAAAAlAAEAAAABAAIAAAAlAAAAAAABAAEAAAAkAAIAAAABAAMAAAAkAAEAAAABAAIAAAAkAAAAAAABAAEAAAAjAAIAAAABAAMAAAAjAAEAAAABAAIAAAAjAAAAAAABAAEAAAAiAAIAAAABAAMAAAAiAAEAAAABAAIAAAAiAAAAAAABAAEAAAAhAAIAAAABAAMAAAAhAAEAAAABAAIAAAAhAAAAAAABAAEAAAAgAAIAAAABAAMAAAAgAAEAAAABAAIAAAAgAAAAAAABAAEAAAAfAAIAAAABAAMAAAAfAAEAAAABAAIAAAAfAAAAAAABAAEAAAAeAAIAAAABAAMAAAAeAAEAAAABAAIAAAAeAAAAAAABAAEAAAAdAAIAAAABAAMAAAAdAAEAAAABAAIAAAAdAAAAAAABAAEAAAAcAAIAAAABAAMAAAAcAAEAAAABAAIAAAAcAAAAAAABAAEAAAAbAAIAAAABAAMAAAAbAAEAAAABAAIAAAAbAAAAAAABAAEAAAAaAAIAAAABAAMAAAAaAAEAAAABAAIAAAAaAAAAAAABAAEAAAAZAAIAAAABAAMAAAAZAAEAAAABAAIAAAAZAAAAAAABAAEAAAAYAAIAAAABAAMAAAAYAAEAAAABAAIAAAAYAAAAAAABAAEAAAAXAAIAAAABAAMAAAAXAAEAAAABAAIAAAAXAAAAAAABAAEAAAAWAAIAAAABAAMAAAAWAAEAAAABAAIAAAAWAAAAAAABAAEAAAAVAAIAAAABAAMAAAAVAAEAAAABAAIAAAAVAAAAAAABAAEAAAAUAAIAAAABAAMAAAAUAAEAAAABAAIAAAAUAAAAAAABAAEAAAATAAIAAAABAAMAAAATAAEAAAABAAIAAAATAAAAAAABAAEAAAASAAIAAAAAAAMAAAASAAEAAAAAAAIAAAASAAAAAAAAAAEAAAD7/wEAAAABAAIAAAD7/wIAAAABAAMAAAD3/wAAAAABAAEAAAD3/wEAAAABAAIAAAD7/wAAAAABAAEAAAD6/wIAAAABAAMAAAD6/wEAAAABAAIAAAD6/wAAAAABAAEAAAD5/wIAAAABAAMAAAD5/wEAAAABAAIAAAD4/wIAAAABAAMAAAD4/wEAAAABAAIAAAD4/wAAAAABAAEAAAD5/wAAAAABAAEAAAD5////AAADAAEAAAASAP3/AAADAAMAAAASAPz/AAADAAIAAAASAPv/AAADAAIAAAASAPr/AAADAAIAAAASAPn/AAADAAIAAAASAPj/AAADAAIAAAASAPf/AAADAAEAAAAVAP//AAADAAIAAAAVAP7/AAADAAIAAAAVAP3/AAADAAIAAAAVAPz/AAADAAEAAAAYAP//AAADAAIAAAAYAP7/AAADAAEAAAA=")
+tile_set = ExtResource("2_citrs")
+rendering_quadrant_size = 40
+
+[node name="Player" parent="." instance=ExtResource("2_3uyhe")]
+position = Vector2(-588, -5)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2(0, 25)
+offset = Vector2(50, -100)
+zoom = Vector2(2.8, 2.8)
+position_smoothing_speed = 10.0
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+drag_horizontal_offset = 0.4
+drag_top_margin = 1.0
+drag_bottom_margin = 0.0
+script = SubResource("GDScript_5cg6o")
+
+[node name="background" parent="." instance=ExtResource("3_8wi1m")]
+visible = false
+z_index = -1000
+position = Vector2(1289, -127)
+scale = Vector2(2.5, 2.5)
+
+[node name="ObstacleFaucet" parent="." instance=ExtResource("22_p11o7")]
+z_index = -1
+position = Vector2(42, -31)
+
+[node name="forwardButton" type="Area2D" parent="."]
+position = Vector2(-498, -5)
+scale = Vector2(0.2, 0.2)
+script = ExtResource("6_f20k6")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="forwardButton"]
+position = Vector2(-275, -180)
+sprite_frames = SubResource("SpriteFrames_7lgy5")
+animation = &"blink"
+autoplay = "blink"
+
+[node name="backwardButton" type="Area2D" parent="."]
+position = Vector2(-498, -5)
+scale = Vector2(0.2, 0.2)
+script = ExtResource("6_f20k6")
+action_name = "ui_left"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="backwardButton"]
+position = Vector2(260, -175)
+sprite_frames = SubResource("SpriteFrames_6rwvx")
+animation = &"blink"
+autoplay = "blink"
+
+[node name="spaceButton" type="Area2D" parent="."]
+position = Vector2(-498, -5)
+scale = Vector2(0.2, 0.2)
+script = ExtResource("6_f20k6")
+action_name = "ui_accept"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="spaceButton"]
+position = Vector2(745, -190)
+sprite_frames = SubResource("SpriteFrames_ys1tx")
+animation = &"blink"
+autoplay = "blink"
+frame_progress = 0.904331
+
+[node name="Pit" type="Area2D" parent="."]
+position = Vector2(-3305, 304)
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pit"]
+rotation = 1.5708
+scale = Vector2(13.333, 800)
+shape = SubResource("SegmentShape2D_6rwvx")
+
+[node name="Broccoli" parent="." groups=["friends"] instance=ExtResource("15_ttsc2")]
+position = Vector2(-429, -11)
+collision_mask = 33
+friend_index = 2
+
+[node name="AI" type="Node2D" parent="Broccoli" node_paths=PackedStringArray("player")]
+visible = false
+script = ExtResource("12_5cg6o")
+player = NodePath("../../Player")
+friend_index = 2
+
+[node name="Glitter" type="CPUParticles2D" parent="Broccoli"]
+position = Vector2(87, 80)
+scale = Vector2(0.07, 0.07)
+emitting = false
+amount = 20
+texture = ExtResource("19_c8jce")
+lifetime = 0.5
+one_shot = true
+preprocess = 0.06
+speed_scale = 3.3
+explosiveness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(100, 100)
+particle_flag_align_y = true
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 1000.0
+initial_velocity_max = 1000.0
+scale_amount_min = 0.4
+scale_amount_max = 0.4
+
+[node name="Bacon" parent="." groups=["friends"] instance=ExtResource("16_lbrap")]
+position = Vector2(594, -531)
+collision_mask = 33
+friend_name = "bacon"
+
+[node name="AI" type="Node2D" parent="Bacon" node_paths=PackedStringArray("player")]
+visible = false
+script = ExtResource("12_5cg6o")
+player = NodePath("../../Player")
+
+[node name="Glitter" type="CPUParticles2D" parent="Bacon"]
+position = Vector2(13, 66)
+scale = Vector2(0.07, 0.07)
+emitting = false
+amount = 20
+texture = ExtResource("19_c8jce")
+lifetime = 0.5
+one_shot = true
+preprocess = 0.06
+speed_scale = 3.3
+explosiveness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(100, 100)
+particle_flag_align_y = true
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 1000.0
+initial_velocity_max = 1000.0
+scale_amount_min = 0.4
+scale_amount_max = 0.4
+
+[node name="Tomato" parent="." groups=["friends"] instance=ExtResource("16_ttsc2")]
+position = Vector2(957, -450)
+collision_mask = 33
+friend_name = "tomato"
+friend_index = 1
+
+[node name="AI" type="Node2D" parent="Tomato" node_paths=PackedStringArray("player")]
+visible = false
+script = ExtResource("12_5cg6o")
+player = NodePath("../../Player")
+friend_index = 1
+
+[node name="Glitter" type="CPUParticles2D" parent="Tomato"]
+position = Vector2(87, 80)
+scale = Vector2(0.07, 0.07)
+emitting = false
+amount = 20
+texture = ExtResource("19_c8jce")
+lifetime = 0.5
+one_shot = true
+preprocess = 0.06
+speed_scale = 3.3
+explosiveness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(100, 100)
+particle_flag_align_y = true
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 1000.0
+initial_velocity_max = 1000.0
+scale_amount_min = 0.4
+scale_amount_max = 0.4
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+modulate = Color(1, 0, 0, 0.3)
+offset_left = -1553.0
+offset_top = -1049.0
+offset_right = 1950.0
+offset_bottom = 619.0
+color = Color(0.933, 0, 0, 0.304)
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="FriendSlots" type="Control" parent="HUD"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("14_xl8b6")
+
+[node name="Overlay" type="TextureRect" parent="HUD/FriendSlots"]
+layout_mode = 0
+offset_right = 280.0
+offset_bottom = 164.0
+texture = ExtResource("16_citrs")
+expand_mode = 3
+
+[node name="Slot1" type="AnimatedSprite2D" parent="HUD/FriendSlots"]
+visible = false
+position = Vector2(90, 80)
+scale = Vector2(0.146154, 0.123163)
+sprite_frames = SubResource("SpriteFrames_g3rwo")
+
+[node name="Slot2" type="AnimatedSprite2D" parent="HUD/FriendSlots"]
+visible = false
+position = Vector2(139, 79)
+scale = Vector2(0.153846, 0.130769)
+sprite_frames = SubResource("SpriteFrames_p11o7")
+
+[node name="Slot3" type="AnimatedSprite2D" parent="HUD/FriendSlots"]
+visible = false
+position = Vector2(187, 78)
+scale = Vector2(0.136704, 0.13246)
+sprite_frames = SubResource("SpriteFrames_xai42")
+frame_progress = 0.56561
+
+[node name="Glitter1" type="CPUParticles2D" parent="HUD/FriendSlots"]
+position = Vector2(87, 80)
+scale = Vector2(0.05, 0.05)
+emitting = false
+amount = 20
+texture = ExtResource("19_c8jce")
+one_shot = true
+preprocess = 0.06
+speed_scale = 3.3
+explosiveness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(100, 100)
+particle_flag_align_y = true
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 1000.0
+initial_velocity_max = 1000.0
+
+[node name="Glitter2" type="CPUParticles2D" parent="HUD/FriendSlots"]
+position = Vector2(135, 79)
+scale = Vector2(0.05, 0.05)
+emitting = false
+amount = 20
+texture = ExtResource("19_c8jce")
+one_shot = true
+preprocess = 0.06
+speed_scale = 3.3
+explosiveness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(100, 100)
+particle_flag_align_y = true
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 1000.0
+initial_velocity_max = 1000.0
+
+[node name="Glitter3" type="CPUParticles2D" parent="HUD/FriendSlots"]
+position = Vector2(189, 81)
+scale = Vector2(0.04, 0.04)
+emitting = false
+amount = 20
+texture = ExtResource("19_c8jce")
+one_shot = true
+preprocess = 0.06
+speed_scale = 3.3
+explosiveness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(100, 100)
+particle_flag_align_y = true
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 1000.0
+initial_velocity_max = 1000.0
+
+[node name="doubleJumpMessage" type="Sprite2D" parent="HUD" groups=["message"]]
+visible = false
+position = Vector2(813, 313)
+scale = Vector2(0.85, 0.763)
+texture = ExtResource("21_j7vlb")
+script = ExtResource("24_g3rwo")
+
+[node name="finishText" type="Sprite2D" parent="HUD" groups=["endMessage"]]
+visible = false
+position = Vector2(962, 528)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("23_g3rwo")
+script = ExtResource("24_sxlx6")
+
+[node name="Scoreboard" parent="HUD" instance=ExtResource("25_citrs")]
+visible = false
+
+[node name="SpoonGoal" parent="." instance=ExtResource("21_u0xoj")]
+z_index = -1
+position = Vector2(1657, -5.00006)
+rotation = 0.471239
+collision_layer = 16
+collision_mask = 2
+launch_force = 20.0
+launch_angle = Vector2(50, -40)
+launch_duration = 2.0
+
+[node name="doubleJump" parent="." instance=ExtResource("22_klwya")]
+position = Vector2(106, -60)
+
+[node name="ObstacleFaucet2" parent="." instance=ExtResource("22_p11o7")]
+z_index = -1
+position = Vector2(-34, -31)
+
+[node name="FinishLine" type="Area2D" parent="."]
+z_index = 3
+position = Vector2(2405, 13)
+collision_layer = 8
+collision_mask = 2
+priority = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FinishLine"]
+scale = Vector2(1, 100)
+shape = SubResource("RectangleShape2D_sxlx6")
+
+[node name="Camera2D" type="Camera2D" parent="FinishLine"]
+position = Vector2(11, -125)
+offset = Vector2(-350, 0)
+zoom = Vector2(2.8, 2.8)
+position_smoothing_speed = 10.0
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+script = SubResource("GDScript_5cg6o")
+
+[node name="ParallaxBackground2" parent="." instance=ExtResource("27_wu28u")]
+
+[node name="BoilingPot" parent="." instance=ExtResource("28_citrs")]
+position = Vector2(474, -168)
+scale = Vector2(0.5, 0.5)
+
+[node name="Area2D2" type="Area2D" parent="BoilingPot"]
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShapeArea" type="CollisionShape2D" parent="BoilingPot/Area2D2"]
+position = Vector2(0, -2)
+shape = SubResource("CapsuleShape2D_0ufq0")
+
+[node name="BoilingPot2" parent="." instance=ExtResource("28_citrs")]
+position = Vector2(144, -288)
+scale = Vector2(0.5, 0.5)
+
+[node name="Area2D2" type="Area2D" parent="BoilingPot2"]
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShapeArea" type="CollisionShape2D" parent="BoilingPot2/Area2D2"]
+position = Vector2(-1, -1)
+shape = SubResource("CapsuleShape2D_0ufq0")
+
+[node name="BoilingPot3" parent="." instance=ExtResource("28_citrs")]
+position = Vector2(364, -448)
+scale = Vector2(0.5, 0.5)
+
+[node name="Area2D2" type="Area2D" parent="BoilingPot3"]
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShapeArea" type="CollisionShape2D" parent="BoilingPot3/Area2D2"]
+position = Vector2(-1, -1)
+shape = SubResource("CapsuleShape2D_0ufq0")
+
+[connection signal="body_entered" from="Pit" to="." method="_on_pit_body_entered"]
+[connection signal="freed_friend" from="Broccoli" to="HUD/FriendSlots" method="_on_broccoli_freed_friend"]
+[connection signal="freed_friend" from="Bacon" to="HUD/FriendSlots" method="_on_bacon_freed_friend"]
+[connection signal="freed_friend" from="Tomato" to="HUD/FriendSlots" method="_on_tomato_freed_friend"]
+[connection signal="body_entered" from="SpoonGoal" to="." method="_on_spoon_goal_body_entered"]
+[connection signal="body_entered" from="FinishLine" to="." method="_on_finish_line_body_entered"]
+[connection signal="body_entered" from="BoilingPot/Area2D2" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="BoilingPot2/Area2D2" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="BoilingPot3/Area2D2" to="." method="_on_area_2d_body_entered"]

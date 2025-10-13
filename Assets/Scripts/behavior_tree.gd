@@ -80,7 +80,7 @@ class IsPlayerAbove extends BTNode:
 # --- Action nodes ---
 class MoveTowardPlayer extends BTNode:
 	func tick(actor, delta) -> int:
-		print("normal")
+		#print("normal")
 		var p = actor.get_parent() as CharacterBody2D
 		if p == null or actor.player == null:
 			return Status.FAILURE
@@ -97,13 +97,6 @@ class MoveTowardPlayer extends BTNode:
 			p.velocity.x = 0
 
 		return Status.SUCCESS
-
-class RandomChance extends BTNode:
-	var chance := 0.7 # 0.0–1.0
-
-	func tick(_actor, _delta) -> int:
-		return Status.SUCCESS if randf() < chance else Status.FAILURE
-
 
 class JumpTowardPlayer extends BTNode:
 	var jumping := false
@@ -277,7 +270,6 @@ static var node_registry := {
 	"IsGroundAhead": IsGroundAhead,
 	"IsPlayerAbove": IsPlayerAbove,
 	"MoveTowardPlayer": MoveTowardPlayer,
-	"RandomChance": RandomChance,
 	"JumpTowardPlayer": JumpTowardPlayer,
 	"IsObstacleAhead": IsObstacleAhead,
 	"IdleAnimation": IdleAnimation,
@@ -356,7 +348,7 @@ class MoveTowardPlayerFast extends MoveTowardPlayer:
 # Variant av MoveTowardPlayer som rör sig snabbare
 class MoveTowardPlayerSlow extends MoveTowardPlayer:
 	func tick(actor, delta) -> int:
-		print("slow")
+		# print("slow")
 		var old_speed = actor.speed
 		actor.speed *= 0.5  # eller vilken faktor du vill
 		var result = super.tick(actor, delta)
