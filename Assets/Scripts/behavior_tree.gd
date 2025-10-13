@@ -149,7 +149,7 @@ class JumpTowardPlayer extends BTNode:
 		# --- Start first jump if needed (called from sequences before follow) ---
 		var need_jump := false
 		var vertical_diff = actor.player.global_position.y - body.global_position.y
-		if vertical_diff < -40:
+		if vertical_diff < -100:
 			need_jump = true
 		if _obstacle_ahead(actor, body) and body.is_on_floor():
 			need_jump = true
