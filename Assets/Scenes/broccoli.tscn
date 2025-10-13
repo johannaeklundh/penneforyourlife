@@ -145,7 +145,7 @@ script = ExtResource("1_2i2eb")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.07, 0.07)
 sprite_frames = SubResource("SpriteFrames_kdb68")
-animation = &"jump"
+animation = &"run"
 autoplay = "stuck"
 offset = Vector2(0, -50)
 

@@ -165,7 +165,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sxlx6"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0ufq0"]
-radius = 19.0
+radius = 22.0
 height = 52.0
 
 [node name="Area1" type="Node2D"]
@@ -204,7 +204,7 @@ position = Vector2(-588, -5)
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(0, 25)
 offset = Vector2(50, -100)
-zoom = Vector2(2.8, 2.8)
+zoom = Vector2(3.2, 3.2)
 position_smoothing_speed = 10.0
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
