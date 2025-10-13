@@ -129,11 +129,10 @@ func _build_behavior_tree() -> void:
 				{
 					"type": "Selector", "children": [
 						{ "type": "Sequence", "children": [
-							{ "type": "RandomChance", "chance": 0.7 },
-							{ "type": "MoveTowardPlayer" }   # normal fart
+							{ "type": "RandomChoiceMemory", "chance": 0.7, "duration": 3.0 },
+							{ "type": "MoveTowardPlayer" }
 						]},
-						{ "type": "MoveTowardPlayerSlow" },   # trött fart
-						{ "type": "Wait", "time": 2.0 }
+						{ "type": "MoveTowardPlayerSlow" }
 					]
 				}
 			]
