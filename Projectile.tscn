@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://c0fbvea7lomqr"]
+[gd_scene load_steps=8 format=3 uid="uid://c0fbvea7lomqr"]
 
 [ext_resource type="Script" uid="uid://b4x4b67hldc8d" path="res://projectile.gd" id="1_t7eop"]
 [ext_resource type="Texture2D" uid="uid://fd0hxhcti8en" path="res://Assets/Sprites/projectile.png" id="2_e7peq"]
@@ -20,6 +20,30 @@ tracks/0/keys = {
 "update": 0,
 "values": [0.0]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_e7peq")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:modulate:a")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
 
 [sub_resource type="Animation" id="Animation_e7peq"]
 resource_name = "spin"
@@ -38,15 +62,55 @@ tracks/0/keys = {
 "values": [0.0, 6.28319]
 }
 
+[sub_resource type="Animation" id="Animation_3rnyv"]
+resource_name = "hit"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("2_e7peq"), ExtResource("2_e7peq")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:modulate:a")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, Color(0, 0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.0]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3rnyv"]
 _data = {
 &"RESET": SubResource("Animation_1cf02"),
+&"hit": SubResource("Animation_3rnyv"),
 &"spin": SubResource("Animation_e7peq")
 }
 
 [node name="Area2D" type="Area2D"]
 collision_layer = 16
-collision_mask = 4
+collision_mask = 37
 script = ExtResource("1_t7eop")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -54,7 +118,7 @@ scale = Vector2(0.05, 0.05)
 texture = ExtResource("2_e7peq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.15, 0.15)
 shape = SubResource("CircleShape2D_1cf02")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

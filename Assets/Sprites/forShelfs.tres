@@ -1,9 +1,9 @@
-[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://cn7p2focko7be"]
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://c4iyoim8oi3jy"]
 
-[ext_resource type="Texture2D" uid="uid://b71jyvth8uitj" path="res://Assets/Sprites/kitchenNew.png" id="1_cpjkr"]
+[ext_resource type="Texture2D" uid="uid://b71jyvth8uitj" path="res://Assets/Sprites/kitchenNew.png" id="1_r8ckj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_la65s"]
-texture = ExtResource("1_cpjkr")
+texture = ExtResource("1_r8ckj")
 texture_region_size = Vector2i(40, 40)
 0:0/0 = 0
 0:0/0/terrain_set = 0
@@ -63,7 +63,7 @@ texture_region_size = Vector2i(40, 40)
 
 [resource]
 tile_size = Vector2i(40, 40)
-physics_layer_0/collision_layer = 1
+physics_layer_0/collision_layer = 32
 physics_layer_0/collision_mask = 22
 terrain_set_0/mode = 0
 terrain_set_0/terrain_0/name = "shelfs"

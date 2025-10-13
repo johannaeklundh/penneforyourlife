@@ -81,6 +81,7 @@ down={
 2d_physics/layer_3="friends"
 2d_physics/layer_4="obstacles"
 2d_physics/layer_5="interact"
+2d_physics/layer_6="platforms"
 
 [rendering]
 
