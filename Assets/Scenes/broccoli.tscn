@@ -1,8 +1,9 @@
-[gd_scene load_steps=22 format=3 uid="uid://cc5s47rhrhqtp"]
+[gd_scene load_steps=26 format=3 uid="uid://cc5s47rhrhqtp"]
 
 [ext_resource type="Script" uid="uid://mi2edq0k7tpa" path="res://Assets/Scripts/friend.gd" id="1_2i2eb"]
 [ext_resource type="Texture2D" uid="uid://b2nv8jbvule5x" path="res://Assets/Sprites/broccoliFilled.png" id="2_h14lv"]
 [ext_resource type="Texture2D" uid="uid://bfsphxe7yolql" path="res://Assets/Sprites/broccoliFilledStuck.png" id="3_2i2eb"]
+[ext_resource type="Texture2D" uid="uid://b60gn1hsb8vhs" path="res://Assets/Sprites/broccoliSlowRun.png" id="3_h14lv"]
 [ext_resource type="Texture2D" uid="uid://ugu08h1sfs0t" path="res://Assets/Sprites/ropeSprinkles.png" id="4_h02k6"]
 [ext_resource type="Texture2D" uid="uid://cpaqrxs3yk00a" path="res://Assets/Sprites/eButton.png" id="5_2i2eb"]
 
@@ -33,6 +34,18 @@ region = Rect2(795, 0, 265, 400)
 [sub_resource type="AtlasTexture" id="AtlasTexture_ovxw1"]
 atlas = ExtResource("2_h14lv")
 region = Rect2(1325, 0, 265, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wfc0s"]
+atlas = ExtResource("3_h14lv")
+region = Rect2(0, 0, 265, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e3pxn"]
+atlas = ExtResource("3_h14lv")
+region = Rect2(265, 0, 265, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yi13t"]
+atlas = ExtResource("3_h14lv")
+region = Rect2(530, 0, 265, 400)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_h02k6"]
 atlas = ExtResource("3_2i2eb")
@@ -90,6 +103,20 @@ animations = [{
 "speed": 5.0
 }, {
 "frames": [{
+"duration": 1.1,
+"texture": SubResource("AtlasTexture_wfc0s")
+}, {
+"duration": 1.1,
+"texture": SubResource("AtlasTexture_e3pxn")
+}, {
+"duration": 1.1,
+"texture": SubResource("AtlasTexture_yi13t")
+}],
+"loop": true,
+"name": &"slow_run",
+"speed": 5.0
+}, {
+"frames": [{
 "duration": 4.0,
 "texture": SubResource("AtlasTexture_h02k6")
 }, {
@@ -141,12 +168,14 @@ animations = [{
 collision_layer = 4
 collision_mask = 53
 script = ExtResource("1_2i2eb")
+friend_index = 2
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.07, 0.07)
 sprite_frames = SubResource("SpriteFrames_kdb68")
-animation = &"run"
+animation = &"slow_run"
 autoplay = "stuck"
+frame_progress = 0.839951
 offset = Vector2(0, -50)
 
 [node name="Area2D" type="Area2D" parent="."]

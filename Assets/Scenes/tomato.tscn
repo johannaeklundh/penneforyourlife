@@ -141,6 +141,7 @@ animations = [{
 collision_layer = 4
 collision_mask = 53
 script = ExtResource("1_3j8gi")
+friend_index = 1
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.08, 0.08)

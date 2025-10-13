@@ -44,7 +44,13 @@ func _process(_delta: float) -> void:
 			_free_friend()
 	
 	if abs(self.velocity.x) > 0.0 and freed:
-		anim_sprite.play("run")
+		var anim_name = "run"
+		
+		if friend_index == 2: #broccoli
+			if abs(self.velocity.x) < 80:
+				anim_name = "slow_run"
+
+		anim_sprite.play(anim_name)
 	elif freed:
 		anim_sprite.play("idle") 
 	else:

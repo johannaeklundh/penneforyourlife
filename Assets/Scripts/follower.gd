@@ -11,6 +11,7 @@ var jumps_left := max_jumps
 var just_jumped := false
 var is_rescued := false
 var tree_root
+var current_anim_mode := "normal"
 
 func _ready() -> void:
 	if GameState.freed_friends[friend_index]:
@@ -51,6 +52,9 @@ func _physics_process(delta: float) -> void:
 
 func rescue() -> void:
 	is_rescued = true
+	
+func set_animation_mode(mode: String):
+	current_anim_mode = mode
 
 # Hjälpfunktioner som BT kan använda
 func idle() -> void:

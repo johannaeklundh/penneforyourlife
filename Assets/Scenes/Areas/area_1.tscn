@@ -272,7 +272,6 @@ shape = SubResource("SegmentShape2D_6rwvx")
 [node name="Broccoli" parent="." groups=["friends"] instance=ExtResource("15_ttsc2")]
 position = Vector2(-429, -11)
 collision_mask = 33
-friend_index = 2
 
 [node name="AI" type="Node2D" parent="Broccoli" node_paths=PackedStringArray("player")]
 visible = false
@@ -338,7 +337,6 @@ scale_amount_max = 0.4
 position = Vector2(957, -450)
 collision_mask = 33
 friend_name = "tomato"
-friend_index = 1
 
 [node name="AI" type="Node2D" parent="Tomato" node_paths=PackedStringArray("player")]
 visible = false
@@ -560,6 +558,8 @@ collision_mask = 2
 [node name="CollisionShapeArea" type="CollisionShape2D" parent="BoilingPot3/Area2D2"]
 position = Vector2(-1, -1)
 shape = SubResource("CapsuleShape2D_0ufq0")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 
 [connection signal="body_entered" from="Pit" to="." method="_on_pit_body_entered"]
 [connection signal="freed_friend" from="Broccoli" to="HUD/FriendSlots" method="_on_broccoli_freed_friend"]
