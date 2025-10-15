@@ -71,10 +71,62 @@ class IsGroundAhead extends BTNode:
 		return Status.FAILURE
 
 class IsPlayerAbove extends BTNode:
+	var min_vertical_diff := 60.0
+	var max_horizontal_diff := 100.0
+	var max_jump_height := 140.0
+
 	func tick(actor, _delta) -> int:
-		if actor.player == null:
+		var body = actor.get_parent() as CharacterBody2D
+		if body == null or actor.player == null:
 			return Status.FAILURE
-		return Status.SUCCESS if actor.player.global_position.y < actor.global_position.y - 20 else Status.FAILURE
+
+		var player_pos = actor.player.global_position
+		var self_pos = body.global_position
+
+		# Player must be sufficiently higher
+		if player_pos.y >= self_pos.y - min_vertical_diff:
+			print("fail in vertical")
+			return Status.FAILURE
+
+		# Not too far horizontally
+		if abs(player_pos.x - self_pos.x) > max_horizontal_diff:
+			print("fail in horizontal")
+			return Status.FAILURE
+
+		# There must be a platform above us that we can reach
+		if not _reachable_platform_between(actor, body, player_pos):
+			print("fail in platform")
+			return Status.FAILURE
+			
+		print("SUCCESS")
+		return Status.SUCCESS
+
+
+	func _reachable_platform_between(actor, body, player_pos: Vector2) -> bool:
+		var space_state = actor.get_world_2d().direct_space_state
+		var from = body.global_position
+		var to = from + Vector2(0, -max_jump_height)
+
+		# Ray up from follower
+		var q_up = PhysicsRayQueryParameters2D.create(from, to)
+		q_up.exclude = [actor, body, actor.player]
+		var up_hit = space_state.intersect_ray(q_up)
+
+		if not up_hit:
+			return false
+
+		var platform_y = up_hit.position.y
+		var platform_collider = up_hit.get("collider")
+
+		# Optional: verify the player is standing near this platform
+		var q_down = PhysicsRayQueryParameters2D.create(player_pos, player_pos + Vector2(0, 10))
+		q_down.exclude = [actor, body, actor.player]
+		var down_hit = space_state.intersect_ray(q_down)
+
+		if down_hit and down_hit.get("collider") == platform_collider:
+			return true
+
+		return false
 
 
 # --- Action nodes ---
@@ -102,78 +154,69 @@ class JumpTowardPlayer extends BTNode:
 	var jumping := false
 	var did_double_jump := false
 	var time_since_jump := 0.0
-	var min_double_delay := 0.08   # avoid instant two jumps same frame
-	var extra_boost := 200.0       # how much upward impulse to add
-	var max_up_speed := -420.0     # clamp so it doesn't get crazy
+
+	# --- Tunable parameters ---
+	var base_jump_force := -300.0     # normal jump velocity
+	var max_jump_force := -450.0      # max upward impulse if platform is high
+	var min_double_delay := 0.08      # min time between first and double jump
+	var extra_boost := 200.0          # double jump upward boost
+	var max_up_speed := -420.0        # clamp upward speed
+	var jump_height_check := 140.0    # how far up to look for a platform
 
 	func tick(actor, delta) -> int:
 		var body = actor.get_parent() as CharacterBody2D
 		if body == null or actor.player == null:
 			return Status.FAILURE
 
-		# Reset counters when on floor and not in a jump session
+		# --- Reset state if grounded and idle ---
 		if body.is_on_floor() and not jumping:
 			actor.jumps_left = actor.max_jumps
 			did_double_jump = false
 			time_since_jump = 0.0
 
-		# If we are in the air during a jump session
+		# --- In mid-air ---
 		if jumping:
 			time_since_jump += delta
 
-			# Landed -> end jump session
+			# Landed
 			if body.is_on_floor():
 				jumping = false
 				return Status.SUCCESS
 
-			# --- Decide whether to DOUBLE JUMP while in the air ---
+			# Optional double jump continuation
 			if not did_double_jump and actor.jumps_left > 0 and time_since_jump >= min_double_delay:
-				var still_blocked := _obstacle_ahead(actor, body)
+				var still_blocked : bool = actor.has_obstacle_ahead(body)
 				var still_below_player : bool = (actor.player.global_position.y - body.global_position.y) < -60
-
 				if still_blocked or still_below_player:
-					# add upward impulse instead of resetting to a fixed value
 					body.velocity.y = min(body.velocity.y - extra_boost, max_up_speed)
 					actor.jumps_left -= 1
 					did_double_jump = true
-					actor.just_jumped = true   # if you use this flag in follower.gd
-
+					actor.just_jumped = true
 			return Status.RUNNING
 
-		# --- Start first jump if needed (called from sequences before follow) ---
+		# --- Try to start a new jump ---
 		var need_jump := false
 		var vertical_diff = actor.player.global_position.y - body.global_position.y
-		if vertical_diff < -100:
+
+		# Case 1: Player is above and reachable
+		if vertical_diff < -60 and actor.get_platform_above(body):
 			need_jump = true
-		if _obstacle_ahead(actor, body) and body.is_on_floor():
+
+		# Case 2: There’s an obstacle in front
+		if actor.has_obstacle_ahead(body) and body.is_on_floor():
 			need_jump = true
 
 		if need_jump and actor.jumps_left > 0:
-			body.velocity.y = -300
+			var jump_force = actor.calculate_jump_force(body, base_jump_force, max_jump_force, jump_height_check)
+			body.velocity.y = jump_force
 			actor.jumps_left -= 1
 			jumping = true
 			did_double_jump = false
 			time_since_jump = 0.0
 			actor.just_jumped = true
-			#print("FIRST JUMP")
 			return Status.RUNNING
 
 		return Status.FAILURE
-
-	func _obstacle_ahead(actor, body) -> bool:
-		# Short, forward probe ignoring the player & self; only checks level geometry
-		var dir_x = sign(actor.player.global_position.x - body.global_position.x)
-		if dir_x == 0:
-			return false
-		var from = body.global_position + Vector2(dir_x * 12, -4)
-		var to   = from + Vector2(dir_x * 20, 12)
-		var q = PhysicsRayQueryParameters2D.create(from, to)
-		q.exclude = [actor, body, actor.player]
-		var hit = actor.get_world_2d().direct_space_state.intersect_ray(q)
-		if not hit:
-			return false
-		var col = hit.get("collider")
-		return not (col is CharacterBody2D)
 
 
 class IsObstacleAhead extends BTNode:

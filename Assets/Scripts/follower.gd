@@ -73,6 +73,42 @@ func play_teleport_effect(pos: Vector2) -> void:
 		particles.emitting = false
 		await get_tree().process_frame
 		particles.emitting = true
+		
+
+func has_obstacle_ahead(body: CharacterBody2D, distance: float = 20.0) -> bool:
+	var dir_x = sign(player.global_position.x - body.global_position.x)
+	if dir_x == 0:
+		return false
+	var from = body.global_position + Vector2(dir_x * 12, -4)
+	var to = from + Vector2(dir_x * distance, 12)
+	var q = PhysicsRayQueryParameters2D.create(from, to)
+	q.exclude = [self, body, player]
+	var hit = get_world_2d().direct_space_state.intersect_ray(q)
+	if not hit:
+		return false
+	var col = hit.get("collider")
+	return not (col is CharacterBody2D)
+
+
+func get_platform_above(body: CharacterBody2D, max_height: float = 140.0) -> Dictionary:
+	var from = body.global_position
+	var to = from + Vector2(0, -max_height)
+	var q = PhysicsRayQueryParameters2D.create(from, to)
+	q.exclude = [self, body, player]
+	var hit = get_world_2d().direct_space_state.intersect_ray(q)
+	if hit and not (hit.get("collider") is CharacterBody2D):
+		return hit
+	return {}
+
+
+func calculate_jump_force(body: CharacterBody2D, base_force: float, max_force: float, max_height: float = 140.0) -> float:
+	var hit = get_platform_above(body, max_height)
+	if hit.is_empty():
+		return base_force
+	var distance = body.global_position.y - hit.position.y
+	var t = clamp(distance / max_height, 0.0, 1.0)
+	return lerp(base_force, max_force, t)
+
 
 # -------------------------------------------------------------------
 # Träd-definitioner för olika vänner
@@ -97,7 +133,7 @@ func _build_behavior_tree() -> void:
 				{
 					"type": "Selector", "children": [
 						{ "type": "Sequence", "children": [
-							{ "type": "RandomChoiceMemory", "chance": 0.1, "duration": 3.0 },
+							{ "type": "RandomChoiceMemory", "chance": 0.7, "duration": 3.0 },
 							{ "type": "MoveTowardPlayer" }
 						]},
 						{ "type": "MoveTowardPlayerSlow" }
@@ -133,7 +169,6 @@ func get_base_friend_bt() -> Dictionary:
 			# 3) Jump when player is above
 			{ "type": "Sequence", "children": [
 				{ "type": "IsRescued" },
-				{ "type": "IsFarFromPlayer" },
 				{ "type": "IsPlayerAbove" },
 				{ "type": "JumpTowardPlayer" }
 			]},
