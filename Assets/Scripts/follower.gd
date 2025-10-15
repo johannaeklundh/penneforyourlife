@@ -97,7 +97,7 @@ func _build_behavior_tree() -> void:
 				{
 					"type": "Selector", "children": [
 						{ "type": "Sequence", "children": [
-							{ "type": "RandomChoiceMemory", "chance": 0.7, "duration": 3.0 },
+							{ "type": "RandomChoiceMemory", "chance": 0.1, "duration": 3.0 },
 							{ "type": "MoveTowardPlayer" }
 						]},
 						{ "type": "MoveTowardPlayerSlow" }

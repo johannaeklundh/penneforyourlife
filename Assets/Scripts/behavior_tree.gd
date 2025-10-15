@@ -289,7 +289,20 @@ static func build_tree(definition: Dictionary) -> BTNode:
 	
 	var node = node_registry[node_type].new()
 	
-	# Bygg barn rekursivt om det finns
+	# Copy all other properties (besides type/children) into the node, if it has matching members
+	for key in definition.keys():
+		if key == "type" or key == "children":
+			continue
+		var property_list = node.get_property_list()
+		var has_prop = false
+		for p in property_list:
+			if p.name == key:
+				has_prop = true
+				break
+		if has_prop:
+			node.set(key, definition[key])
+	
+	# Build children recursively
 	if definition.has("children"):
 		for child_def in definition["children"]:
 			var child = build_tree(child_def)
@@ -297,6 +310,7 @@ static func build_tree(definition: Dictionary) -> BTNode:
 				node.children.append(child)
 	
 	return node
+
 
 
 # --- Extra noder för variation mellan vänner ---
@@ -332,7 +346,7 @@ class RandomChoiceMemory extends BTNode:
 			# re-roll the choice
 			use_slow = randf() >= chance
 			timer = duration
-
+		# print(chance, " , ", duration)
 		return Status.SUCCESS if use_slow else Status.FAILURE
 
 # Variant av MoveTowardPlayer som rör sig snabbare
