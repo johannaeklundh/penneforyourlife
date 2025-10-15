@@ -29,6 +29,8 @@ func _ready() -> void:
 	rope_bar.value = 0
 	area.body_entered.connect(_on_area_body_entered)
 	area.body_exited.connect(_on_area_body_exited)
+	
+	add_to_group("friends")
 
 func _process(_delta: float) -> void:
 	if player_near and not freed and Input.is_action_just_pressed("interact"):
@@ -71,7 +73,40 @@ func _process(_delta: float) -> void:
 		elif self.velocity.x < 0:
 			anim_sprite.flip_h = true
 
-func _on_projectile_hit() -> void:
+func captured():
+	# Reset state
+	freed = false
+	press_count = 0
+	rope_bar.value = 0
+
+	# Visual + animation reset
+	anim_sprite.play("stuck")
+	e_button.hide()
+	rope_bar.hide()
+
+	# Optional: stop movement if AI is active
+	#if has_node("AI"):
+		#var ai = get_node("AI")
+		#if ai.has_method("stop"):
+			#ai.stop()  # you can define this in follower.gd if needed
+
+	burst_particles()
+	shake_friend()
+	
+	
+func set_captured_state(is_captured: bool):
+	freed = not is_captured
+	press_count = 0
+	rope_bar.value = 0
+	if is_captured:
+		anim_sprite.play("stuck")
+		e_button.hide()
+		rope_bar.hide()
+	else:
+		anim_sprite.play("idle")
+
+
+func _on_projectile_hit(projectile_pos: Vector2) -> void:
 	if freed:
 		return
 	

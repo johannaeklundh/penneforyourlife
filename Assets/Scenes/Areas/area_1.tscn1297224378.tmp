@@ -29,7 +29,7 @@
 [ext_resource type="PackedScene" uid="uid://coii6evfr20xu" path="res://Assets/Scenes/Scoreboard.tscn" id="25_citrs"]
 [ext_resource type="PackedScene" uid="uid://dqoa3lentq20v" path="res://Assets/Scenes/parallax_background.tscn" id="27_wu28u"]
 [ext_resource type="PackedScene" uid="uid://drwelie4rmrht" path="res://Assets/Scenes/boiling_pot.tscn" id="28_citrs"]
-[ext_resource type="PackedScene" uid="uid://dia1pe5l04q6h" path="res://Assets/Scenes/Boss.tscn" id="30_me1nw"]
+[ext_resource type="PackedScene" uid="uid://dokv23i818fbh" path="res://Assets/Scenes/Boss.tscn" id="30_me1nw"]
 
 [sub_resource type="GDScript" id="GDScript_5cg6o"]
 script/source = "extends Camera2D
@@ -278,8 +278,8 @@ collision_mask = 33
 [node name="AI" type="Node2D" parent="Broccoli" node_paths=PackedStringArray("player")]
 visible = false
 script = ExtResource("12_5cg6o")
-friend_index = 2
 player = NodePath("../../Player")
+friend_index = 2
 
 [node name="Glitter" type="CPUParticles2D" parent="Broccoli"]
 position = Vector2(87, 80)
@@ -306,6 +306,7 @@ scale_amount_max = 0.4
 [node name="Bacon" parent="." instance=ExtResource("16_lbrap")]
 position = Vector2(594, -531)
 collision_mask = 33
+friend_name = "bacon"
 
 [node name="AI" type="Node2D" parent="Bacon" node_paths=PackedStringArray("player")]
 visible = false
@@ -337,12 +338,13 @@ scale_amount_max = 0.4
 [node name="Tomato" parent="." instance=ExtResource("16_ttsc2")]
 position = Vector2(957, -450)
 collision_mask = 33
+friend_name = "tomato"
 
 [node name="AI" type="Node2D" parent="Tomato" node_paths=PackedStringArray("player")]
 visible = false
 script = ExtResource("12_5cg6o")
-friend_index = 1
 player = NodePath("../../Player")
+friend_index = 1
 
 [node name="Glitter" type="CPUParticles2D" parent="Tomato"]
 position = Vector2(87, 80)
@@ -561,10 +563,8 @@ shape = SubResource("CapsuleShape2D_0ufq0")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 
-[node name="Boss" parent="." node_paths=PackedStringArray("player") instance=ExtResource("30_me1nw")]
-position = Vector2(-383, -225)
-speed = 40.0
-player = NodePath("../Player")
+[node name="Boss" parent="." instance=ExtResource("30_me1nw")]
+position = Vector2(-214, -565)
 
 [connection signal="body_entered" from="Pit" to="." method="_on_pit_body_entered"]
 [connection signal="freed_friend" from="Broccoli" to="HUD/FriendSlots" method="_on_broccoli_freed_friend"]

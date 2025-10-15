@@ -137,10 +137,11 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Tomato" type="CharacterBody2D"]
+[node name="Tomato" type="CharacterBody2D" groups=["friends"]]
 collision_layer = 4
 collision_mask = 53
 script = ExtResource("1_3j8gi")
+friend_name = "tomato"
 friend_index = 1
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

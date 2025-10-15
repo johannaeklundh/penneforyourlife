@@ -1,0 +1,54 @@
+[gd_scene load_steps=7 format=3 uid="uid://dia1pe5l04q6h"]
+
+[ext_resource type="Script" uid="uid://fi5krlg7yssq" path="res://Assets/Scripts/boss_ai.gd" id="1_8yheg"]
+[ext_resource type="Texture2D" uid="uid://dfchokneoj3m4" path="res://Assets/Sprites/hand.png" id="2_8yheg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1bma5"]
+atlas = ExtResource("2_8yheg")
+region = Rect2(200, 0, 200, 675)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_228qf"]
+atlas = ExtResource("2_8yheg")
+region = Rect2(0, 0, 200, 675)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_k161g"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1bma5")
+}],
+"loop": true,
+"name": &"capture",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 5.0,
+"texture": SubResource("AtlasTexture_228qf")
+}],
+"loop": true,
+"name": &"move",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8yheg"]
+radius = 5.12397
+height = 18.616
+
+[node name="Boss" type="CharacterBody2D"]
+collision_layer = 64
+collision_mask = 23
+script = ExtResource("1_8yheg")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0.14859, 0.499557)
+rotation = 3.14159
+scale = Vector2(0.4, 0.4)
+sprite_frames = SubResource("SpriteFrames_k161g")
+animation = &"move"
+autoplay = "move"
+offset = Vector2(-2.12905, 206.249)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 1)
+scale = Vector2(-2.92742, 2.47099)
+shape = SubResource("CapsuleShape2D_8yheg")

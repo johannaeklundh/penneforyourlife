@@ -110,7 +110,7 @@ _data = {
 
 [node name="Area2D" type="Area2D"]
 collision_layer = 16
-collision_mask = 37
+collision_mask = 101
 script = ExtResource("1_b6is6")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

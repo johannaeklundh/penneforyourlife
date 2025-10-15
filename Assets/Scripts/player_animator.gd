@@ -6,6 +6,7 @@ extends Node2D
 
 var is_blinking := false
 var is_attacking := false
+var captured := false
 
 func _process(_delta):
 	
@@ -15,7 +16,12 @@ func _process(_delta):
 			is_attacking = false
 		else:
 			return
-	
+			
+			
+	if captured:
+		sprite.play("stuck")
+		return
+			
 	if player_controller.direction == 1:
 		sprite.flip_h = false
 	elif player_controller.direction == -1:
@@ -35,14 +41,18 @@ func _process(_delta):
 	else:
 		sprite.play("idle")
 		
+func play_captured():
+	captured = true
+	is_attacking = false
+		
+func play_freed():
+	captured = false
+	sprite.play("idle")
 
-
-func play_attack():
-				
+func play_attack():				
 	is_attacking = true
 	sprite.play("hit")
 	player_controller.throw_projectile()
-
 
 func play_hurt():
 	if is_blinking: 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://br4bmuwc5rwhj"]
+[gd_scene load_steps=24 format=3 uid="uid://br4bmuwc5rwhj"]
 
 [ext_resource type="Script" uid="uid://cy1cyiq3gmfsu" path="res://Assets/Scripts/player_controller.gd" id="1_7dd06"]
 [ext_resource type="Script" uid="uid://o414gm4wpvwf" path="res://Assets/Scripts/player_animator.gd" id="2_38rej"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://craegrfwlbch5" path="res://Assets/Sprites/pastaHitFilledBlack.png" id="4_c3tg1"]
 [ext_resource type="Texture2D" uid="uid://dgabdgq3lwp8y" path="res://Assets/Sprites/pastaIdleFilledBLACK.png" id="5_w3t24"]
 [ext_resource type="Texture2D" uid="uid://de4skrdn8s77w" path="res://Assets/Sprites/pastaRunFilledBlack.png" id="6_lerqx"]
+[ext_resource type="Texture2D" uid="uid://dlc2vuenbnfyx" path="res://Assets/Sprites/pastaStuck.png" id="8_lerqx"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jp3cw"]
 atlas = ExtResource("3_w3t24")
@@ -51,6 +52,14 @@ region = Rect2(399, 0, 399, 560)
 [sub_resource type="AtlasTexture" id="AtlasTexture_xka8r"]
 atlas = ExtResource("6_lerqx")
 region = Rect2(798, 0, 399, 560)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ncqey"]
+atlas = ExtResource("8_lerqx")
+region = Rect2(0, 0, 400, 560)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lerqx"]
+atlas = ExtResource("8_lerqx")
+region = Rect2(0, 0, 400, 560)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_c3tg1"]
 animations = [{
@@ -114,6 +123,17 @@ animations = [{
 "loop": true,
 "name": &"run",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ncqey")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lerqx")
+}],
+"loop": true,
+"name": &"stuck",
+"speed": 5.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7dd06"]
@@ -123,7 +143,7 @@ height = 26.0
 [node name="Player" type="CharacterBody2D"]
 position = Vector2(0, -5)
 collision_layer = 2
-collision_mask = 57
+collision_mask = 121
 script = ExtResource("1_7dd06")
 speed = 8.0
 projectile_scene = ExtResource("2_c3tg1")
@@ -137,7 +157,7 @@ player_controller = NodePath("..")
 position = Vector2(2.27374e-13, -8)
 scale = Vector2(0.05, 0.05)
 sprite_frames = SubResource("SpriteFrames_c3tg1")
-animation = &"hit"
+animation = &"idle"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

@@ -30,7 +30,7 @@ func _on_body_entered(body: Node) -> void:
 		return
 	
 	if body.has_method("_on_projectile_hit"):
-		body._on_projectile_hit()
+		body._on_projectile_hit(self.global_position)
 		
 		if not body.freed:
 			play_hit_and_fade()

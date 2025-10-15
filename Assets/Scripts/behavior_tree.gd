@@ -298,6 +298,99 @@ class TeleportIfTooFar extends BTNode:
 
 		return Status.FAILURE
 
+# --- Boss-specific nodes ---
+class HasCaptured extends BTNode:
+	func tick(actor, _d) -> int:
+		return Status.SUCCESS if actor.has_captured else Status.FAILURE
+
+#class CapturedTargetFreed extends BTNode:
+	#func tick(actor, _d) -> int:
+		#if actor.captured_target == null:
+			#return Status.FAILURE
+		## Check if target was freed
+		#if actor.captured_target.has_method("is_rescued") and actor.captured_target.is_rescued:
+			#return Status.SUCCESS
+		#if actor.captured_target.has_method("freed") and actor.captured_target.freed:
+			#return Status.SUCCESS
+		#return Status.FAILURE
+
+class IsNearPlayerOrFriend extends BTNode:
+	func tick(actor, _d) -> int:
+		var body = actor as CharacterBody2D
+		if body == null or actor.player == null:
+			return Status.FAILURE
+		if actor.has_captured:
+			return Status.FAILURE  # already holding someone
+
+		var targets = [actor.player]
+		for f in actor.get_tree().get_nodes_in_group("friends"):
+			targets.append(f)
+
+		for t in targets:
+			var dist = body.global_position.distance_to(t.global_position)
+			if dist < actor.capture_range:
+				actor.capture(t)
+				return Status.SUCCESS
+
+		return Status.FAILURE
+
+class CaptureTarget extends BTNode:
+	func tick(actor, _d) -> int:
+		if actor.has_captured and actor.captured_target:
+			# Optional: stop target movement, play animation, etc.
+			if actor.captured_target.has_method("captured"):
+				actor.captured_target.captured()
+				
+			if actor.has_node("AnimatedSprite2D"):
+				actor.get_node("AnimatedSprite2D").play("capture")
+			return Status.SUCCESS
+		return Status.FAILURE
+
+class MoveAwayFromPlayer extends BTNode:
+	func tick(actor, delta) -> int:
+		var body = actor as CharacterBody2D
+		if body == null or actor.player == null:
+			return Status.FAILURE
+		var dir = sign(body.global_position.x - actor.player.global_position.x)
+		body.velocity.x = dir * actor.speed
+		#body.velocity.y = 0  # <-- keep floating level
+		# stop fleeing if far enough
+		if body.global_position.distance_to(actor.player.global_position) > actor.flee_distance:
+			body.velocity = Vector2.ZERO
+			return Status.SUCCESS
+		return Status.RUNNING
+
+#class PlayReleaseAnimation extends BTNode:
+	#func tick(actor, _d) -> int:
+		#if not actor.just_released:
+			#actor.release()
+			## trigger animation (assuming animation node exists)
+			#var anim = actor.get_node_or_null("AnimatedSprite2D")
+			#if anim:
+				#anim.play("release")
+			#return Status.RUNNING
+		#return Status.SUCCESS
+
+class MoveTowardPlayerSimple extends BTNode:
+	func tick(actor, delta) -> int:
+		var body = actor as CharacterBody2D
+		if body == null or actor.player == null:
+			return Status.FAILURE
+
+		var to_player = actor.player.global_position - body.global_position
+		var dist = to_player.length()
+
+		var dir = to_player.normalized()
+		#dir.y = 0  # ignore vertical movement for floating effect
+		body.velocity = dir * actor.speed
+
+		# Stop when very close (so boss can “capture”)
+		if dist < actor.capture_range:
+			body.velocity = Vector2.ZERO
+			return Status.SUCCESS
+
+		return Status.RUNNING
+
 
 static var node_registry := {
 	"Selector": Selector,
@@ -315,7 +408,14 @@ static var node_registry := {
 	"Wait": Wait,
 	"RandomChoiceMemory": RandomChoiceMemory,
 	"MoveTowardPlayerFast": MoveTowardPlayerFast,
-	"MoveTowardPlayerSlow": MoveTowardPlayerSlow
+	"MoveTowardPlayerSlow": MoveTowardPlayerSlow,
+	"MoveTowardPlayerSimple": MoveTowardPlayerSimple,
+	"MoveAwayFromPlayer": MoveAwayFromPlayer,
+	"CaptureTarget": CaptureTarget,
+	"IsNearPlayerOrFriend": IsNearPlayerOrFriend,
+	"HasCaptured": HasCaptured,
+	#"CapturedTargetFreed": CapturedTargetFreed,
+	#"PlayReleaseAnimation": PlayReleaseAnimation
 }
 
 

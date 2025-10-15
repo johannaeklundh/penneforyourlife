@@ -158,3 +158,25 @@ func _physics_process(delta: float) -> void:
 			get_node("PlayerAnimator").play_attack()
 
 	move_and_slide()
+
+
+func captured():
+	can_move = false
+	velocity = Vector2.ZERO
+
+	if has_node("PlayerAnimator"):
+		var animator = get_node("PlayerAnimator")
+		if animator.has_method("play_captured"):
+			animator.play_captured()
+			
+	await get_tree().create_timer(2).timeout
+	freed()
+
+
+func freed():
+	can_move = true
+
+	if has_node("PlayerAnimator"):
+		var animator = get_node("PlayerAnimator")
+		if animator.has_method("play_freed"):
+			animator.play_freed()
