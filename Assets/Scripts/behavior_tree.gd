@@ -71,9 +71,10 @@ class IsGroundAhead extends BTNode:
 		return Status.FAILURE
 
 class IsPlayerAbove extends BTNode:
-	var min_vertical_diff := 60.0
-	var max_horizontal_diff := 100.0
-	var max_jump_height := 140.0
+	var min_vertical_diff := 40.0        # how much higher the player must be
+	var max_horizontal_diff := 200.0     # how far horizontally the player can be
+	var check_height := 140.0            # how far up to look for platforms
+	var check_forward := 60.0            # how far forward to look for diagonal ones
 
 	func tick(actor, _delta) -> int:
 		var body = actor.get_parent() as CharacterBody2D
@@ -83,51 +84,27 @@ class IsPlayerAbove extends BTNode:
 		var player_pos = actor.player.global_position
 		var self_pos = body.global_position
 
-		# Player must be sufficiently higher
-		if player_pos.y >= self_pos.y - min_vertical_diff:
-			print("fail in vertical")
+		# 1️⃣ Player must be higher than follower
+		var vertical_diff = self_pos.y - player_pos.y
+		if vertical_diff < min_vertical_diff:
 			return Status.FAILURE
 
-		# Not too far horizontally
-		if abs(player_pos.x - self_pos.x) > max_horizontal_diff:
-			print("fail in horizontal")
+		# 2️⃣ Player must be within reasonable horizontal range
+		var horiz_diff = abs(player_pos.x - self_pos.x)
+		if horiz_diff > max_horizontal_diff:
 			return Status.FAILURE
 
-		# There must be a platform above us that we can reach
-		if not _reachable_platform_between(actor, body, player_pos):
-			print("fail in platform")
+		# 3️⃣ There must be a reachable platform between us and the player
+		var platform_hit = actor.get_platform_in_front_or_above(body, check_height, check_forward)
+		if platform_hit.is_empty():
 			return Status.FAILURE
-			
-		print("SUCCESS")
+
+		# Optional: extra sanity check — ensure player is above or near that platform
+		var platform_y = platform_hit.position.y
+		if player_pos.y > platform_y + 10:
+			return Status.FAILURE
+
 		return Status.SUCCESS
-
-
-	func _reachable_platform_between(actor, body, player_pos: Vector2) -> bool:
-		var space_state = actor.get_world_2d().direct_space_state
-		var from = body.global_position
-		var to = from + Vector2(0, -max_jump_height)
-
-		# Ray up from follower
-		var q_up = PhysicsRayQueryParameters2D.create(from, to)
-		q_up.exclude = [actor, body, actor.player]
-		var up_hit = space_state.intersect_ray(q_up)
-
-		if not up_hit:
-			return false
-
-		var platform_y = up_hit.position.y
-		var platform_collider = up_hit.get("collider")
-
-		# Optional: verify the player is standing near this platform
-		var q_down = PhysicsRayQueryParameters2D.create(player_pos, player_pos + Vector2(0, 10))
-		q_down.exclude = [actor, body, actor.player]
-		var down_hit = space_state.intersect_ray(q_down)
-
-		if down_hit and down_hit.get("collider") == platform_collider:
-			return true
-
-		return false
-
 
 # --- Action nodes ---
 class MoveTowardPlayer extends BTNode:
@@ -178,6 +155,10 @@ class JumpTowardPlayer extends BTNode:
 		if jumping:
 			time_since_jump += delta
 
+			# Slight horizontal steering toward player/platform
+			var desired_dir = sign(actor.player.global_position.x - body.global_position.x)
+			body.velocity.x = lerp(body.velocity.x, desired_dir * actor.speed * 0.8, 3.0 * delta)
+
 			# Landed
 			if body.is_on_floor():
 				jumping = false
@@ -199,7 +180,7 @@ class JumpTowardPlayer extends BTNode:
 		var vertical_diff = actor.player.global_position.y - body.global_position.y
 
 		# Case 1: Player is above and reachable
-		if vertical_diff < -60 and actor.get_platform_above(body):
+		if vertical_diff < -60 and actor.get_platform_in_front_or_above(body):
 			need_jump = true
 
 		# Case 2: There’s an obstacle in front
@@ -207,14 +188,28 @@ class JumpTowardPlayer extends BTNode:
 			need_jump = true
 
 		if need_jump and actor.jumps_left > 0:
+			var platform_hit = actor.get_platform_in_front_or_above(body)
 			var jump_force = actor.calculate_jump_force(body, base_jump_force, max_jump_force, jump_height_check)
+			
+			# --- NEW: add horizontal motion toward platform ---
+			var horiz_boost := 0.0
+			if not platform_hit.is_empty():
+				var dx = platform_hit.position.x - body.global_position.x
+				horiz_boost = clamp(dx * 2.5, -actor.speed * 1.2, actor.speed * 1.2)
+			else:
+				# fallback: small push toward player
+				horiz_boost = sign(actor.player.global_position.x - body.global_position.x) * actor.speed * 0.6
+			
+			body.velocity.x = horiz_boost
 			body.velocity.y = jump_force
+
 			actor.jumps_left -= 1
 			jumping = true
 			did_double_jump = false
 			time_since_jump = 0.0
 			actor.just_jumped = true
 			return Status.RUNNING
+
 
 		return Status.FAILURE
 

@@ -90,19 +90,34 @@ func has_obstacle_ahead(body: CharacterBody2D, distance: float = 20.0) -> bool:
 	return not (col is CharacterBody2D)
 
 
-func get_platform_above(body: CharacterBody2D, max_height: float = 140.0) -> Dictionary:
+func get_platform_in_front_or_above(body: CharacterBody2D, max_height: float = 140.0, horizontal_reach: float = 80.0) -> Dictionary:
+	var dir_x = sign(player.global_position.x - body.global_position.x)
+	if dir_x == 0:
+		return {}
+	
+	var space_state = get_world_2d().direct_space_state
 	var from = body.global_position
-	var to = from + Vector2(0, -max_height)
-	var q = PhysicsRayQueryParameters2D.create(from, to)
-	q.exclude = [self, body, player]
-	var hit = get_world_2d().direct_space_state.intersect_ray(q)
-	if hit and not (hit.get("collider") is CharacterBody2D):
-		return hit
+
+	# Cast several rays upward and diagonally forward to detect platforms
+	var directions = [
+		Vector2(0, -max_height),                     # straight up
+		Vector2(dir_x * horizontal_reach, -max_height * 0.8), # shallow diagonal
+		Vector2(dir_x * horizontal_reach * 1.2, -max_height * 0.6) # further diagonal
+	]
+
+	for dir in directions:
+		var q = PhysicsRayQueryParameters2D.create(from, from + dir)
+		q.exclude = [self, body, player]
+		var hit = space_state.intersect_ray(q)
+		if hit and not (hit.get("collider") is CharacterBody2D):
+			return hit  # Return the first valid platform hit
+
 	return {}
 
 
+
 func calculate_jump_force(body: CharacterBody2D, base_force: float, max_force: float, max_height: float = 140.0) -> float:
-	var hit = get_platform_above(body, max_height)
+	var hit = get_platform_in_front_or_above(body, max_height)
 	if hit.is_empty():
 		return base_force
 	var distance = body.global_position.y - hit.position.y
