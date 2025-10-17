@@ -278,8 +278,8 @@ collision_mask = 33
 [node name="AI" type="Node2D" parent="Broccoli" node_paths=PackedStringArray("player")]
 visible = false
 script = ExtResource("12_5cg6o")
-friend_index = 2
 player = NodePath("../../Player")
+friend_index = 2
 
 [node name="Glitter" type="CPUParticles2D" parent="Broccoli"]
 position = Vector2(87, 80)
@@ -341,8 +341,8 @@ collision_mask = 33
 [node name="AI" type="Node2D" parent="Tomato" node_paths=PackedStringArray("player")]
 visible = false
 script = ExtResource("12_5cg6o")
-friend_index = 1
 player = NodePath("../../Player")
+friend_index = 1
 
 [node name="Glitter" type="CPUParticles2D" parent="Tomato"]
 position = Vector2(87, 80)

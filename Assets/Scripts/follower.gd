@@ -40,11 +40,11 @@ func _physics_process(delta: float) -> void:
 		parent.velocity.y += gravity * delta
 		# print("I luften, åker neråt") 
 	else:
-		# Om vi inte precis hoppat → sätt velocity till 0
+		# If not just jumped --> set velocity to 0
 		if not just_jumped:
 			parent.velocity.y = max(parent.velocity.y, 0)
 		
-	# Efter att physics körts klart, återställ flaggan
+	# After physics been run, reset the flag
 	just_jumped = false
 
 	# Always move with physics
@@ -56,7 +56,8 @@ func rescue() -> void:
 func set_animation_mode(mode: String):
 	current_anim_mode = mode
 
-# Hjälpfunktioner som BT kan använda
+## Help-functions that the BT can use
+
 func idle() -> void:
 	var parent = get_parent() as CharacterBody2D
 	if parent == null:
@@ -64,8 +65,6 @@ func idle() -> void:
 	parent.velocity.x = 0
 	parent.move_and_slide()
 
-## Hjälpfunktioner som BT kan använda
-#
 func play_teleport_effect(pos: Vector2) -> void:
 	var particles = get_node_or_null("../Glitter")
 	if particles:
@@ -114,8 +113,6 @@ func get_platform_in_front_or_above(body: CharacterBody2D, max_height: float = 1
 
 	return {}
 
-
-
 func calculate_jump_force(body: CharacterBody2D, base_force: float, max_force: float, max_height: float = 140.0) -> float:
 	var hit = get_platform_in_front_or_above(body, max_height)
 	if hit.is_empty():
@@ -124,24 +121,23 @@ func calculate_jump_force(body: CharacterBody2D, base_force: float, max_force: f
 	var t = clamp(distance / max_height, 0.0, 1.0)
 	return lerp(base_force, max_force, t)
 
-
 # -------------------------------------------------------------------
-# Träd-definitioner för olika vänner
+# Tree-definition for different friends
 # -------------------------------------------------------------------
 func _build_behavior_tree() -> void:
 	var tree_def = get_base_friend_bt()
 
 	match friend_index:
-		0: # blyg vän → lägg till en Wait innan Move  (Bacon)
-			var follow_seq = tree_def["children"][3]  # fjärde barnet = follow-seq (index 3)
+		0: # Shy friend →add Wait before Move  (Bacon)
+			var follow_seq = tree_def["children"][3]  # forth child in the tree = follow-seq (index 3)
 			follow_seq["children"].insert(1, {"type": "Wait", "time": 2.0})
 
-		1: # snabb vän → byt MoveTowardPlayer mot MoveTowardPlayerFast (Tomaten)
-			var follow_seq = tree_def["children"][3]   # gren 4 i trädet (index 3)
+		1: # fast friend → change MoveTowardPlayer to  MoveTowardPlayerFast (Tomato)
+			var follow_seq = tree_def["children"][3]   # forth child in the tree (index 3)
 			follow_seq["children"][1] = {"type": "MoveTowardPlayerFast"}
 
-		2: # Trött vän (Broccoli) → 70% normal, 30% trött
-			var follow_seq = tree_def["children"][3]  # fjärde barnet = follow-seq (index 3)
+		2: # Tired friend (Broccoli) → 70% normal, 30% tired
+			var follow_seq = tree_def["children"][3]  # forth child in the tree = follow-seq (index 3)
 
 			follow_seq["children"] = [
 				{"type": "IsRescued"},
@@ -156,24 +152,24 @@ func _build_behavior_tree() -> void:
 				}
 			]
 
-		_: # default → inga ändringar
+		_: # default → no changes
 			pass
 
 	tree_root = BehaviorTree.build_tree(tree_def)
 
 
- #   Standard (alla vänner utan specialbeteende)
+ #   Standard (all friends without special behaviors)
 func get_base_friend_bt() -> Dictionary:
 	return {
 		"type": "Selector",
 		"children": [
-			# 1) Teleport if very far (runs before anything else)
+			# 0) Teleport if very far (runs before anything else)
 			{ "type": "Sequence", "children": [
 				{ "type": "IsRescued" },
 				{ "type": "TeleportIfTooFar" }
 			]},
 
-			# 2) Jump over obstacle when blocked at same height
+			# 1) Jump over obstacle when blocked at same height
 			{ "type": "Sequence", "children": [
 				{ "type": "IsRescued" },
 				{ "type": "IsFarFromPlayer" },
@@ -181,20 +177,20 @@ func get_base_friend_bt() -> Dictionary:
 				{ "type": "JumpTowardPlayer" }
 			]},
 
-			# 3) Jump when player is above
+			# 2) Jump when player is above
 			{ "type": "Sequence", "children": [
 				{ "type": "IsRescued" },
 				{ "type": "IsPlayerAbove" },
 				{ "type": "JumpTowardPlayer" }
 			]},
 
-			# 4) Follow on ground (no IsGroundAhead gate here)
+			# 3) Follow on ground
 			{ "type": "Sequence", "children": [
 				{ "type": "IsRescued" },
 				{ "type": "MoveTowardPlayer" }   # or MoveTowardPlayerFast
 			]},
 
-			# 5) Idle when close
+			# 4) Idle when close
 			{ "type": "Sequence", "children": [
 				{ "type": "IsRescued" },
 				{ "type": "IsCloseToPlayer" },

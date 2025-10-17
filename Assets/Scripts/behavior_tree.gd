@@ -1,10 +1,10 @@
 class_name BehaviorTree
 extends Node
 
-# Statuskoder
+# Statuscodes
 enum Status { SUCCESS, FAILURE, RUNNING }
 
-# --- Basnoder ---
+# --- Basenodes ---
 class BTNode:
 	func tick(_actor, _delta) -> int:
 		return Status.FAILURE
@@ -49,7 +49,6 @@ class IsCloseToPlayer extends BTNode:
 		if p == null or actor.player == null: return Status.FAILURE
 		return Status.SUCCESS if p.global_position.distance_to(actor.player.global_position) <= threshold else Status.FAILURE
 
-
 class IsGroundAhead extends BTNode:
 	func tick(actor, _delta) -> int:
 		var dir_x = sign(actor.player.global_position.x - actor.global_position.x)
@@ -84,24 +83,60 @@ class IsPlayerAbove extends BTNode:
 		var player_pos = actor.player.global_position
 		var self_pos = body.global_position
 
-		# 1️⃣ Player must be higher than follower
+		# Player must be higher than follower
 		var vertical_diff = self_pos.y - player_pos.y
 		if vertical_diff < min_vertical_diff:
 			return Status.FAILURE
 
-		# 2️⃣ Player must be within reasonable horizontal range
+		# Player must be within reasonable horizontal range
 		var horiz_diff = abs(player_pos.x - self_pos.x)
 		if horiz_diff > max_horizontal_diff:
 			return Status.FAILURE
 
-		# 3️⃣ There must be a reachable platform between us and the player
+		# There must be a reachable platform between us and the player
 		var platform_hit = actor.get_platform_in_front_or_above(body, check_height, check_forward)
 		if platform_hit.is_empty():
 			return Status.FAILURE
 
-		# Optional: extra sanity check — ensure player is above or near that platform
+		# extra sanity check — ensure player is above or near that platform
 		var platform_y = platform_hit.position.y
 		if player_pos.y > platform_y + 10:
+			return Status.FAILURE
+
+		return Status.SUCCESS
+		
+class IsObstacleAhead extends BTNode:
+	var min_dist_to_player := 48.0   # don’t treat anything as obstacle if we’re already close
+	var ray_len := 20.0              # how far ahead to probe
+
+	func tick(actor, _d) -> int:
+		var body = actor.get_parent() as CharacterBody2D
+		if body == null or actor.player == null:
+			return Status.FAILURE
+
+		# If we’re already close to the player, don’t trigger obstacle logic
+		var dist = body.global_position.distance_to(actor.player.global_position)
+		if dist <= min_dist_to_player:
+			return Status.FAILURE
+
+		# Ray forward toward the player
+		var dir_x = sign(actor.player.global_position.x - body.global_position.x)
+		if dir_x == 0:
+			return Status.FAILURE
+
+		var from = body.global_position + Vector2(dir_x * 12, -4)
+		var to   = from + Vector2(dir_x * ray_len, 12)
+
+		var q = PhysicsRayQueryParameters2D.create(from, to)
+		# Exclude self AND the player so the player is never seen as an obstacle
+		q.exclude = [actor, body, actor.player]
+		var hit = actor.get_world_2d().direct_space_state.intersect_ray(q)
+		if not hit:
+			return Status.FAILURE
+
+		var col = hit.get("collider")
+		# Ignore dynamic characters (other followers, enemies)
+		if col is CharacterBody2D:
 			return Status.FAILURE
 
 		return Status.SUCCESS
@@ -124,7 +159,6 @@ class MoveTowardPlayer extends BTNode:
 			p.velocity.x = dir.x * (step / delta)
 		else:
 			p.velocity.x = 0
-
 		return Status.SUCCESS
 
 class JumpTowardPlayer extends BTNode:
@@ -191,7 +225,7 @@ class JumpTowardPlayer extends BTNode:
 			var platform_hit = actor.get_platform_in_front_or_above(body)
 			var jump_force = actor.calculate_jump_force(body, base_jump_force, max_jump_force, jump_height_check)
 			
-			# --- NEW: add horizontal motion toward platform ---
+			# --- add horizontal motion toward platform ---
 			var horiz_boost := 0.0
 			if not platform_hit.is_empty():
 				var dx = platform_hit.position.x - body.global_position.x
@@ -210,45 +244,7 @@ class JumpTowardPlayer extends BTNode:
 			actor.just_jumped = true
 			return Status.RUNNING
 
-
 		return Status.FAILURE
-
-
-class IsObstacleAhead extends BTNode:
-	var min_dist_to_player := 48.0   # don’t treat anything as obstacle if we’re already close
-	var ray_len := 20.0              # how far ahead to probe
-
-	func tick(actor, _d) -> int:
-		var body = actor.get_parent() as CharacterBody2D
-		if body == null or actor.player == null:
-			return Status.FAILURE
-
-		# If we’re already close to the player, don’t trigger obstacle logic
-		var dist = body.global_position.distance_to(actor.player.global_position)
-		if dist <= min_dist_to_player:
-			return Status.FAILURE
-
-		# Ray forward toward the player
-		var dir_x = sign(actor.player.global_position.x - body.global_position.x)
-		if dir_x == 0:
-			return Status.FAILURE
-
-		var from = body.global_position + Vector2(dir_x * 12, -4)
-		var to   = from + Vector2(dir_x * ray_len, 12)
-
-		var q = PhysicsRayQueryParameters2D.create(from, to)
-		# Exclude self AND the player so the player is never seen as an obstacle
-		q.exclude = [actor, body, actor.player]
-		var hit = actor.get_world_2d().direct_space_state.intersect_ray(q)
-		if not hit:
-			return Status.FAILURE
-
-		var col = hit.get("collider")
-		# Ignore dynamic characters (other followers, enemies)
-		if col is CharacterBody2D:
-			return Status.FAILURE
-
-		return Status.SUCCESS
 
 
 class IdleAnimation extends BTNode:
@@ -259,7 +255,7 @@ class IdleAnimation extends BTNode:
 class TeleportIfTooFar extends BTNode:
 	var teleporting := false
 	var timer := 0.0
-	var duration := 0.5  # tid för teleport-effekt
+	var duration := 0.5  # time for teleport-effect
 
 	func tick(actor, delta) -> int:
 		var parent = actor.get_parent() as CharacterBody2D
@@ -267,10 +263,9 @@ class TeleportIfTooFar extends BTNode:
 			return Status.FAILURE
 
 		var distance = parent.global_position.distance_to(actor.player.global_position)
-		# Debug: skriv ut avståndet
 		# print("Avstånd mellan vän och pastan: ", distance)
 
-		# Om vi redan håller på att teleportera
+		# If we already is teleporting
 		if teleporting:
 			timer -= delta
 			if timer <= 0.0:
@@ -278,18 +273,18 @@ class TeleportIfTooFar extends BTNode:
 				return Status.SUCCESS
 			return Status.RUNNING
 
-		# Starta teleport
+		# Start teleport
 		if distance > 600:
-			# Spela start-effekt
+			# Play start-effect
 			actor.play_teleport_effect(parent.global_position)
 
-			# Teleportera direkt (eller efter delay om ni vill)
+			# Teleport direct
 			var offset = Vector2(50, 0)
 			if actor.player.global_position.x < parent.global_position.x:
 				offset.x *= -1
 			parent.global_position = actor.player.global_position + offset
 
-			# Spela slut-effekt
+			# Play end-effect
 			actor.play_teleport_effect(parent.global_position)
 
 			teleporting = true
@@ -337,7 +332,6 @@ class IsNearPlayerOrFriend extends BTNode:
 class CaptureTarget extends BTNode:
 	func tick(actor, _d) -> int:
 		if actor.has_captured and actor.captured_target:
-			# Optional: stop target movement, play animation, etc.
 			if actor.captured_target.has_method("captured"):
 				actor.captured_target.captured()
 				
@@ -418,7 +412,6 @@ static var node_registry := {
 	#"PlayReleaseAnimation": PlayReleaseAnimation
 }
 
-
 static func build_tree(definition: Dictionary) -> BTNode:
 	var node_type = definition.get("type", null)
 	if node_type == null or not node_registry.has(node_type):
@@ -449,11 +442,9 @@ static func build_tree(definition: Dictionary) -> BTNode:
 	
 	return node
 
+# --- Exctra nodes for variation between friends ---
 
-
-# --- Extra noder för variation mellan vänner ---
-
-# Vänta en viss tid (ex. blyg vän innan den följer)
+# Wait a certain time
 class Wait extends BTNode:
 	var time := 2.0
 	var timer := 0.0
@@ -487,22 +478,22 @@ class RandomChoiceMemory extends BTNode:
 		# print(chance, " , ", duration)
 		return Status.SUCCESS if use_slow else Status.FAILURE
 
-# Variant av MoveTowardPlayer som rör sig snabbare
+# Variation of MoveTowardPlayer with higher speed
 class MoveTowardPlayerFast extends MoveTowardPlayer:
 	func tick(actor, delta) -> int:
 		#print("fast")
 		var old_speed = actor.speed
-		actor.speed *= 1.5  # eller vilken faktor du vill
+		actor.speed *= 1.5  
 		var result = super.tick(actor, delta)
 		actor.speed = old_speed
 		return result
 		
-# Variant av MoveTowardPlayer som rör sig snabbare
+#  Variation of MoveTowardPlayer with lower speed
 class MoveTowardPlayerSlow extends MoveTowardPlayer:
 	func tick(actor, delta) -> int:
 		# print("slow")
 		var old_speed = actor.speed
-		actor.speed *= 0.5  # eller vilken faktor du vill
+		actor.speed *= 0.5 
 		var result = super.tick(actor, delta)
 		actor.speed = old_speed
 		return result
