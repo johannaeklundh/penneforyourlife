@@ -98,7 +98,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.75),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [0.0, 6.28319]
+"values": [0.0, -6.28319]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3rnyv"]
@@ -114,11 +114,11 @@ collision_mask = 101
 script = ExtResource("1_b6is6")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.05, 0.05)
+scale = Vector2(0.03, 0.03)
 texture = ExtResource("2_q323y")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-scale = Vector2(0.15, 0.15)
+scale = Vector2(0.13, 0.109)
 shape = SubResource("CircleShape2D_1cf02")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
