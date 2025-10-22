@@ -37,10 +37,36 @@ extends Node2D
 	$TimeFinish/Value/digit2,
 	$TimeFinish/Value/digit3	
 ]
+
 @onready var total_digits = [
 	$TotalScore/Value/digit1,
 	$TotalScore/Value/digit2,
 	$TotalScore/Value/digit3	
+]
+
+# The minusnumbers
+@onready var boiled_digits_removed = [
+	$Boiled/ValueRemove/digit1,
+	$Boiled/ValueRemove/digit2,
+	$Boiled/ValueRemove/digit3	
+]
+
+@onready var flushed_digits_removed = [
+	$Flushed/ValueRemove/digit1,
+	$Flushed/ValueRemove/digit2,
+	$Flushed/ValueRemove/digit3	
+]
+
+@onready var bounced_digits_removed = [
+	$Bounced/ValueRemove/digit1,
+	$Bounced/ValueRemove/digit2,
+	$Bounced/ValueRemove/digit3	
+]
+
+@onready var time_digits_removed = [
+	$TimeFinish/ValueRemove/digit1,
+	$TimeFinish/ValueRemove/digit2,
+	$TimeFinish/ValueRemove/digit3
 ]
 
 func play():
@@ -68,22 +94,28 @@ func calculate_scores():
 	var total_score := 1000
 	var time = GameState.elapsed_time
 	
-	total_score -= (flushed_times*(10))
-	total_score -= (boiled_times*(10)) 
-	total_score -= (bounced_times*(10))
-	total_score = total_score - floor(time*2)
+	total_score -= (flushed_times*10)
+	show_number(flushed_digits_removed, flushed_times*10)
+		
+	total_score -= (boiled_times*10) 
+	show_number(boiled_digits_removed, boiled_times*10)
 
+	total_score -= (bounced_times*(10))
+	show_number(bounced_digits_removed, bounced_times*10)
+	
+	total_score = total_score - floor(time*2)
 	GameState.score = total_score
+	
+	show_number(time_digits_removed, time*2)
 	
 	show_number(boiled_digits, boiled_times)
 	show_number(flushed_digits, flushed_times)
 	show_number(bounced_digits, bounced_times)
 	show_number(time_digits, time)
 	show_number(total_digits, total_score)
+	
 
 func fade_in_text(line):
-	#line.modulate.a = 0.0  # start invisible
-
 	#Dramatic effect
 	if line == $TotalScore:
 		await get_tree().create_timer(1).timeout

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://coii6evfr20xu"]
+[gd_scene load_steps=20 format=3 uid="uid://coii6evfr20xu"]
 
 [ext_resource type="Texture2D" uid="uid://dwselq6siyta6" path="res://Assets/Sprites/Scoreboard/Score.png" id="1_5jfn8"]
 [ext_resource type="Script" uid="uid://dg3lobp7xd4fh" path="res://Assets/Scripts/scoreboard.gd" id="1_e5dgx"]
@@ -18,6 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://boc2hi6it62kb" path="res://Assets/Sprites/Scoreboard/digits/7.png" id="9_snce1"]
 [ext_resource type="Texture2D" uid="uid://kbdum7074jkj" path="res://Assets/Sprites/Scoreboard/digits/8.png" id="10_4lfr6"]
 [ext_resource type="Texture2D" uid="uid://vmxgkxbisb5j" path="res://Assets/Sprites/Scoreboard/digits/9.png" id="11_2shgi"]
+[ext_resource type="Texture2D" uid="uid://crs4np7jb02ek" path="res://Assets/Sprites/Scoreboard/minus.png" id="14_d254c"]
 
 [node name="Scoreboard" type="Node2D"]
 script = ExtResource("1_e5dgx")
@@ -31,6 +32,85 @@ offset_bottom = 230.0
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("1_5jfn8")
 
+[node name="Boiled" type="Node2D" parent="."]
+position = Vector2(120, -85)
+scale = Vector2(0.65, 0.65)
+
+[node name="Label" type="TextureRect" parent="Boiled"]
+offset_left = 77.0
+offset_top = 553.0
+offset_right = 1860.0
+offset_bottom = 753.0
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("2_ide3a")
+metadata/_edit_use_anchors_ = true
+
+[node name="Value" type="Node2D" parent="Boiled"]
+position = Vector2(1415.38, 495.385)
+
+[node name="digit1" type="TextureRect" parent="Boiled/Value"]
+offset_left = 20.0
+offset_top = 49.0
+offset_right = 175.0
+offset_bottom = 255.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_b16ac")
+
+[node name="digit2" type="TextureRect" parent="Boiled/Value"]
+offset_left = 103.0
+offset_top = 50.0
+offset_right = 258.0
+offset_bottom = 256.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_b16ac")
+
+[node name="digit3" type="TextureRect" parent="Boiled/Value"]
+offset_left = 186.0
+offset_top = 53.0
+offset_right = 341.0
+offset_bottom = 259.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_b16ac")
+
+[node name="ValueRemove" type="Node2D" parent="Boiled"]
+position = Vector2(169.231, -230.769)
+
+[node name="sign" type="TextureRect" parent="Boiled/ValueRemove"]
+offset_left = 2089.23
+offset_top = 755.385
+offset_right = 2289.23
+offset_bottom = 955.385
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("14_d254c")
+metadata/_edit_use_anchors_ = true
+
+[node name="digit1" type="TextureRect" parent="Boiled/ValueRemove"]
+offset_left = 2170.0
+offset_top = 750.0
+offset_right = 2325.0
+offset_bottom = 956.0
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("4_b16ac")
+metadata/_edit_use_anchors_ = true
+
+[node name="digit2" type="TextureRect" parent="Boiled/ValueRemove"]
+offset_left = 2244.62
+offset_top = 750.769
+offset_right = 2399.62
+offset_bottom = 956.769
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("4_b16ac")
+metadata/_edit_use_anchors_ = true
+
+[node name="digit3" type="TextureRect" parent="Boiled/ValueRemove"]
+offset_left = 2315.38
+offset_top = 749.231
+offset_right = 2470.38
+offset_bottom = 955.231
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("4_b16ac")
+metadata/_edit_use_anchors_ = true
+
 [node name="Flushed" type="Node2D" parent="."]
 position = Vector2(112, -109)
 scale = Vector2(0.7, 0.7)
@@ -42,9 +122,10 @@ offset_right = 1857.0
 offset_bottom = 949.0
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("3_6ddnf")
+metadata/_edit_use_anchors_ = true
 
 [node name="Value" type="Node2D" parent="Flushed"]
-position = Vector2(1761.43, 695)
+position = Vector2(1335.71, 707.429)
 
 [node name="digit1" type="TextureRect" parent="Flushed/Value"]
 offset_left = 20.0
@@ -73,45 +154,44 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_b16ac")
 metadata/_edit_use_anchors_ = true
 
-[node name="Boiled" type="Node2D" parent="."]
-position = Vector2(120, -85)
-scale = Vector2(0.65, 0.65)
+[node name="ValueRemove" type="Node2D" parent="Flushed"]
+position = Vector2(17.1429, -17.1429)
 
-[node name="Label" type="TextureRect" parent="Boiled"]
-offset_left = 77.0
-offset_top = 553.0
-offset_right = 1860.0
-offset_bottom = 753.0
-scale = Vector2(0.65, 0.65)
-texture = ExtResource("2_ide3a")
+[node name="sign" type="TextureRect" parent="Flushed/ValueRemove"]
+offset_left = 2088.57
+offset_top = 758.571
+offset_right = 2288.57
+offset_bottom = 958.571
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("14_d254c")
 metadata/_edit_use_anchors_ = true
 
-[node name="Value" type="Node2D" parent="Boiled"]
-position = Vector2(1873.85, 482)
-
-[node name="digit1" type="TextureRect" parent="Boiled/Value"]
-offset_left = 20.0
-offset_top = 49.0
-offset_right = 175.0
-offset_bottom = 255.0
-scale = Vector2(0.5, 0.5)
+[node name="digit1" type="TextureRect" parent="Flushed/ValueRemove"]
+offset_left = 2170.0
+offset_top = 750.0
+offset_right = 2325.0
+offset_bottom = 956.0
+scale = Vector2(0.4, 0.4)
 texture = ExtResource("4_b16ac")
+metadata/_edit_use_anchors_ = true
 
-[node name="digit2" type="TextureRect" parent="Boiled/Value"]
-offset_left = 103.0
-offset_top = 50.0
-offset_right = 258.0
-offset_bottom = 256.0
-scale = Vector2(0.5, 0.5)
+[node name="digit2" type="TextureRect" parent="Flushed/ValueRemove"]
+offset_left = 2241.43
+offset_top = 748.571
+offset_right = 2396.43
+offset_bottom = 954.571
+scale = Vector2(0.4, 0.4)
 texture = ExtResource("4_b16ac")
+metadata/_edit_use_anchors_ = true
 
-[node name="digit3" type="TextureRect" parent="Boiled/Value"]
-offset_left = 186.0
-offset_top = 53.0
-offset_right = 341.0
-offset_bottom = 259.0
-scale = Vector2(0.5, 0.5)
+[node name="digit3" type="TextureRect" parent="Flushed/ValueRemove"]
+offset_left = 2310.0
+offset_top = 750.0
+offset_right = 2465.0
+offset_bottom = 956.0
+scale = Vector2(0.4, 0.4)
 texture = ExtResource("4_b16ac")
+metadata/_edit_use_anchors_ = true
 
 [node name="Bounced" type="Node2D" parent="."]
 position = Vector2(104, -78)
@@ -126,7 +206,7 @@ scale = Vector2(0.7, 0.7)
 texture = ExtResource("6_mgru0")
 
 [node name="Value" type="Node2D" parent="Bounced"]
-position = Vector2(1772.86, 882)
+position = Vector2(1347.14, 894.429)
 
 [node name="digit1" type="TextureRect" parent="Bounced/Value"]
 offset_left = 20.0
@@ -152,15 +232,54 @@ offset_bottom = 259.0
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_b16ac")
 
+[node name="ValueRemove" type="Node2D" parent="Bounced"]
+position = Vector2(35.7143, 171.429)
+
+[node name="sign" type="TextureRect" parent="Bounced/ValueRemove"]
+offset_left = 2088.57
+offset_top = 755.714
+offset_right = 2288.57
+offset_bottom = 955.714
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("14_d254c")
+metadata/_edit_use_anchors_ = true
+
+[node name="digit1" type="TextureRect" parent="Bounced/ValueRemove"]
+offset_left = 2170.0
+offset_top = 750.0
+offset_right = 2325.0
+offset_bottom = 956.0
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("4_b16ac")
+metadata/_edit_use_anchors_ = true
+
+[node name="digit2" type="TextureRect" parent="Bounced/ValueRemove"]
+offset_left = 2237.14
+offset_top = 747.143
+offset_right = 2392.14
+offset_bottom = 953.143
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("4_b16ac")
+metadata/_edit_use_anchors_ = true
+
+[node name="digit3" type="TextureRect" parent="Bounced/ValueRemove"]
+offset_left = 2310.0
+offset_top = 747.143
+offset_right = 2465.0
+offset_bottom = 953.143
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("4_b16ac")
+metadata/_edit_use_anchors_ = true
+
 [node name="TimeFinish" type="Node2D" parent="."]
 position = Vector2(-38, -44)
 scale = Vector2(0.7, 0.7)
 
 [node name="seconds" type="TextureRect" parent="TimeFinish"]
-offset_left = 2274.71
-offset_top = 1146.0
-offset_right = 3094.71
-offset_bottom = 1350.0
+offset_left = 1848.99
+offset_top = 1158.43
+offset_right = 2668.99
+offset_bottom = 1362.43
 scale = Vector2(0.35, 0.35)
 texture = ExtResource("7_ca358")
 
@@ -173,7 +292,7 @@ scale = Vector2(0.6, 0.6)
 texture = ExtResource("8_eoo7q")
 
 [node name="Value" type="Node2D" parent="TimeFinish"]
-position = Vector2(1975.71, 1069)
+position = Vector2(1549.99, 1081.43)
 
 [node name="digit1" type="TextureRect" parent="TimeFinish/Value"]
 offset_left = 20.0
@@ -199,6 +318,45 @@ offset_bottom = 259.0
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_b16ac")
 
+[node name="ValueRemove" type="Node2D" parent="TimeFinish"]
+position = Vector2(250, 374.286)
+
+[node name="sign" type="TextureRect" parent="TimeFinish/ValueRemove"]
+offset_left = 2088.57
+offset_top = 755.714
+offset_right = 2288.57
+offset_bottom = 955.714
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("14_d254c")
+metadata/_edit_use_anchors_ = true
+
+[node name="digit1" type="TextureRect" parent="TimeFinish/ValueRemove"]
+offset_left = 2158.57
+offset_top = 750.0
+offset_right = 2313.57
+offset_bottom = 956.0
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("4_b16ac")
+metadata/_edit_use_anchors_ = true
+
+[node name="digit2" type="TextureRect" parent="TimeFinish/ValueRemove"]
+offset_left = 2227.14
+offset_top = 747.143
+offset_right = 2382.14
+offset_bottom = 953.143
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("4_b16ac")
+metadata/_edit_use_anchors_ = true
+
+[node name="digit3" type="TextureRect" parent="TimeFinish/ValueRemove"]
+offset_left = 2295.71
+offset_top = 745.714
+offset_right = 2450.71
+offset_bottom = 951.714
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("4_b16ac")
+metadata/_edit_use_anchors_ = true
+
 [node name="TotalScore" type="Node2D" parent="."]
 position = Vector2(606, -86)
 scale = Vector2(0.7, 0.7)
@@ -212,7 +370,7 @@ scale = Vector2(0.7, 0.7)
 texture = ExtResource("9_hies3")
 
 [node name="Value" type="Node2D" parent="TotalScore"]
-position = Vector2(1235, 1382)
+position = Vector2(1320, 1382.86)
 
 [node name="digit1" type="TextureRect" parent="TotalScore/Value"]
 offset_left = 25.0
