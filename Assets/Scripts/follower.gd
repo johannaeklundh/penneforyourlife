@@ -27,8 +27,17 @@ func is_on_floor() -> bool:
 func _physics_process(delta: float) -> void:
 	if not is_rescued or tree_root == null:
 		return
-
+		
 	var parent = get_parent() as CharacterBody2D
+
+	# boss hand
+	#if not parent.freed:
+		#if parent.capture_hand:
+			#global_position = parent.capture_hand.global_position + parent.capture_offset
+		#else: 
+			#parent.velocity.y += gravity * delta
+		#return
+
 	if parent == null:
 		return
 		
@@ -38,7 +47,6 @@ func _physics_process(delta: float) -> void:
 	# Always apply gravity
 	if not parent.is_on_floor():
 		parent.velocity.y += gravity * delta
-		# print("I luften, åker neråt") 
 	else:
 		# If not just jumped --> set velocity to 0
 		if not just_jumped:
