@@ -4,6 +4,8 @@ extends Node2D
 @onready var backward_button = $backwardButton
 @onready var space_button = $spaceButton
 @onready var overlay: ColorRect = $ColorRect 
+@onready var player_spawn_position := Vector2(-152, 0)
+var _camera_base_offset: Vector2 = Vector2(-300, 0)
 
 func _ready():
 	# Signals for tutorialbuttons
@@ -70,12 +72,21 @@ func show_hurt_overlay(body: Node2D) -> void:
 	tween.finished.connect(func(): overlay.hide())
 	
 	# camera on the player
-	var cam = body.get_node("Camera2D")
+	var cam: Camera2D = body.get_node("Camera2D")
+	_camera_base_offset = cam.offset
 	screen_shake(cam, 8.0, 0.4, 0.05)
 	
 	# restart after blink is done
 	await get_tree().create_timer(0.8).timeout
-	call_deferred("_restart_scene")
+	#call_deferred("_restart_scene")
+	call_deferred("_respawn_player", body)
+
+
+func _respawn_player(body: Node2D) -> void:
+	if body and is_instance_valid(body):
+		body.global_position = player_spawn_position
+		body.can_move = true
+
 
 func screen_shake(camera: Camera2D, intensity: float = 8.0, duration: float = 0.3, frequency: float = 0.05) -> void:
 	var base_offset = camera.offset # save original offset

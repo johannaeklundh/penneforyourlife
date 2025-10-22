@@ -211,7 +211,3 @@ func _physics_process(delta: float) -> void:
 		#var animator = get_node("PlayerAnimator")
 		#if animator.has_method("play_freed"):
 			#animator.play_freed()
-
-
-func _on_e_button_body_entered(body: Node2D) -> void:
-	pass # Replace with function body.

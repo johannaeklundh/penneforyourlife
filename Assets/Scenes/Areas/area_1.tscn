@@ -200,17 +200,18 @@ tile_set = ExtResource("2_citrs")
 rendering_quadrant_size = 40
 
 [node name="Player" parent="." instance=ExtResource("2_3uyhe")]
-position = Vector2(-1896, 0)
+position = Vector2(-1792, -8)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
-position = Vector2(0, 25)
+position = Vector2(0, 24)
 offset = Vector2(50, -100)
 zoom = Vector2(3.2, 3.2)
+process_callback = 0
 position_smoothing_speed = 10.0
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
 drag_horizontal_offset = 0.4
-drag_top_margin = 1.0
+drag_top_margin = 0.4
 drag_bottom_margin = 0.0
 script = SubResource("GDScript_5cg6o")
 
@@ -222,7 +223,7 @@ scale = Vector2(2.5, 2.5)
 
 [node name="ObstacleFaucet" parent="." instance=ExtResource("22_p11o7")]
 z_index = -1
-position = Vector2(512, -32)
+position = Vector2(448, -24)
 
 [node name="forwardButton" type="Area2D" parent="."]
 position = Vector2(-498, -5)
