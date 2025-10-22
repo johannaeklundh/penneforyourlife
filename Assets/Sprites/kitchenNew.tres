@@ -1,6 +1,7 @@
-[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://cn7p2focko7be"]
+[gd_resource type="TileSet" load_steps=5 format=3 uid="uid://cn7p2focko7be"]
 
 [ext_resource type="Texture2D" uid="uid://b71jyvth8uitj" path="res://Assets/Sprites/kitchenNew.png" id="1_cpjkr"]
+[ext_resource type="Texture2D" uid="uid://bmfq5uk51acym" path="res://Assets/Sprites/floor.png" id="2_la65s"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_la65s"]
 texture = ExtResource("1_cpjkr")
@@ -117,6 +118,16 @@ texture_region_size = Vector2i(40, 40)
 3:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-15, -20, 15, -20, 15, 20, -15, 20)
 3:3/0/terrains_peering_bit/top_side = 1
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0j1kd"]
+texture = ExtResource("2_la65s")
+texture_region_size = Vector2i(40, 40)
+0:0/0 = 0
+0:0/0/terrain_set = 0
+0:0/0/terrain = 2
+0:0/0/terrains_peering_bit/right_side = 2
+0:0/0/terrains_peering_bit/bottom_right_corner = 2
+0:0/0/terrains_peering_bit/bottom_side = 2
+
 [resource]
 tile_size = Vector2i(40, 40)
 physics_layer_0/collision_layer = 1
@@ -126,4 +137,7 @@ terrain_set_0/terrain_0/name = "shelfs"
 terrain_set_0/terrain_0/color = Color(0.5, 0.4375, 0.25, 1)
 terrain_set_0/terrain_1/name = "ground 1"
 terrain_set_0/terrain_1/color = Color(0.697093, 0.212943, 0.582965, 1)
+terrain_set_0/terrain_2/name = "floor"
+terrain_set_0/terrain_2/color = Color(0.235855, 0.455836, 0.860255, 1)
 sources/0 = SubResource("TileSetAtlasSource_la65s")
+sources/1 = SubResource("TileSetAtlasSource_0j1kd")
