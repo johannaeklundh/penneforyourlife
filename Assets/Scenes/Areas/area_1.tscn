@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=4 uid="uid://1h24hba514qq"]
+[gd_scene load_steps=48 format=4 uid="uid://1h24hba514qq"]
 
 [ext_resource type="Script" uid="uid://drvp2h6p6ennw" path="res://Assets/Scripts/area_1.gd" id="1_7fk0h"]
 [ext_resource type="PackedScene" uid="uid://br4bmuwc5rwhj" path="res://Assets/Scenes/player.tscn" id="2_3uyhe"]
@@ -164,10 +164,6 @@ animations = [{
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sxlx6"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0ufq0"]
-radius = 22.0
-height = 52.0
-
 [node name="Area1" type="Node2D"]
 script = ExtResource("1_7fk0h")
 
@@ -200,7 +196,7 @@ tile_set = ExtResource("2_citrs")
 rendering_quadrant_size = 40
 
 [node name="Player" parent="." instance=ExtResource("2_3uyhe")]
-position = Vector2(-1792, -8)
+position = Vector2(432, -160)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(0, 24)
@@ -528,43 +524,19 @@ script = SubResource("GDScript_5cg6o")
 
 [node name="ParallaxBackground2" parent="." instance=ExtResource("27_wu28u")]
 
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+
+[node name="BoilingPot4" parent="." instance=ExtResource("28_citrs")]
+position = Vector2(344, -88)
+
 [node name="BoilingPot" parent="." instance=ExtResource("28_citrs")]
-position = Vector2(474, -168)
-scale = Vector2(0.5, 0.5)
-
-[node name="Area2D2" type="Area2D" parent="BoilingPot"]
-collision_layer = 8
-collision_mask = 2
-
-[node name="CollisionShapeArea" type="CollisionShape2D" parent="BoilingPot/Area2D2"]
-position = Vector2(0, -2)
-shape = SubResource("CapsuleShape2D_0ufq0")
-
-[node name="BoilingPot2" parent="." instance=ExtResource("28_citrs")]
-position = Vector2(144, -288)
-scale = Vector2(0.5, 0.5)
-
-[node name="Area2D2" type="Area2D" parent="BoilingPot2"]
-collision_layer = 8
-collision_mask = 2
-
-[node name="CollisionShapeArea" type="CollisionShape2D" parent="BoilingPot2/Area2D2"]
-position = Vector2(-1, -1)
-shape = SubResource("CapsuleShape2D_0ufq0")
+position = Vector2(344, -448)
 
 [node name="BoilingPot3" parent="." instance=ExtResource("28_citrs")]
-position = Vector2(364, -448)
-scale = Vector2(0.5, 0.5)
+position = Vector2(1072, -288)
 
-[node name="Area2D2" type="Area2D" parent="BoilingPot3"]
-collision_layer = 8
-collision_mask = 2
-
-[node name="CollisionShapeArea" type="CollisionShape2D" parent="BoilingPot3/Area2D2"]
-position = Vector2(-1, -1)
-shape = SubResource("CapsuleShape2D_0ufq0")
-
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+[node name="BoilingPot2" parent="." instance=ExtResource("28_citrs")]
+position = Vector2(984, -80)
 
 [connection signal="body_entered" from="Floor" to="." method="_on_pit_body_entered"]
 [connection signal="freed_friend" from="Broccoli" to="HUD/FriendSlots" method="_on_broccoli_freed_friend"]
@@ -572,6 +544,3 @@ shape = SubResource("CapsuleShape2D_0ufq0")
 [connection signal="freed_friend" from="Tomato" to="HUD/FriendSlots" method="_on_tomato_freed_friend"]
 [connection signal="body_entered" from="SpoonGoal" to="." method="_on_spoon_goal_body_entered"]
 [connection signal="body_entered" from="FinishLine" to="." method="_on_finish_line_body_entered"]
-[connection signal="body_entered" from="BoilingPot/Area2D2" to="." method="_on_area_2d_body_entered"]
-[connection signal="body_entered" from="BoilingPot2/Area2D2" to="." method="_on_area_2d_body_entered"]
-[connection signal="body_entered" from="BoilingPot3/Area2D2" to="." method="_on_area_2d_body_entered"]
