@@ -97,7 +97,7 @@ func captured():
 	burst_particles()
 	shake_friend()
 
-func _on_projectile_hit(projectile_pos: Vector2) -> void:
+func _on_projectile_hit(_projectile_pos: Vector2) -> void:
 	if freed:
 		return
 	

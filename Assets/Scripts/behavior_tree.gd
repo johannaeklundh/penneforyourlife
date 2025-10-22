@@ -341,11 +341,11 @@ class CaptureTarget extends BTNode:
 		return Status.FAILURE
 
 class MoveAwayFromPlayer extends BTNode:
-	func tick(actor, delta) -> int:
+	func tick(actor, _delta) -> int:
 		var body = actor as CharacterBody2D
 		if body == null or actor.player == null:
 			return Status.FAILURE
-		var dir = sign(body.global_position.x - actor.player.global_position.x)
+		var _dir = sign(body.global_position.x - actor.player.global_position.x)
 		#body.velocity.x = dir * actor.speed
 
 		body.velocity.y -= actor.speed * 0.5  # fly upward while escaping
@@ -368,7 +368,7 @@ class PlayReleaseAnimation extends BTNode:
 		return Status.SUCCESS
 
 class MoveTowardPlayerSimple extends BTNode:
-	func tick(actor, delta) -> int:
+	func tick(actor, _delta) -> int:
 		var body = actor as CharacterBody2D
 		if body == null or actor.player == null:
 			return Status.FAILURE
