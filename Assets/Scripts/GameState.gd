@@ -14,6 +14,7 @@ var score := 0
 
 func _process(delta: float) -> void:
 	elapsed_time += delta
+	
 
 func reset_stats() -> void:
 	out_of_bounds_count = 0

@@ -298,16 +298,16 @@ class HasCaptured extends BTNode:
 	func tick(actor, _d) -> int:
 		return Status.SUCCESS if actor.has_captured else Status.FAILURE
 
-#class CapturedTargetFreed extends BTNode:
-	#func tick(actor, _d) -> int:
-		#if actor.captured_target == null:
-			#return Status.FAILURE
-		## Check if target was freed
-		#if actor.captured_target.has_method("is_rescued") and actor.captured_target.is_rescued:
-			#return Status.SUCCESS
-		#if actor.captured_target.has_method("freed") and actor.captured_target.freed:
-			#return Status.SUCCESS
-		#return Status.FAILURE
+class CapturedTargetFreed extends BTNode:
+	func tick(actor, _d) -> int:
+		if actor.captured_target == null:
+			return Status.FAILURE
+		# Check if target was freed
+		if actor.captured_target.has_method("is_rescued") and actor.captured_target.is_rescued:
+			return Status.SUCCESS
+		if actor.captured_target.has_method("freed") and actor.captured_target.freed:
+			return Status.SUCCESS
+		return Status.FAILURE
 
 class IsNearPlayerOrFriend extends BTNode:
 	func tick(actor, _d) -> int:
@@ -324,7 +324,7 @@ class IsNearPlayerOrFriend extends BTNode:
 		for t in targets:
 			var dist = body.global_position.distance_to(t.global_position)
 			if dist < actor.capture_range:
-				actor.capture(t)
+				actor.capture(t, body)
 				return Status.SUCCESS
 
 		return Status.FAILURE
@@ -346,24 +346,26 @@ class MoveAwayFromPlayer extends BTNode:
 		if body == null or actor.player == null:
 			return Status.FAILURE
 		var dir = sign(body.global_position.x - actor.player.global_position.x)
-		body.velocity.x = dir * actor.speed
-		#body.velocity.y = 0  # <-- keep floating level
+		#body.velocity.x = dir * actor.speed
+
+		body.velocity.y -= actor.speed * 0.5  # fly upward while escaping
+
 		# stop fleeing if far enough
 		if body.global_position.distance_to(actor.player.global_position) > actor.flee_distance:
 			body.velocity = Vector2.ZERO
 			return Status.SUCCESS
 		return Status.RUNNING
 
-#class PlayReleaseAnimation extends BTNode:
-	#func tick(actor, _d) -> int:
-		#if not actor.just_released:
-			#actor.release()
-			## trigger animation (assuming animation node exists)
-			#var anim = actor.get_node_or_null("AnimatedSprite2D")
-			#if anim:
-				#anim.play("release")
-			#return Status.RUNNING
-		#return Status.SUCCESS
+class PlayReleaseAnimation extends BTNode:
+	func tick(actor, _d) -> int:
+		if not actor.just_released:
+			actor.release()
+			# trigger animation (assuming animation node exists)
+			var anim = actor.get_node_or_null("AnimatedSprite2D")
+			if anim:
+				anim.play("move")
+			return Status.RUNNING
+		return Status.SUCCESS
 
 class MoveTowardPlayerSimple extends BTNode:
 	func tick(actor, delta) -> int:
@@ -408,8 +410,8 @@ static var node_registry := {
 	"CaptureTarget": CaptureTarget,
 	"IsNearPlayerOrFriend": IsNearPlayerOrFriend,
 	"HasCaptured": HasCaptured,
-	#"CapturedTargetFreed": CapturedTargetFreed,
-	#"PlayReleaseAnimation": PlayReleaseAnimation
+	"CapturedTargetFreed": CapturedTargetFreed,
+	"PlayReleaseAnimation": PlayReleaseAnimation
 }
 
 static func build_tree(definition: Dictionary) -> BTNode:

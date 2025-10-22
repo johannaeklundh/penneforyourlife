@@ -5,7 +5,7 @@ extends CharacterBody2D
 @export var capture_range := 40.0
 @export var flee_distance := 300.0
 @export var knockback_decay := 400.0
-@export var knockback_strength := 200.0
+@export var knockback_strength := 50.0
 @export var hover_height := 200.0
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
@@ -22,33 +22,35 @@ var hover_speed := 2.0
 
 var knockback_velocity := Vector2.ZERO
 
+var hit_count := 0
+@export var hits_to_release := 5
+@export var hits_to_kill := 7
+
 func _ready() -> void:
 	_build_behavior_tree()
 
 func _physics_process(delta: float) -> void:
 	if tree_root == null:
 		return
+		
+	velocity = Vector2.ZERO
 
 	tree_root.tick(self, delta)
 
 	# Apply damping only to knockback
 	if knockback_velocity.length() > 0.1:
 		knockback_velocity = knockback_velocity.move_toward(Vector2.ZERO, knockback_decay * delta)
+		velocity += knockback_velocity
 
-	# Combine both
-	#var total_velocity = velocity + knockback_velocity
-	velocity += knockback_velocity
-
-	
 	move_and_slide()
-	velocity = Vector2.ZERO
 
-
-
-	
-	# Optional: gentle floating motion (visual only)
+	#gentle floating motion
 	hover_timer += delta * hover_speed
 	sprite.position.y = sin(hover_timer) * hover_amplitude
+	
+	if has_captured and captured_target and captured_target.capture_hand:
+		captured_target.global_position = captured_target.capture_hand.global_position + captured_target.capture_offset
+
 
 # -------------------------------------------------------------------
 # BEHAVIOR TREE
@@ -57,12 +59,12 @@ func _build_behavior_tree() -> void:
 	var tree_def = {
 		"type": "Selector",
 		"children": [
-			## 1) Release animation if target is freed
-			#{ "type": "Sequence", "children": [
-				#{ "type": "HasCaptured" },
-				#{ "type": "CapturedTargetFreed" },
-				#{ "type": "PlayReleaseAnimation" }
-			#]},
+			# 1) Release animation if target is freed
+			{ "type": "Sequence", "children": [
+				{ "type": "HasCaptured" },
+				{ "type": "CapturedTargetFreed" },
+				{ "type": "PlayReleaseAnimation" }
+			]},
 #
 			# 2) Flee when holding someone
 			{ "type": "Sequence", "children": [
@@ -85,19 +87,41 @@ func _build_behavior_tree() -> void:
 # -------------------------------------------------------------------
 # Helper methods
 # -------------------------------------------------------------------
-func capture(target: Node2D):
-	has_captured = true	
+func capture(target: Node2D, hand: CharacterBody2D):
+	if not target:
+		return
+	target.freed = false
+	target.capture_hand = hand
+	target.capture_offset = target.global_position - hand.global_position
+	
+	has_captured = true
 	captured_target = target
+	#disable movement
+	if target.has_method("is_rescued"):
+		target.is_rescued(false)
 
-func release():
+func release():	
 	has_captured = false
 	captured_target = null
 	just_released = true
 	await get_tree().create_timer(1.0).timeout
 	just_released = false
 
+func die():
+	print("Boss defeated!")
+	release()
+	queue_free()
+
 func _on_projectile_hit(projectile_pos: Vector2) -> void:
 	print("boss hit")
+	
+	hit_count += 1
+	
+	if hit_count >= hits_to_release and has_captured:
+		release()
+		
+	if hit_count >= hits_to_kill:
+		die()
 	
 	# Get the direction away from the projectile
 	var knockback_dir = (global_position - projectile_pos).normalized()
@@ -113,8 +137,3 @@ func play_damage_effect():
 	sprite.modulate = Color(1, 0.5, 0.5) # flash red
 	var tween = create_tween()
 	tween.tween_property(sprite, "modulate", Color(1,1,1), 0.2)
-
-
-	
-	
-		
