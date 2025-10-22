@@ -200,7 +200,7 @@ tile_set = ExtResource("2_citrs")
 rendering_quadrant_size = 40
 
 [node name="Player" parent="." instance=ExtResource("2_3uyhe")]
-position = Vector2(-1896, -40)
+position = Vector2(-1896, 0)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(0, 25)
@@ -222,7 +222,7 @@ scale = Vector2(2.5, 2.5)
 
 [node name="ObstacleFaucet" parent="." instance=ExtResource("22_p11o7")]
 z_index = -1
-position = Vector2(42, -31)
+position = Vector2(512, -32)
 
 [node name="forwardButton" type="Area2D" parent="."]
 position = Vector2(-498, -5)
