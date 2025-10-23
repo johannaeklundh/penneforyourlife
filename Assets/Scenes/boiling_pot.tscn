@@ -3,9 +3,8 @@
 [ext_resource type="Texture2D" uid="uid://hmiqef2fpj8u" path="res://Assets/Sprites/drawedBoilingPot.png" id="1_dvm2w"]
 [ext_resource type="Script" uid="uid://blpi6mwc2bgh1" path="res://Assets/Scenes/obstacle_pot.gd" id="1_qiiam"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qiiam"]
-radius = 7.31991
-height = 22.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qiiam"]
+size = Vector2(14.4734, 13)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qiiam"]
 atlas = ExtResource("1_dvm2w")
@@ -43,9 +42,8 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dvm2w"]
-radius = 9.66984
-height = 22.315
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_les6p"]
+size = Vector2(17.0658, 11.1575)
 
 [node name="BoilingPot" type="StaticBody2D"]
 collision_layer = 8
@@ -53,9 +51,9 @@ collision_mask = 2
 script = ExtResource("1_qiiam")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.115, -1)
+position = Vector2(9.10401e-08, 1.5)
 scale = Vector2(1.38185, 1)
-shape = SubResource("CapsuleShape2D_qiiam")
+shape = SubResource("RectangleShape2D_qiiam")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -5)
@@ -70,6 +68,6 @@ collision_layer = 8
 collision_mask = 2
 
 [node name="CollisionShapeArea" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0, -3)
+position = Vector2(-2.98023e-07, 0.5)
 scale = Vector2(1.28913, 1.34439)
-shape = SubResource("CapsuleShape2D_dvm2w")
+shape = SubResource("RectangleShape2D_les6p")
