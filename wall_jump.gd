@@ -8,8 +8,8 @@ func _ready() -> void:
 			hide()
 
 func _on_body_entered(body: Node) -> void:
-	if body.name == "Player":	
-		if GameState.has_double_jump == false:
+	if body.name == "Player":	 
+		if GameState.has_wall_jump == false:
 			var msg = get_tree().get_first_node_in_group("wallJumpMessage")
 			msg.show_and_fade()
 		
