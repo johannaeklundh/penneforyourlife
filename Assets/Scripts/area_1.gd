@@ -3,8 +3,8 @@ extends Node2D
 @onready var forward_button = $forwardButton
 @onready var backward_button = $backwardButton
 @onready var space_button = $spaceButton
-@onready var overlay: ColorRect = $ColorRect 
-@onready var player_spawn_position := Vector2(-152, 0)
+@onready var overlay: ColorRect = $HUD/ColorRect
+@onready var player_spawn_position := Vector2(-152, -20)
 var _camera_base_offset: Vector2 = Vector2(-300, 0)
 
 func _ready():
@@ -62,25 +62,26 @@ func show_hurt_overlay(body: Node2D) -> void:
 		var animator = body.get_node("PlayerAnimator")
 		animator.play_hurt()
 	
-	# red overlay
-	overlay.show()
-	overlay.modulate.a = 0.0
+		# red overlay
+		overlay.show()
+		overlay.modulate.a = 0.0
 
-	var tween = create_tween()
-	tween.tween_property(overlay, "modulate:a", 0.6, 0.1) # fade in
-	tween.tween_property(overlay, "modulate:a", 0.0, 0.5) # fade out
-	tween.finished.connect(func(): overlay.hide())
-	
-	# camera on the player
-	var cam: Camera2D = body.get_node("Camera2D")
-	_camera_base_offset = cam.offset
-	screen_shake(cam, 8.0, 0.4, 0.05)
-	
-	# restart after blink is done
-	await get_tree().create_timer(0.8).timeout
-	#call_deferred("_restart_scene")
-	call_deferred("_respawn_player", body)
-
+		var tween = create_tween()
+		tween.tween_property(overlay, "modulate:a", 0.6, 0.1) # fade in
+		tween.tween_property(overlay, "modulate:a", 0.0, 0.5) # fade out
+		tween.finished.connect(func(): overlay.hide())
+		
+		# camera on the player
+		var cam: Camera2D = body.get_node("Camera2D")
+		_camera_base_offset = cam.offset
+		screen_shake(cam, 8.0, 0.4, 0.05)
+		
+		# restart after blink is done
+		await get_tree().create_timer(0.8).timeout
+		#call_deferred("_restart_scene")
+		call_deferred("_respawn_player", body)
+		animator.play_hurt()
+		
 
 func _respawn_player(body: Node2D) -> void:
 	if body and is_instance_valid(body):
