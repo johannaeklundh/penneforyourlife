@@ -3,7 +3,8 @@ extends Node
 var start_prompt_shown := false
 var tutorial_finished := false
 var freed_friends: Array[bool] = [false, false, false]  # bacon, tomato, broccoli
-var has_double_jump := false
+var has_double_jump: bool = false
+var has_wall_jump: bool = false
 var game_finished := false
 
 var out_of_bounds_count := 0

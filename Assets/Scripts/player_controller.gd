@@ -22,6 +22,7 @@ var coyote_timer := 0.0
 var jump_buffer_timer := 0.0
 
 # wall jump
+var has_wall_jump = false
 var on_wall := false
 var wall_dir := 0  # -1 = left wall, 1 = right wall
 var wall_jump_timer := 0.0
@@ -42,6 +43,99 @@ func _ready() -> void:
 		max_jumps = 2
 	else:
 		max_jumps = 1
+		
+	#has_wall_jump = GameState.has_wall_jump
+	
+
+func _physics_process(delta: float) -> void:
+	has_wall_jump = GameState.has_wall_jump
+	
+	# Spooncatapult
+	if launched:
+		velocity += get_gravity() * delta
+		move_and_slide()
+		return 
+		
+	## Boss captured, throw projectiles to get free
+	#if is_captured and capture_hand:
+		#global_position = capture_hand.global_position + capture_offset
+		#if Input.is_action_just_pressed("interact"):
+			#throw_projectile() # can still throw projectiles
+		#return
+		
+	if not can_move: # When entering the boiled pot or faucet
+		velocity = Vector2.ZERO
+		pass
+	else:		
+		if wall_jump_timer > 0:
+			wall_jump_timer -= delta
+			velocity += get_gravity() * delta * 0.8
+		else:
+			if not is_on_floor():
+				velocity += get_gravity() * delta
+
+		# Track coyote time
+		if is_on_floor():
+			coyote_timer = coyote_time
+			jumps_left = max_jumps
+			last_wall_dir = 0
+		else:
+			coyote_timer = max(coyote_timer - delta, 0)
+
+		wall_dir = detect_wall()
+		on_wall = wall_dir != 0
+				
+		if has_wall_jump and on_wall and wall_dir != 0 and wall_dir != last_wall_dir and not is_on_floor() and Input.is_action_just_pressed("jump"):
+			# Add a kick away from wall
+			velocity.y = jump_power * jump_multiplier
+			velocity.x = -wall_dir * speed * speed_multiplier * 1.3
+			jump_buffer_timer = 0
+			spawn_jump_puff()
+			
+			# Start wall jump delay
+			wall_jump_timer = wall_jump_duration
+			wall_jump_lock = wall_jump_lock_duration
+			
+			last_wall_dir = wall_dir 
+			
+		elif Input.is_action_just_pressed("jump"):
+			jump_buffer_timer = jump_buffer
+		else:
+			jump_buffer_timer = max(jump_buffer_timer - delta, 0)
+
+		# Jump and coyote time
+		if jump_buffer_timer > 0 and jumps_left > 0:
+			velocity.y = jump_power * jump_multiplier
+			jumps_left -= 1
+			jump_buffer_timer = 0  # consume buffer
+			spawn_jump_puff()
+			
+		# Fall through platforms but not ground
+		if Input.is_action_pressed("down"):
+			if is_on_floor():
+				set_collision_mask_value(6, false)  #layer 6 are the "shelfs"
+				await get_tree().create_timer(0.5).timeout
+				set_collision_mask_value(6, true)
+
+		# Movement left and right
+		direction = Input.get_axis("move_left", "move_right")
+		if wall_jump_lock > 0:
+			wall_jump_lock -= delta
+		else:
+			if direction:
+				velocity.x = direction * speed * speed_multiplier
+			else:
+				velocity.x = move_toward(velocity.x, 0, speed * speed_multiplier)
+
+		# Play attack and throw projectiles
+		if Input.is_action_just_pressed("interact"):
+			if has_node("PlayerAnimator"):
+				get_node("PlayerAnimator").play_attack()
+				throw_projectile()
+
+		move_and_slide()
+
+
 
 # Spoongoal catapulting
 func catapult_launch(vel: Vector2, duration: float = 0.6) -> void:
@@ -97,91 +191,7 @@ func detect_wall() -> int:
 			return dir
 	return 0
 
-func _physics_process(delta: float) -> void:
-	# Spooncatapult
-	if launched:
-		velocity += get_gravity() * delta
-		move_and_slide()
-		return 
-		
-	## Boss captured, throw projectiles to get free
-	#if is_captured and capture_hand:
-		#global_position = capture_hand.global_position + capture_offset
-		#if Input.is_action_just_pressed("interact"):
-			#throw_projectile() # can still throw projectiles
-		#return
-		
-	if not can_move: # When entering the boiled pot or faucet
-		velocity = Vector2.ZERO
-		pass
-	else:		
-		if wall_jump_timer > 0:
-			wall_jump_timer -= delta
-			velocity += get_gravity() * delta * 0.8
-		else:
-			if not is_on_floor():
-				velocity += get_gravity() * delta
 
-		# Track coyote time
-		if is_on_floor():
-			coyote_timer = coyote_time
-			jumps_left = max_jumps
-			last_wall_dir = 0
-		else:
-			coyote_timer = max(coyote_timer - delta, 0)
-
-		wall_dir = detect_wall()
-		on_wall = wall_dir != 0
-				
-		if on_wall and wall_dir != 0 and wall_dir != last_wall_dir and not is_on_floor() and Input.is_action_just_pressed("jump"):
-			# Add a kick away from wall
-			velocity.y = jump_power * jump_multiplier
-			velocity.x = -wall_dir * speed * speed_multiplier * 1.3
-			jump_buffer_timer = 0
-			spawn_jump_puff()
-			
-			# Start wall jump delay
-			wall_jump_timer = wall_jump_duration
-			wall_jump_lock = wall_jump_lock_duration
-			
-			last_wall_dir = wall_dir 
-			
-		elif Input.is_action_just_pressed("jump"):
-			jump_buffer_timer = jump_buffer
-		else:
-			jump_buffer_timer = max(jump_buffer_timer - delta, 0)
-
-		# Jump and coyote time
-		if jump_buffer_timer > 0 and jumps_left > 0:
-			velocity.y = jump_power * jump_multiplier
-			jumps_left -= 1
-			jump_buffer_timer = 0  # consume buffer
-			spawn_jump_puff()
-			
-		# Fall through platforms but not ground
-		if Input.is_action_pressed("down"):
-			if is_on_floor():
-				set_collision_mask_value(6, false)  #layer 6 are the "shelfs"
-				await get_tree().create_timer(0.5).timeout
-				set_collision_mask_value(6, true)
-
-		# Movement left and right
-		direction = Input.get_axis("move_left", "move_right")
-		if wall_jump_lock > 0:
-			wall_jump_lock -= delta
-		else:
-			if direction:
-				velocity.x = direction * speed * speed_multiplier
-			else:
-				velocity.x = move_toward(velocity.x, 0, speed * speed_multiplier)
-
-		# Play attack and throw projectiles
-		if Input.is_action_just_pressed("interact"):
-			if has_node("PlayerAnimator"):
-				get_node("PlayerAnimator").play_attack()
-				throw_projectile()
-
-		move_and_slide()
 
 # Boss capturing
 #func captured():

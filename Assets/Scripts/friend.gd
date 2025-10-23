@@ -76,8 +76,8 @@ func _process(_delta: float) -> void:
 		rope_bar.value = press_count
 				
 		# feedback
-		shake_friend()
-		burst_particles()
+		#shake_friend()
+		#burst_particles()
 
 		if press_count >= PRESS_LIMIT:
 			e_button.hide()
