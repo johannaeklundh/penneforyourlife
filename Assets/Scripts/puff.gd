@@ -1,9 +1,11 @@
 extends Sprite2D
+@onready var puff_sfx: AudioStreamPlayer = $"../Sound/Poof"
 
 func _ready():
 	# Start small
 	scale = Vector2(0.06, 0.06)
 	modulate = Color(1, 1, 1, 1)
+	puff_sfx.play()
 
 	var tween = create_tween()
 	# Scale up to "poof"
