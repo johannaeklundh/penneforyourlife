@@ -9,6 +9,8 @@ class_name PlayerController
 @export var projectile_scene: PackedScene
 
 @onready var shoot_sfx: AudioStreamPlayer = $"../Sound/ProjectileShoot"
+@onready var run_sfx: AudioStreamPlayer = $"../Sound/Running"
+
 
 var speed_multiplier = 15.0
 var jump_multiplier = -15.0
@@ -135,9 +137,20 @@ func _physics_process(delta: float) -> void:
 				get_node("PlayerAnimator").play_attack()
 				shoot_sfx.play()
 				throw_projectile()
+				
+		#if Input.is_action_just_pressed("move_left") or Input.is_action_just_pressed("move_right"):
+		if abs(velocity.x) > 0 and is_on_floor():
+			if not run_sfx.playing:
+				run_sfx.play()
+		else:
+			run_sfx.stop()
+
+		#if Input.is_action_just_released("move_left") and not Input.is_action_pressed("move_right"):
+			#run_sfx.stop()
+		#elif Input.is_action_just_released("move_right") and not Input.is_action_pressed("move_left"):
+			#run_sfx.stop()
 
 		move_and_slide()
-
 
 # Spoongoal catapulting
 func catapult_launch(vel: Vector2, duration: float = 0.6) -> void:

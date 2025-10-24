@@ -5,6 +5,7 @@ extends Node2D
 @onready var rope_bar: TextureProgressBar = $RopeBar
 @onready var e_button: Area2D = $EButton
 @onready var particles: CPUParticles2D = $RopeParticles
+@onready var sparkle_sfx: AudioStreamPlayer = $"../Sound/Sparkle"
 
 @export var friend_name: String = "broccoli"
 @export var freed := false
@@ -122,6 +123,7 @@ func _on_area_body_exited(body: Node2D) -> void:
 func _free_friend() -> void:
 	freed = true
 	#is_captured = false
+	sparkle_sfx.play()
 	anim_sprite.play("idle")	
 	GameState.freed_friends[friend_index] = true
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=4 uid="uid://1h24hba514qq"]
+[gd_scene load_steps=68 format=4 uid="uid://1h24hba514qq"]
 
 [ext_resource type="Script" uid="uid://drvp2h6p6ennw" path="res://Assets/Scripts/area_1.gd" id="1_7fk0h"]
 [ext_resource type="PackedScene" uid="uid://br4bmuwc5rwhj" path="res://Assets/Scenes/player.tscn" id="2_3uyhe"]
@@ -43,6 +43,8 @@
 [ext_resource type="AudioStream" uid="uid://lcq2w54whwm6" path="res://Assets/Sounds/boing.mp3" id="41_ijm5n"]
 [ext_resource type="AudioStream" uid="uid://dtpu5ktkdnxtp" path="res://Assets/Sounds/error-08-206492.mp3" id="42_q1y85"]
 [ext_resource type="AudioStream" uid="uid://uieoegywuyd" path="res://Assets/Sounds/clapping-6474.mp3" id="43_wuc25"]
+[ext_resource type="AudioStream" uid="uid://bj5ajfwm6akja" path="res://Assets/Sounds/running.mp3" id="44_0ef1c"]
+[ext_resource type="AudioStream" uid="uid://d0k7p6qa2lhwp" path="res://Assets/Sounds/sparkle-355937.mp3" id="45_3skwu"]
 
 [sub_resource type="GDScript" id="GDScript_5cg6o"]
 script/source = "extends Camera2D
@@ -215,6 +217,7 @@ layer_0/tile_data = PackedInt32Array(-131065, 0, 0, -131064, 65536, 0, -131063, 
 
 [node name="Layer0" type="TileMapLayer" parent="shelfs"]
 use_parent_material = true
+tile_map_data = PackedByteArray("AAAUAPz/AAACAAAAAAATAPz/AAAAAAAAAAA=")
 tile_set = ExtResource("2_xb627")
 rendering_quadrant_size = 40
 
@@ -678,6 +681,16 @@ volume_db = 10.0
 [node name="Clapping" type="AudioStreamPlayer" parent="Sound"]
 stream = ExtResource("43_wuc25")
 pitch_scale = 1.5
+
+[node name="Running" type="AudioStreamPlayer" parent="Sound"]
+stream = ExtResource("44_0ef1c")
+volume_db = 10.0
+pitch_scale = 1.7
+
+[node name="Sparkle" type="AudioStreamPlayer" parent="Sound"]
+stream = ExtResource("45_3skwu")
+pitch_scale = 1.2
+parameters/looping = false
 
 [connection signal="area_entered" from="downButton" to="downButton" method="_on_area_entered"]
 [connection signal="area_exited" from="downButton" to="downButton" method="_on_area_exited"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://br3xou1o8uj8o"]
+[gd_scene load_steps=39 format=3 uid="uid://br3xou1o8uj8o"]
 
 [ext_resource type="Script" uid="uid://dep4rg48wsony" path="res://Assets/Scripts/intro_scene.gd" id="1_xbf8j"]
 [ext_resource type="Texture2D" uid="uid://dfchokneoj3m4" path="res://Assets/Sprites/hand.png" id="2_2c1is"]
@@ -13,6 +13,8 @@
 [ext_resource type="Texture2D" uid="uid://b2nv8jbvule5x" path="res://Assets/Sprites/broccoliFilled.png" id="11_o7hsq"]
 [ext_resource type="Texture2D" uid="uid://evuvnbn5ril1" path="res://Assets/Sprites/baconFilled.png" id="12_5qorw"]
 [ext_resource type="Texture2D" uid="uid://sxnk3avkevlo" path="res://Assets/Sprites/baconFilledStuck.png" id="13_o7hsq"]
+[ext_resource type="AudioStream" uid="uid://c0xcavm8tf56" path="res://Assets/Sounds/italian-italy-background-music-412737.mp3" id="14_5qorw"]
+[ext_resource type="AudioStream" uid="uid://dqgd31dyp8086" path="res://Assets/Sounds/rustle.mp3" id="14_o7hsq"]
 
 [sub_resource type="Animation" id="Animation_xbf8j"]
 length = 0.001
@@ -249,6 +251,26 @@ tracks/16/keys = {
 "update": 0,
 "values": [Vector2(0, 0), Vector2(0, 0), Vector2(-50, -9), Vector2(-96.5271, -8.27375)]
 }
+tracks/17/type = "method"
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/path = NodePath("Rustle")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = {
+"times": PackedFloat32Array(0, 2.75, 4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"values": [{
+"args": [],
+"method": &"stop"
+}, {
+"args": [0.0],
+"method": &"play"
+}, {
+"args": [0.0],
+"method": &"play"
+}]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_v7hcg"]
 _data = {
@@ -482,19 +504,19 @@ animation = &"open"
 position = Vector2(-30, -13)
 scale = Vector2(0.05, 0.05)
 sprite_frames = SubResource("SpriteFrames_dsaqx")
-animation = &"sad"
+animation = &"idle"
 
 [node name="broccoli" type="AnimatedSprite2D" parent="."]
 position = Vector2(115, -13)
 scale = Vector2(0.07, 0.07)
 sprite_frames = SubResource("SpriteFrames_ugq5c")
-animation = &"stuck"
+animation = &"idle"
 
 [node name="bacon" type="AnimatedSprite2D" parent="."]
 position = Vector2(27, -12)
 scale = Vector2(0.07, 0.07)
 sprite_frames = SubResource("SpriteFrames_50gjr")
-animation = &"stuck"
+animation = &"idle"
 autoplay = "idle"
 
 [node name="hand2" type="AnimatedSprite2D" parent="."]
@@ -525,3 +547,15 @@ grow_vertical = 0
 scale = Vector2(0.8, 0.8)
 texture = ExtResource("11_iuflw")
 stretch_mode = 2
+
+[node name="Rustle" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("14_o7hsq")
+volume_db = 4.0
+pitch_scale = 1.5
+autoplay = true
+
+[node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("14_5qorw")
+volume_db = -25.0
+autoplay = true
+parameters/looping = true
