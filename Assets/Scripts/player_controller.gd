@@ -8,6 +8,8 @@ class_name PlayerController
 @export var jump_buffer := 0.15
 @export var projectile_scene: PackedScene
 
+@onready var shoot_sfx: AudioStreamPlayer = $"../Sound/ProjectileShoot"
+
 var speed_multiplier = 15.0
 var jump_multiplier = -15.0
 var can_move := true
@@ -131,6 +133,7 @@ func _physics_process(delta: float) -> void:
 		if Input.is_action_just_pressed("interact"):
 			if has_node("PlayerAnimator"):
 				get_node("PlayerAnimator").play_attack()
+				shoot_sfx.play()
 				throw_projectile()
 
 		move_and_slide()

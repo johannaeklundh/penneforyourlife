@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://drwelie4rmrht"]
+[gd_scene load_steps=11 format=3 uid="uid://drwelie4rmrht"]
 
 [ext_resource type="Texture2D" uid="uid://hmiqef2fpj8u" path="res://Assets/Sprites/drawedBoilingPot.png" id="1_dvm2w"]
 [ext_resource type="Script" uid="uid://blpi6mwc2bgh1" path="res://Assets/Scenes/obstacle_pot.gd" id="1_qiiam"]
+[ext_resource type="AudioStream" uid="uid://76lermpepnmh" path="res://Assets/Sounds/boiling.mp3" id="3_les6p"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qiiam"]
 size = Vector2(14.4734, 13)
@@ -71,3 +72,10 @@ collision_mask = 2
 position = Vector2(-2.98023e-07, 0.5)
 scale = Vector2(1.28913, 1.34439)
 shape = SubResource("RectangleShape2D_les6p")
+
+[node name="BoilingSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_les6p")
+volume_db = 2.0
+autoplay = true
+max_distance = 400.0
+parameters/looping = true

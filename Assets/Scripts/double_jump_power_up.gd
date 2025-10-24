@@ -2,6 +2,7 @@ extends Area2D
 
 @export var extra_jumps := 1  # how many jumps to unlock
 @export var message_node: NodePath
+@onready var coin_sfx: AudioStreamPlayer = $"../Sound/CoinCollect"
 
 func _ready() -> void:
 	connect("body_entered", Callable(self, "_on_body_entered"))
@@ -19,6 +20,7 @@ func _on_body_entered(body: Node) -> void:
 			msg.show_and_fade()
 		
 		GameState.has_double_jump = true
+		coin_sfx.play()
 
 		# hide + disable coin
 		hide()

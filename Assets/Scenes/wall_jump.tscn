@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=3 uid="uid://t8ens8wjvf0t"]
 
-[ext_resource type="Script" uid="uid://bi2o7uk3tvxcm" path="res://wall_jump.gd" id="1_bwu7a"]
+[ext_resource type="Script" uid="uid://bi2o7uk3tvxcm" path="res://Assets/Scripts/wall_jump.gd" id="1_bwu7a"]
 [ext_resource type="Texture2D" uid="uid://c7dlbfm4xef62" path="res://Assets/Sprites/walljump.png" id="2_rnqn8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_17v6n"]

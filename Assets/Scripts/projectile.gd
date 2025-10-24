@@ -3,8 +3,8 @@ extends Area2D
 @export var speed := 300
 @export var direction := Vector2.RIGHT
 @export var damage := 10
-
 @onready var animation: AnimationPlayer = $AnimationPlayer
+@onready var hit_sfx: AudioStreamPlayer = $"../Sound/ProjectileHit"
 
 var is_hit := false
 
@@ -41,6 +41,7 @@ func _on_body_entered(body: Node) -> void:
 
 func play_hit_and_fade():
 	is_hit = true
+	hit_sfx.play()
 	animation.play("hit")
 	await animation.animation_finished
 	queue_free()

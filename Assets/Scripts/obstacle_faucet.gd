@@ -3,6 +3,9 @@ extends StaticBody2D
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 @onready var water_area: Area2D = $WaterArea
 @onready var water_collision: CollisionShape2D = $WaterArea/CollisionShape2D
+@onready var faucet_sound: AudioStreamPlayer2D = $FaucetSound
+@onready var splash_sfx: AudioStreamPlayer = $"../Sound/SplashHurt"
+
 
 func _ready() -> void:
 	anim.frame_changed.connect(_on_frame_changed)
@@ -16,12 +19,17 @@ func _update_collision() -> void:
 	if anim.frame == 2:
 		# Safe frame, no collision
 		water_collision.disabled = true
+		if faucet_sound.playing:
+			faucet_sound.stop()
 	else:
 		# Unsafe frames, collision
 		water_collision.disabled = false
+		if not faucet_sound.playing:
+			faucet_sound.play()
 
 func _on_water_entered(body: Node) -> void:
 	GameState.flushed_count += 1
+	splash_sfx.play()
 	if get_parent().has_method("show_hurt_overlay"):
 		get_parent().show_hurt_overlay(body)
 		

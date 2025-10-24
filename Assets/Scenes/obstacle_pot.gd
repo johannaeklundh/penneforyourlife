@@ -5,6 +5,7 @@ extends StaticBody2D
 func _ready() -> void:
 	area.body_entered.connect(_on_pot_entered)
 
+	
 func _on_pot_entered(body: Node) -> void:
 	GameState.boiled_count += 1
 	if get_parent().has_method("show_hurt_overlay"):
