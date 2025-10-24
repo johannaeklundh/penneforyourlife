@@ -44,10 +44,6 @@ func _on_backward_done():
 func _on_space_done():
 	GameState.tutorial_finished = true
 
-#func _on_area_2d_body_entered(body: Node2D) -> void:
-	#GameState.boiled_count += 1
-	#show_hurt_overlay(body)
-
 func _restart_scene():
 	if !GameState.game_finished:
 		get_tree().reload_current_scene()

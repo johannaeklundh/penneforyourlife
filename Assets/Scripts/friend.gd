@@ -72,12 +72,7 @@ func _process(_delta: float) -> void:
 		anim_sprite.play("stuck")
 	
 	if player_near and not freed and Input.is_action_just_pressed("interact"):
-		#press_count += 1
 		rope_bar.value = press_count
-				
-		# feedback
-		#shake_friend()
-		#burst_particles()
 
 		if press_count >= PRESS_LIMIT:
 			e_button.hide()

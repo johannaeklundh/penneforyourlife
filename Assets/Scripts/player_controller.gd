@@ -139,7 +139,6 @@ func _physics_process(delta: float) -> void:
 		move_and_slide()
 
 
-
 # Spoongoal catapulting
 func catapult_launch(vel: Vector2, duration: float = 0.6) -> void:
 	launched = true

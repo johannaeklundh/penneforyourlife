@@ -144,7 +144,6 @@ class IsObstacleAhead extends BTNode:
 # --- Action nodes ---
 class MoveTowardPlayer extends BTNode:
 	func tick(actor, delta) -> int:
-		#print("normal")
 		var p = actor.get_parent() as CharacterBody2D
 		if p == null or actor.player == null:
 			return Status.FAILURE
@@ -346,7 +345,6 @@ class MoveAwayFromPlayer extends BTNode:
 		if body == null or actor.player == null:
 			return Status.FAILURE
 		var _dir = sign(body.global_position.x - actor.player.global_position.x)
-		#body.velocity.x = dir * actor.speed
 
 		body.velocity.y -= actor.speed * 0.5  # fly upward while escaping
 
@@ -360,7 +358,6 @@ class PlayReleaseAnimation extends BTNode:
 	func tick(actor, _d) -> int:
 		if not actor.just_released:
 			actor.release()
-			# trigger animation (assuming animation node exists)
 			var anim = actor.get_node_or_null("AnimatedSprite2D")
 			if anim:
 				anim.play("move")

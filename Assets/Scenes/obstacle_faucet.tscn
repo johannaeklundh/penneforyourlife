@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bikrl064i6tur" path="res://Assets/Scripts/obstacle_faucet.gd" id="1_032cq"]
 [ext_resource type="Texture2D" uid="uid://bebhjvrg5v4g1" path="res://Assets/Sprites/faucet.png" id="2_ymx2i"]
-[ext_resource type="AudioStream" uid="uid://bxtuycbgqxraj" path="res://Assets/Sounds/faucetShort.wav" id="3_ymx2i"]
+[ext_resource type="AudioStream" uid="uid://dv5rwwnmrlxi3" path="res://Assets/Sounds/faucet.mp3" id="3_ymx2i"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ymx2i"]
 atlas = ExtResource("2_ymx2i")

@@ -2,10 +2,9 @@ extends Sprite2D
 
 func show_and_blink() -> void:
 	visible = true
-	modulate = Color(1, 1, 1, 0)  # start fully transparent
-
+	modulate = Color(1, 1, 1, 0) 
 	var tween := create_tween()
-	tween.set_loops()  # make it loop forever
+	tween.set_loops() 
 
 	# Fade in from 0 -> 1
 	tween.tween_property(self, "modulate:a", 1.0, 1)
@@ -19,7 +18,6 @@ func show_and_blink() -> void:
 	# Fade out to 0
 	tween.tween_property(self, "modulate:a", 0, 1)
 
-		
 		
 func hide_text():
 	visible = false

@@ -12,14 +12,14 @@ func _ready() -> void:
 	body_entered.connect(_on_body_entered)
 
 func _on_body_entered(body: Node) -> void:
-	#if body.name != "Player":
-		#return
-	#if not GameState.freed_friends.all(func(x): return x):
-		#if not error_sfx.playing:
-			#error_sfx.play()
-		#wiggle_spoon()
-		#highlight_overlay()
-		#return
+	if body.name != "Player":
+		return
+	if not GameState.freed_friends.all(func(x): return x):
+		if not error_sfx.playing:
+			error_sfx.play()
+		wiggle_spoon()
+		highlight_overlay()
+		return
 
 	# animate spoon rotating like a catapult
 	var tween = create_tween()
@@ -29,13 +29,12 @@ func _on_body_entered(body: Node) -> void:
 	# small delay so the rotation is visible before the player leaves
 	await get_tree().create_timer(0.65).timeout
 	boing_sfx.play()
+	
 	# compute velocity and launch
 	var vel := launch_angle * launch_force
 	if body.has_method("catapult_launch"):
-		# preferred: ask player to handle the launch (so controller doesn't stomp velocity)
 		body.catapult_launch(vel, launch_duration)
 	elif body is CharacterBody2D:
-		# fallback: set velocity and hope controller doesn't overwrite it
 		body.velocity = vel
 	else:
 		# fallback for Node2D: tween the position

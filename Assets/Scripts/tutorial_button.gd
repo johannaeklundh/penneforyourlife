@@ -1,14 +1,12 @@
 extends Area2D
 
-@export var action_name := "ui_right"   # input that clears this prompt
+@export var action_name := "ui_right"   # input that clears the prompt
 signal prompt_finished
-
 @onready var anim_sprite: AnimatedSprite2D = $AnimatedSprite2D
-
 @export var delay_before_show := 0.2 # seconds to wait before showing
 
 func _ready():	
-	hide()  # hide the whole Area2D (and thus the sprite)
+	hide()
 
 func show_prompt():
 	await get_tree().create_timer(delay_before_show).timeout

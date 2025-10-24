@@ -18,7 +18,7 @@ func _on_body_entered(body: Node) -> void:
 	if not body or is_hit:
 		return
 
-	# --- Handle physics bodies (anything with collision layers)
+	# Handle physics bodies (anything with collision layers)
 	if body is CollisionObject2D:
 		var layer = body.collision_layer
 		if (layer & (1 << 0)) or (layer & (1 << 5)): # Layers 1 and 6
@@ -35,8 +35,6 @@ func _on_body_entered(body: Node) -> void:
 		if not body.freed:
 			play_hit_and_fade()
 		return
-	
-	#queue_free()
 
 
 func play_hit_and_fade():

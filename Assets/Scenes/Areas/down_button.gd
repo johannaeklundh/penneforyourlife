@@ -4,7 +4,7 @@ extends Area2D
 var player_inside = false
 
 func _ready():
-	sprite.hide()  # Hide initially
+	sprite.hide()
 
 func _process(delta):
 	if player_inside and Input.is_action_pressed("down"):
@@ -12,7 +12,7 @@ func _process(delta):
 
 
 func _on_body_entered(body: Node2D) -> void:
-	if body.name == "Player":  # or check for group
+	if body.name == "Player":
 		sprite.show()
 		player_inside = true
 

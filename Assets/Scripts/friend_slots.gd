@@ -1,6 +1,6 @@
 extends Control
 
-@onready var slots = [$Slot1, $Slot2, $Slot3] # Your target slots
+@onready var slots = [$Slot1, $Slot2, $Slot3]
 @onready var glitter = [$Glitter1, $Glitter2, $Glitter3] 
 @onready var camera: Camera2D = $"../../Player/Camera2D"
 
