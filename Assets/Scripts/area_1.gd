@@ -5,6 +5,7 @@ extends Node2D
 @onready var space_button = $spaceButton
 @onready var overlay: ColorRect = $HUD/ColorRect
 @onready var crack_sfx = $Sound/PastaCrack
+@onready var clap_sfx = $Sound/Clapping
 @onready var player_spawn_position := Vector2(-152, -20)
 var _camera_base_offset: Vector2 = Vector2(-300, 0)
 
@@ -118,6 +119,7 @@ func _on_finish_line_body_entered(body: Node2D) -> void:
 		var finish_text = get_tree().get_first_node_in_group("endMessage")
 		finish_text.show_and_blink()
 		
+		clap_sfx.play()
 		await get_tree().create_timer(4).timeout	
 		finish_text.hide_text()
 		

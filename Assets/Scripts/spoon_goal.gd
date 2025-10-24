@@ -12,14 +12,14 @@ func _ready() -> void:
 	body_entered.connect(_on_body_entered)
 
 func _on_body_entered(body: Node) -> void:
-	if body.name != "Player":
-		return
-	if not GameState.freed_friends.all(func(x): return x):
-		if not error_sfx.playing:
-			error_sfx.play()
-		wiggle_spoon()
-		highlight_overlay()
-		return
+	#if body.name != "Player":
+		#return
+	#if not GameState.freed_friends.all(func(x): return x):
+		#if not error_sfx.playing:
+			#error_sfx.play()
+		#wiggle_spoon()
+		#highlight_overlay()
+		#return
 
 	# animate spoon rotating like a catapult
 	var tween = create_tween()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=4 uid="uid://1h24hba514qq"]
+[gd_scene load_steps=66 format=4 uid="uid://1h24hba514qq"]
 
 [ext_resource type="Script" uid="uid://drvp2h6p6ennw" path="res://Assets/Scripts/area_1.gd" id="1_7fk0h"]
 [ext_resource type="PackedScene" uid="uid://br4bmuwc5rwhj" path="res://Assets/Scenes/player.tscn" id="2_3uyhe"]
@@ -42,6 +42,7 @@
 [ext_resource type="AudioStream" uid="uid://dbs010cxsxvw7" path="res://Assets/Sounds/pastaCrack.mp3" id="40_ijm5n"]
 [ext_resource type="AudioStream" uid="uid://lcq2w54whwm6" path="res://Assets/Sounds/boing.mp3" id="41_ijm5n"]
 [ext_resource type="AudioStream" uid="uid://dtpu5ktkdnxtp" path="res://Assets/Sounds/error-08-206492.mp3" id="42_q1y85"]
+[ext_resource type="AudioStream" uid="uid://uieoegywuyd" path="res://Assets/Sounds/clapping-6474.mp3" id="43_wuc25"]
 
 [sub_resource type="GDScript" id="GDScript_5cg6o"]
 script/source = "extends Camera2D
@@ -673,6 +674,10 @@ volume_db = 15.0
 [node name="Error" type="AudioStreamPlayer" parent="Sound"]
 stream = ExtResource("42_q1y85")
 volume_db = 10.0
+
+[node name="Clapping" type="AudioStreamPlayer" parent="Sound"]
+stream = ExtResource("43_wuc25")
+pitch_scale = 1.5
 
 [connection signal="area_entered" from="downButton" to="downButton" method="_on_area_entered"]
 [connection signal="area_exited" from="downButton" to="downButton" method="_on_area_exited"]
