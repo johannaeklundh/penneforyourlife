@@ -4,6 +4,7 @@ extends Node2D
 @onready var backward_button = $backwardButton
 @onready var space_button = $spaceButton
 @onready var overlay: ColorRect = $HUD/ColorRect
+@onready var crack_sfx = $Sound/PastaCrack
 @onready var player_spawn_position := Vector2(-152, -20)
 var _camera_base_offset: Vector2 = Vector2(-300, 0)
 
@@ -52,6 +53,7 @@ func _restart_scene():
 	
 func _on_pit_body_entered(body: Node2D) -> void: # Floor
 	GameState.out_of_bounds_count += 1
+	crack_sfx.play()
 	show_hurt_overlay(body)
 		
 func show_hurt_overlay(body: Node2D) -> void:
