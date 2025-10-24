@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=4 uid="uid://1h24hba514qq"]
+[gd_scene load_steps=57 format=4 uid="uid://1h24hba514qq"]
 
 [ext_resource type="Script" uid="uid://drvp2h6p6ennw" path="res://Assets/Scripts/area_1.gd" id="1_7fk0h"]
 [ext_resource type="PackedScene" uid="uid://br4bmuwc5rwhj" path="res://Assets/Scenes/player.tscn" id="2_3uyhe"]
@@ -33,6 +33,7 @@
 [ext_resource type="PackedScene" uid="uid://dqoa3lentq20v" path="res://Assets/Scenes/parallax_background.tscn" id="27_wu28u"]
 [ext_resource type="PackedScene" uid="uid://drwelie4rmrht" path="res://Assets/Scenes/boiling_pot.tscn" id="28_citrs"]
 [ext_resource type="PackedScene" uid="uid://t8ens8wjvf0t" path="res://Assets/Scenes/wall_jump.tscn" id="32_3v4sq"]
+[ext_resource type="AudioStream" uid="uid://di7i32ev52svk" path="res://Assets/mixkit-smile-1076.mp3" id="34_n6ddg"]
 
 [sub_resource type="GDScript" id="GDScript_5cg6o"]
 script/source = "extends Camera2D
@@ -626,6 +627,12 @@ position = Vector2(1136, -808)
 
 [node name="BoilingPot14" parent="." instance=ExtResource("28_citrs")]
 position = Vector2(1136, -808)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("34_n6ddg")
+autoplay = true
+stream_paused = true
+parameters/looping = true
 
 [connection signal="area_entered" from="downButton" to="downButton" method="_on_area_entered"]
 [connection signal="area_exited" from="downButton" to="downButton" method="_on_area_exited"]
