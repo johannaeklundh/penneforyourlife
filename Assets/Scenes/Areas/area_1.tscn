@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=4 uid="uid://1h24hba514qq"]
+[gd_scene load_steps=65 format=4 uid="uid://1h24hba514qq"]
 
 [ext_resource type="Script" uid="uid://drvp2h6p6ennw" path="res://Assets/Scripts/area_1.gd" id="1_7fk0h"]
 [ext_resource type="PackedScene" uid="uid://br4bmuwc5rwhj" path="res://Assets/Scenes/player.tscn" id="2_3uyhe"]
@@ -40,6 +40,8 @@
 [ext_resource type="AudioStream" uid="uid://cyq24pv5ciygk" path="res://Assets/Sounds/poof.mp3" id="39_qq707"]
 [ext_resource type="AudioStream" uid="uid://dc0k1ddkridb0" path="res://Assets/Sounds/burned.mp3" id="40_5pxas"]
 [ext_resource type="AudioStream" uid="uid://dbs010cxsxvw7" path="res://Assets/Sounds/pastaCrack.mp3" id="40_ijm5n"]
+[ext_resource type="AudioStream" uid="uid://lcq2w54whwm6" path="res://Assets/Sounds/boing.mp3" id="41_ijm5n"]
+[ext_resource type="AudioStream" uid="uid://dtpu5ktkdnxtp" path="res://Assets/Sounds/error-08-206492.mp3" id="42_q1y85"]
 
 [sub_resource type="GDScript" id="GDScript_5cg6o"]
 script/source = "extends Camera2D
@@ -232,7 +234,7 @@ tile_set = ExtResource("2_citrs")
 rendering_quadrant_size = 40
 
 [node name="Player" parent="." instance=ExtResource("2_3uyhe")]
-position = Vector2(-440, -8)
+position = Vector2(2376, -8)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(0, 24)
@@ -663,6 +665,14 @@ volume_db = 4.0
 [node name="PastaCrack" type="AudioStreamPlayer" parent="Sound"]
 stream = ExtResource("40_ijm5n")
 volume_db = 2.0
+
+[node name="Boing" type="AudioStreamPlayer" parent="Sound"]
+stream = ExtResource("41_ijm5n")
+volume_db = 15.0
+
+[node name="Error" type="AudioStreamPlayer" parent="Sound"]
+stream = ExtResource("42_q1y85")
+volume_db = 10.0
 
 [connection signal="area_entered" from="downButton" to="downButton" method="_on_area_entered"]
 [connection signal="area_exited" from="downButton" to="downButton" method="_on_area_exited"]

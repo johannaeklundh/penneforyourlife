@@ -5,6 +5,8 @@ extends Area2D
 @export var launch_angle := Vector2(-0.7, -1).normalized() # up-left by default
 @export var launch_duration := 0.6
 @onready var sprite: Node2D = $Sprite2D
+@onready var boing_sfx: AudioStreamPlayer = $"../Sound/Boing"
+@onready var error_sfx: AudioStreamPlayer = $"../Sound/Error"
 
 func _ready() -> void:
 	body_entered.connect(_on_body_entered)
@@ -13,7 +15,8 @@ func _on_body_entered(body: Node) -> void:
 	if body.name != "Player":
 		return
 	if not GameState.freed_friends.all(func(x): return x):
-		print("Not SAVED")
+		if not error_sfx.playing:
+			error_sfx.play()
 		wiggle_spoon()
 		highlight_overlay()
 		return
@@ -22,10 +25,10 @@ func _on_body_entered(body: Node) -> void:
 	var tween = create_tween()
 	tween.tween_property(sprite, "rotation_degrees", -45.0, 0.6).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	tween.tween_property(sprite, "rotation_degrees", 0.0, 0.35).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT)
-
+	
 	# small delay so the rotation is visible before the player leaves
 	await get_tree().create_timer(0.65).timeout
-
+	boing_sfx.play()
 	# compute velocity and launch
 	var vel := launch_angle * launch_force
 	if body.has_method("catapult_launch"):
