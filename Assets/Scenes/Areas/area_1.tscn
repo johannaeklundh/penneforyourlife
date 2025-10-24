@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=4 uid="uid://1h24hba514qq"]
+[gd_scene load_steps=62 format=4 uid="uid://1h24hba514qq"]
 
 [ext_resource type="Script" uid="uid://drvp2h6p6ennw" path="res://Assets/Scripts/area_1.gd" id="1_7fk0h"]
 [ext_resource type="PackedScene" uid="uid://br4bmuwc5rwhj" path="res://Assets/Scenes/player.tscn" id="2_3uyhe"]
@@ -37,7 +37,6 @@
 [ext_resource type="AudioStream" uid="uid://dtchl2pyx5xq2" path="res://Assets/Sounds/coinCollect.mp3" id="35_7eycx"]
 [ext_resource type="AudioStream" uid="uid://3rsyf80a5ml7" path="res://Assets/Sounds/splashHurt.mp3" id="36_pj2vx"]
 [ext_resource type="AudioStream" uid="uid://kpldmta6jgl3" path="res://Assets/Sounds/multiple-swish-101325.mp3" id="37_asctu"]
-[ext_resource type="AudioStream" uid="uid://by72hrm18fjvp" path="res://Assets/Sounds/thud-impact-sound-sfx-379990.mp3" id="38_qq707"]
 [ext_resource type="AudioStream" uid="uid://cyq24pv5ciygk" path="res://Assets/Sounds/poof.mp3" id="39_qq707"]
 [ext_resource type="AudioStream" uid="uid://dc0k1ddkridb0" path="res://Assets/Sounds/burned.mp3" id="40_5pxas"]
 
@@ -652,9 +651,6 @@ volume_db = 1.0
 
 [node name="ProjectileShoot" type="AudioStreamPlayer" parent="Sound"]
 stream = ExtResource("37_asctu")
-
-[node name="ProjectileHit" type="AudioStreamPlayer" parent="Sound"]
-stream = ExtResource("38_qq707")
 
 [node name="Poof" type="AudioStreamPlayer" parent="Sound"]
 stream = ExtResource("39_qq707")

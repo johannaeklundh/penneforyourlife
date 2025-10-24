@@ -4,7 +4,7 @@ extends Area2D
 @export var direction := Vector2.RIGHT
 @export var damage := 10
 @onready var animation: AnimationPlayer = $AnimationPlayer
-@onready var hit_sfx: AudioStreamPlayer = $"../Sound/ProjectileHit"
+@onready var hit_sfx: AudioStreamPlayer2D = $ProjectileHit
 
 var is_hit := false
 

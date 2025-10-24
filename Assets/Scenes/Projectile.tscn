@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://c0fbvea7lomqr"]
+[gd_scene load_steps=9 format=3 uid="uid://c0fbvea7lomqr"]
 
 [ext_resource type="Script" uid="uid://b4x4b67hldc8d" path="res://Assets/Scripts/projectile.gd" id="1_b6is6"]
 [ext_resource type="Texture2D" uid="uid://fd0hxhcti8en" path="res://Assets/Sprites/projectile.png" id="2_q323y"]
+[ext_resource type="AudioStream" uid="uid://by72hrm18fjvp" path="res://Assets/Sounds/thud-impact-sound-sfx-379990.mp3" id="3_q323y"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1cf02"]
 radius = 50.9902
@@ -126,5 +127,9 @@ libraries = {
 &"": SubResource("AnimationLibrary_3rnyv")
 }
 autoplay = "spin"
+
+[node name="ProjectileHit" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_q323y")
+max_distance = 500.0
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
