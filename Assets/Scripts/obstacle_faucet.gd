@@ -6,6 +6,7 @@ extends StaticBody2D
 @onready var faucet_sound: AudioStreamPlayer2D = $FaucetSound
 @onready var splash_sfx: AudioStreamPlayer = $"../Sound/SplashHurt"
 
+@export var chosen_anim = 0
 
 func _ready() -> void:
 	anim.frame_changed.connect(_on_frame_changed)
@@ -14,8 +15,17 @@ func _ready() -> void:
 
 func _on_frame_changed() -> void:
 	_update_collision()
-
-func _update_collision() -> void:
+	
+func choose_anim():
+	if chosen_anim == 1:
+		anim.play("other_timing")
+	elif chosen_anim == 2:
+		anim.play("other_timing2")
+	else:
+		anim.play("default")
+	
+func _update_collision() -> void:	
+	choose_anim()	
 	if anim.frame == 2:
 		# Safe frame, no collision
 		water_collision.disabled = true

@@ -31,6 +31,34 @@ animations = [{
 "loop": true,
 "name": &"default",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_ymx2i")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_ckcww")
+}, {
+"duration": 4.0,
+"texture": SubResource("AtlasTexture_032cq")
+}],
+"loop": true,
+"name": &"other_timing",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ckcww")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ymx2i")
+}, {
+"duration": 4.0,
+"texture": SubResource("AtlasTexture_032cq")
+}],
+"loop": true,
+"name": &"other_timing2",
+"speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ororg"]
@@ -40,6 +68,7 @@ size = Vector2(103, 171.167)
 size = Vector2(40, 293.333)
 
 [node name="ObstacleFaucet" type="StaticBody2D"]
+z_index = -1
 scale = Vector2(0.1, 0.15)
 collision_layer = 8
 collision_mask = 2
@@ -47,8 +76,8 @@ script = ExtResource("1_032cq")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ct3wt")
+animation = &"other_timing2"
 autoplay = "default"
-frame_progress = 0.214723
 
 [node name="FaucetCollision" type="CollisionShape2D" parent="."]
 visible = false
